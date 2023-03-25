@@ -1,0 +1,28 @@
+===
+One newline
+===
+
+
+---
+(source_file
+  (whitespace))
+
+===
+Parbreak
+===
+paragraph
+
+paragraph
+---
+(source_file
+  (text)
+  (parbreak)
+  (text))
+
+===
+Text with spaces
+===
+foo bar baz
+---
+(source_file
+  (text))

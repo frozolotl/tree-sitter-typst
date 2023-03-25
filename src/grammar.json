@@ -1,0 +1,219 @@
+{
+  "name": "typst",
+  "word": "ident",
+  "rules": {
+    "source_file": {
+      "type": "REPEAT",
+      "content": {
+        "type": "SYMBOL",
+        "name": "_markup_expr"
+      }
+    },
+    "_markup_expr": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "line_comment"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "block_comment"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "parbreak"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "whitespace"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "text"
+        }
+      ]
+    },
+    "line_comment": {
+      "type": "TOKEN",
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "//"
+          },
+          {
+            "type": "PATTERN",
+            "value": ".*"
+          }
+        ]
+      }
+    },
+    "block_comment": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "/*"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "PREC",
+                "value": 1,
+                "content": {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "line_comment"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "block_comment"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "PATTERN",
+                "value": "."
+              },
+              {
+                "type": "PATTERN",
+                "value": "\\r\\n|[\\n\\x0B\\x0C\\r\\x85\\u2028\\u2029]"
+              }
+            ]
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "*/"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "eof"
+            }
+          ]
+        }
+      ]
+    },
+    "ident": {
+      "type": "PATTERN",
+      "value": "[_\\p{XID_Start}][-_\\p{XID_Continue}]*"
+    },
+    "text": {
+      "type": "PATTERN",
+      "value": "[^\\t\\n\\x0B\\x0C\\r\\\\\\[\\]{}~'\"*_:`$<>#]+"
+    },
+    "whitespace": {
+      "type": "TOKEN",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "PATTERN",
+                "value": "[ \\t]+"
+              },
+              {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "PATTERN",
+                    "value": "\\r\\n|[\\n\\x0B\\x0C\\r\\x85\\u2028\\u2029]"
+                  },
+                  {
+                    "type": "BLANK"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "PATTERN",
+                "value": "[ \\t]*"
+              },
+              {
+                "type": "PATTERN",
+                "value": "\\r\\n|[\\n\\x0B\\x0C\\r\\x85\\u2028\\u2029]"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "parbreak": {
+      "type": "TOKEN",
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "PATTERN",
+            "value": "[ \\t]*"
+          },
+          {
+            "type": "PATTERN",
+            "value": "\\r\\n|[\\n\\x0B\\x0C\\r\\x85\\u2028\\u2029]"
+          },
+          {
+            "type": "REPEAT1",
+            "content": {
+              "type": "PATTERN",
+              "value": "\\r\\n|[\\n\\x0B\\x0C\\r\\x85\\u2028\\u2029]"
+            }
+          }
+        ]
+      }
+    },
+    "linebreak": {
+      "type": "TOKEN",
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "\\"
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "PATTERN",
+                "value": "\\r\\n|[\\n\\x0B\\x0C\\r\\x85\\u2028\\u2029]"
+              },
+              {
+                "type": "PATTERN",
+                "value": "\\s"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "extras": [],
+  "conflicts": [],
+  "precedences": [],
+  "externals": [
+    {
+      "type": "SYMBOL",
+      "name": "eof"
+    }
+  ],
+  "inline": [],
+  "supertypes": []
+}
+

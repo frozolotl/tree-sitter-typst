@@ -1,0 +1,45 @@
+===
+Line comments
+===
+// hello world
+---
+(source_file
+  (line_comment))
+
+===
+Block comment, one line
+===
+/* hello world */
+---
+(source_file
+  (block_comment))
+
+===
+Block comment, multiline
+===
+/*
+ * hello world
+ */
+---
+(source_file
+  (block_comment))
+
+===
+Block comments, nested
+===
+/* foo /* bar */ baz */
+---
+(source_file
+  (block_comment
+    (block_comment)))
+
+===
+Block comment, nested line comment
+===
+/*
+ * // hello world
+ */
+---
+(source_file
+  (block_comment
+    (line_comment)))

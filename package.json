@@ -1,0 +1,30 @@
+{
+  "name": "tree-sitter-typst",
+  "version": "0.1.0",
+  "description": "Tree-sitter grammar for typst",
+  "main": "bindings/node",
+  "scripts": {
+    "test": "tree-sitter test"
+  },
+  "keywords": [
+    "parser",
+    "tree-sitter"
+  ],
+  "author": "frozolotl <frozolotl@protonmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "nan": "^2.17.0"
+  },
+  "devDependencies": {
+    "tree-sitter-cli": "^0.20.7"
+  },
+  "tree-sitter": [
+    {
+      "scope": "source.typst",
+      "injection-regex": "^typst$",
+      "file-types": [
+        "typ"
+      ]
+    }
+  ]
+}
