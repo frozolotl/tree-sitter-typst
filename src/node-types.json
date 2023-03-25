@@ -23,6 +23,11 @@
     }
   },
   {
+    "type": "label",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "source_file",
     "named": true,
     "fields": {},
@@ -35,11 +40,39 @@
           "named": true
         },
         {
+          "type": "escape",
+          "named": true
+        },
+        {
+          "type": "label",
+          "named": true
+        },
+        {
           "type": "line_comment",
           "named": true
         },
         {
+          "type": "linebreak",
+          "named": true
+        },
+        {
+          "type": "link",
+          "named": true
+        },
+        {
           "type": "parbreak",
+          "named": true
+        },
+        {
+          "type": "raw",
+          "named": true
+        },
+        {
+          "type": "shorthand",
+          "named": true
+        },
+        {
+          "type": "smart_quote",
           "named": true
         },
         {
@@ -62,7 +95,19 @@
     "named": false
   },
   {
+    "type": "<",
+    "named": false
+  },
+  {
+    "type": ">",
+    "named": false
+  },
+  {
     "type": "eof",
+    "named": true
+  },
+  {
+    "type": "escape",
     "named": true
   },
   {
@@ -70,7 +115,27 @@
     "named": true
   },
   {
+    "type": "linebreak",
+    "named": true
+  },
+  {
+    "type": "link",
+    "named": true
+  },
+  {
     "type": "parbreak",
+    "named": true
+  },
+  {
+    "type": "raw",
+    "named": true
+  },
+  {
+    "type": "shorthand",
+    "named": true
+  },
+  {
+    "type": "smart_quote",
     "named": true
   },
   {

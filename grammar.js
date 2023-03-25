@@ -8,8 +8,9 @@ module.exports = grammar({
   extras: $ => [],
 
   externals: $ => [
-    // $.text,
     $.eof,
+    $.raw,
+    $.text,
   ],
 
   word: $ => $.ident,
@@ -17,12 +18,43 @@ module.exports = grammar({
   rules: {
     source_file: $ => repeat($._markup_expr),
     _markup_expr: $ => choice(
+      $.whitespace,
+      $.parbreak,
       $.line_comment,
       $.block_comment,
-      $.parbreak,
-      $.whitespace,
+
       $.text,
+      $.linebreak,
+      $.escape,
+      $.shorthand,
+      $.smart_quote,
+      $.raw,
+      $.link,
+      $.label,
     ),
+
+    linebreak: $ => token(seq(
+      '\\',
+      choice(LEAF.newline, /\s/),
+    )),
+    escape: $ => /\\u\{[a-fA-F0-9]{1,4}\}/,
+    shorthand: $ => token(choice(
+      '...',
+      '---',
+      '--',
+      '-?',
+      '~',
+    )),
+    smart_quote: $ => token(choice('\'', '"')),
+    // Second character class does not have a trailing dot.
+    link: $ => /https?:\/\/[0-9a-zA-Z~\/%?#&+='\.,;]*[0-9a-zA-Z~\/%?#&+=',;]/,
+    label: $ => seq(
+      '<',
+      field('text', /[-_\p{XID_Continue}]+/),
+      '>',
+    ),
+
+    ident: $ => /[_\p{XID_Start}][-_\p{XID_Continue}]*/,
 
     line_comment: $ => token(seq('//', /.*/)),
     block_comment: $ => seq(
@@ -38,9 +70,6 @@ module.exports = grammar({
       choice('*/', $.eof),
     ),
 
-    ident: $ => /[_\p{XID_Start}][-_\p{XID_Continue}]*/,
-    text: $ => /[^\t\n\x0B\x0C\r\\\[\]{}~'"*_:`$<>#]+/,
-
     whitespace: $ => token(choice(
       seq(
         /[ \t]+/,
@@ -55,10 +84,6 @@ module.exports = grammar({
       /[ \t]*/,
       LEAF.newline,
       repeat1(LEAF.newline),
-    )),
-    linebreak: $ => token(seq(
-      '\\',
-      choice(LEAF.newline, /\s/),
     )),
   }
 });

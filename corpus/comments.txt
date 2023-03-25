@@ -43,3 +43,24 @@ Block comment, nested line comment
 (source_file
   (block_comment
     (line_comment)))
+
+===
+Block comment, open ended
+===
+/*
+---
+(source_file
+  (block_comment
+    (eof)))
+
+===
+Block comment, open ended nested
+===
+/* /* */ /*
+---
+(source_file
+  (block_comment
+    (block_comment)
+    (block_comment
+      (eof))
+    (eof)))
