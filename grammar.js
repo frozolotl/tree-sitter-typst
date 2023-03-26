@@ -18,6 +18,14 @@ module.exports = grammar({
       $.parbreak,
     ]),
 
+    _markup_text: $ => alias(token(choice(
+      '[',
+      ']',
+      repeat1('='),
+      '-',
+      '+',
+      '/',
+    )), 'text'),
     linebreak: $ => token(seq(
       '\\',
       choice(LEAF.newline, /\s/),
@@ -96,6 +104,7 @@ function markup_expr($, additional_children) {
     $.block_comment,
 
     $.text,
+    $._markup_text,
     $.linebreak,
     $.escape,
     $.shorthand,

@@ -35,6 +35,22 @@ A/B-Testing. -5.5 is a number. Want to see me @5?. Semicolon; .-. ..
   (text))
 
 ===
+Special characters, which are sometimes converted to text
+===
+foo[] == - + / bar
+---
+(source_file
+  (text)
+  (whitespace)
+  (text)
+  (whitespace)
+  (text)
+  (whitespace)
+  (text)
+  (whitespace)
+  (text))
+
+===
 Escape
 ===
 \u{FEFF} \u{200b}
