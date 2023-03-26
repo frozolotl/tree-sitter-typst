@@ -13,25 +13,10 @@ module.exports = grammar({
     $.text,
   ],
 
-  word: $ => $.ident,
-
   rules: {
-    source_file: $ => repeat($._markup_expr),
-    _markup_expr: $ => choice(
-      $.whitespace,
+    source_file: $ => markup($, [
       $.parbreak,
-      $.line_comment,
-      $.block_comment,
-
-      $.text,
-      $.linebreak,
-      $.escape,
-      $.shorthand,
-      $.smart_quote,
-      $.raw,
-      $.link,
-      $.label,
-    ),
+    ]),
 
     linebreak: $ => token(seq(
       '\\',
@@ -46,15 +31,27 @@ module.exports = grammar({
       '~',
     )),
     smart_quote: $ => token(choice('\'', '"')),
-    // Second character class does not have a trailing dot.
-    link: $ => /https?:\/\/[0-9a-zA-Z~\/%?#&+='\.,;]*[0-9a-zA-Z~\/%?#&+=',;]/,
+    // FIXME: Trailing dots are not handled correctly.
+    link: $ => /https?:\/\/(\.?[0-9a-zA-Z~\/%?#&+=',;])*/,
     label: $ => seq(
       '<',
-      field('text', /[-_\p{XID_Continue}]+/),
+      field('text', /[\-_\p{XID_Continue}]+/),
       '>',
     ),
 
-    ident: $ => /[_\p{XID_Start}][-_\p{XID_Continue}]*/,
+    // FIXME: These should not apply within words.
+    strong: $ => prec.left(seq(
+      '*',
+      field('inner', markup($, [])),
+      '*',
+    )),
+    emph: $ => prec.left(seq(
+      '_',
+      field('inner', markup($, [])),
+      '_',
+    )),
+
+    ident: $ => /[_\p{XID_Start}][\-_\p{XID_Continue}]*/,
 
     line_comment: $ => token(seq('//', /.*/)),
     block_comment: $ => seq(
@@ -88,3 +85,37 @@ module.exports = grammar({
   }
 });
 
+function markup($, additional_children) {
+  return alias(repeat(markup_expr($, additional_children)), 'markup');
+}
+
+function markup_expr($, additional_children) {
+  return choice(
+    $.whitespace,
+    $.line_comment,
+    $.block_comment,
+
+    $.text,
+    $.linebreak,
+    $.escape,
+    $.shorthand,
+    $.smart_quote,
+    $.raw,
+    $.link,
+    $.label,
+
+    // TODO: SyntaxKind::Hashtag
+    $.strong,
+    $.emph,
+    // TODO: SyntaxKind::HeadingMarker
+    // TODO: SyntaxKind::ListMarker
+    // TODO: SyntaxKind::EnumMarker
+    // TODO: SyntaxKind::TermMarker
+    // TODO: SyntaxKind::RefMarker
+    // TODO: SyntaxKind::Dollar
+
+    // TODO: Those tokens that should actually be Text here.
+
+    ...additional_children
+  );
+}

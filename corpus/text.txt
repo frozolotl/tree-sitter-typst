@@ -163,6 +163,26 @@ Hey, check out https://example.com/.
   (text))
 
 ===
+Link, two trailing dots
+===
+Hey, check out https://example.com/..
+---
+(source_file
+  (text)
+  (link)
+  (text))
+
+===
+Link, three trailing dots
+===
+Hey, check out https://example.com/...
+---
+(source_file
+  (text)
+  (link)
+  (shorthand))
+
+===
 Link, but not http(s)
 ===
 ftp://example.com
@@ -187,3 +207,81 @@ Label without text
 ---
 (source_file
   (ERROR))
+
+===
+Strong
+===
+Plain *Strong* Plain
+---
+(source_file
+  (text)
+  (whitespace)
+  (strong
+    (text))
+  (text))
+
+===
+Emphasis
+===
+Plain _Emph_ Plain
+---
+(source_file
+  (text)
+  (whitespace)
+  (emph
+    (text))
+  (text))
+
+===
+Strong emphasis
+===
+Plain *Strong _Strong Emph_ Strong* Plain
+---
+(source_file
+  (text)
+  (whitespace)
+  (strong
+    (text)
+    (whitespace)
+    (emph
+      (text))
+    (text))
+  (text))
+
+===
+Emphasized strength
+===
+Plain _Emphasis *Emphasis Strong* Emphasis_ Plain
+---
+(source_file
+  (text)
+  (whitespace)
+  (emph
+    (text)
+    (whitespace)
+    (strong
+      (text))
+    (text))
+  (text))
+
+===
+Strong emphasis with extra strength inside
+===
+*_*Super Strong*_*
+---
+(source_file
+  (strong
+    (emph
+      (strong
+        (text)))))
+
+===
+Emphasized strength with extra emphasis inside
+===
+_*_Super emphasized_*_
+---
+(source_file
+  (emph
+    (strong
+      (emph
+        (text)))))

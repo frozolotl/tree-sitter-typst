@@ -1,3 +1,5 @@
+#include <assert.h>
+#include <string.h>
 #include <tree_sitter/parser.h>
 #include <wctype.h>
 
@@ -7,9 +9,9 @@ enum TokenType {
   TEXT,
 };
 
+void tree_sitter_typst_external_scanner_reset(void *p) {}
 void *tree_sitter_typst_external_scanner_create() { return NULL; }
 void tree_sitter_typst_external_scanner_destroy(void *p) {}
-void tree_sitter_typst_external_scanner_reset(void *p) {}
 unsigned tree_sitter_typst_external_scanner_serialize(void *p, char *buffer) { return 0; }
 void tree_sitter_typst_external_scanner_deserialize(void *p, const char *b, unsigned n) {}
 
@@ -17,9 +19,9 @@ static void advance(TSLexer *lexer) { lexer->advance(lexer, false); }
 static void mark_end(TSLexer *lexer) { lexer->mark_end(lexer); }
 static bool eof(TSLexer *lexer) { return lexer->eof(lexer); }
 
-static bool parse_text(TSLexer *lexer);
+static bool parse_text(void *p, TSLexer *lexer);
 
-bool tree_sitter_typst_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols) {
+bool tree_sitter_typst_external_scanner_scan(void *p, TSLexer *lexer, const bool *valid_symbols) {
   if (eof(lexer)) {
     if (valid_symbols[EOF]) {
       lexer->result_symbol = EOF;
@@ -55,13 +57,13 @@ bool tree_sitter_typst_external_scanner_scan(void *payload, TSLexer *lexer, cons
   }
 
   if (valid_symbols[TEXT]) {
-    return parse_text(lexer);
+    return parse_text(p, lexer);
   }
 
   return false;
 }
 
-static bool parse_text(TSLexer *lexer) {
+static bool parse_text(void *p, TSLexer *lexer) {
   // At the moment, this is a faithful C reimplementation of
   // https://github.com/typst/typst/blob/e70ec5f3c06312b7ff2388630e05e3c2d745896f/src/syntax/lexer.rs#L318-L357
   // That may not be desirable for two reasons:
