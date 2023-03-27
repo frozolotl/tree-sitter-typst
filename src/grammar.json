@@ -183,8 +183,17 @@
       }
     },
     "link": {
-      "type": "PATTERN",
-      "value": "https?:\\/\\/(\\.?[0-9a-zA-Z~\\/%?#&+=',;])*"
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "https?:\\/\\/"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_link_end"
+        }
+      ]
     },
     "label": {
       "type": "SEQ",
@@ -650,6 +659,10 @@
     {
       "type": "SYMBOL",
       "name": "raw"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_link_end"
     },
     {
       "type": "SYMBOL",

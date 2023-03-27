@@ -10,6 +10,7 @@ namespace {
 enum TokenType {
   TOKEN_EOF,
   RAW,
+  LINK_END,
   TEXT,
 };
 
@@ -144,6 +145,11 @@ class Scanner {
     if (valid_symbols[RAW] && lexer.eat_if('`')) {
       return this->scan_raw(lexer);
     }
+
+    if (valid_symbols[LINK_END]) {
+      return this->scan_link(lexer);
+    }
+
     if (valid_symbols[TEXT]) {
       return this->scan_text(lexer);
     }
@@ -153,30 +159,6 @@ class Scanner {
 
  private:
   std::vector<uint8_t> indent_level_stack;
-
-  bool scan_raw(Lexer &lexer) {
-    uint32_t backticks_opened = 1;
-    while (lexer.eat_if('`')) {
-      backticks_opened++;
-    }
-    if (backticks_opened == 2) {
-      return lexer.recognized(RAW);
-    }
-
-    uint32_t backticks_closed = 0;
-    while (backticks_closed < backticks_opened) {
-      if (lexer.eof()) {
-        return false;
-      }
-      if (lexer.eat() == '`') {
-        backticks_closed++;
-      } else {
-        backticks_closed = 0;
-      }
-    }
-
-    return lexer.recognized(RAW);
-  }
 
   bool scan_text(Lexer &lexer) {
     for (;;) {
@@ -264,6 +246,66 @@ class Scanner {
       lexer.swallow();
     }
     return false;
+  }
+
+  bool scan_raw(Lexer &lexer) {
+    uint32_t backticks_opened = 1;
+    while (lexer.eat_if('`')) {
+      backticks_opened++;
+    }
+    if (backticks_opened == 2) {
+      return lexer.recognized(RAW);
+    }
+
+    uint32_t backticks_closed = 0;
+    while (backticks_closed < backticks_opened) {
+      if (lexer.eof()) {
+        return false;
+      }
+      if (lexer.eat() == '`') {
+        backticks_closed++;
+      } else {
+        backticks_closed = 0;
+      }
+    }
+
+    return lexer.recognized(RAW);
+  }
+
+  bool scan_link(Lexer &lexer) {
+    while (!lexer.eof()) {
+      char32_t ch = lexer.peek();
+      if (('a' <= ch && ch <= 'z') || ('A' <= ch && ch <= 'Z') ||
+          ('0' <= ch && ch <= '9')) {
+        lexer.eat();
+        continue;
+      }
+      switch (ch) {
+        case '~':
+        case '/':
+        case '%':
+        case '?':
+        case '#':
+        case '&':
+        case '+':
+        case '=':
+        case '\'':
+        case ',':
+        case ';': {
+          lexer.eat();
+          break;
+        }
+        case '.': {
+          lexer.swallow();
+          lexer.bite();
+          break;
+        }
+        default: {
+          return lexer.recognized(LINK_END);
+        }
+      }
+    }
+    return lexer.recognized(LINK_END);
   }
 };
 }  // namespace

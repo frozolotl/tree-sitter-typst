@@ -92,6 +92,11 @@
     "fields": {}
   },
   {
+    "type": "link",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "source_file",
     "named": true,
     "fields": {},
@@ -264,10 +269,6 @@
   },
   {
     "type": "linebreak",
-    "named": true
-  },
-  {
-    "type": "link",
     "named": true
   },
   {

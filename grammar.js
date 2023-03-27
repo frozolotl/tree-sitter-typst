@@ -10,6 +10,7 @@ module.exports = grammar({
   externals: $ => [
     $._token_eof,
     $.raw,
+    $._link_end,
     $.text,
   ],
 
@@ -37,8 +38,10 @@ module.exports = grammar({
       '~',
     )),
     smart_quote: $ => token(choice('\'', '"')),
-    // FIXME: Trailing dots are not handled correctly.
-    link: $ => /https?:\/\/(\.?[0-9a-zA-Z~\/%?#&+=',;])*/,
+    link: $ => seq(
+      /https?:\/\//,
+      $._link_end,
+    ),
     label: $ => seq(
       '<',
       field('text', /[\-_\p{XID_Continue}]+/),

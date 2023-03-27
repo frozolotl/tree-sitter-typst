@@ -191,6 +191,16 @@ Hey, check out https://example.com/..
   (text))
 
 ===
+Link, two trailing dots
+===
+Hey, check out https://example.com/..
+---
+(source_file
+  (text)
+  (link)
+  (text))
+
+===
 Link, three trailing dots
 ===
 Hey, check out https://example.com/...
@@ -198,7 +208,7 @@ Hey, check out https://example.com/...
 (source_file
   (text)
   (link)
-  (shorthand))
+  (text))
 
 ===
 Link, but not http(s)
