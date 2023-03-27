@@ -217,7 +217,7 @@ ftp://example.com
 ---
 (source_file
   (text)
-  (colon)
+  (text)
   (line_comment))
 
 ===

@@ -110,6 +110,10 @@
             {
               "type": "STRING",
               "value": "_"
+            },
+            {
+              "type": "STRING",
+              "value": ":"
             }
           ]
         }

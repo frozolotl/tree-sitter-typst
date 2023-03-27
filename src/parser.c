@@ -1449,6 +1449,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           lookahead == '\'') ADVANCE(30);
       if (lookahead == '*' ||
           lookahead == '+' ||
+          lookahead == ':' ||
           lookahead == '[' ||
           lookahead == ']' ||
           lookahead == '_') ADVANCE(21);

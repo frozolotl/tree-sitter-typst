@@ -28,6 +28,7 @@ module.exports = grammar({
       '/',
       '*',
       '_',
+      ':',
     )), $.text),
     linebreak: $ => token(seq(
       '\\',
