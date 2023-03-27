@@ -12,6 +12,8 @@ module.exports = grammar({
     $.raw,
     $._link_end,
     $.text,
+    $._delim_strong,
+    $._delim_emph,
   ],
 
   rules: {
@@ -24,6 +26,8 @@ module.exports = grammar({
       '-',
       '+',
       '/',
+      '*',
+      '_',
     )), $.text),
     linebreak: $ => token(seq(
       '\\',
@@ -48,20 +52,19 @@ module.exports = grammar({
       '>',
     ),
 
-    // FIXME: These should not apply within words.
     strong: $ => prec.left(seq(
-      '*',
+      $._delim_strong,
       field('inner', markup($, {
         minus: [$.parbreak],
       })),
-      '*',
+      $._delim_strong,
     )),
     emph: $ => prec.left(seq(
-      '_',
+      $._delim_emph,
       field('inner', markup($, {
         minus: [$.parbreak],
       })),
-      '_',
+      $._delim_emph,
     )),
 
     heading: $ => seq(

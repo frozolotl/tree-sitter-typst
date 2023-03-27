@@ -12,6 +12,8 @@ enum TokenType {
   RAW,
   LINK_END,
   TEXT,
+  DELIM_STRONG,
+  DELIM_EMPH,
 };
 
 class Lexer {
@@ -112,6 +114,8 @@ class Scanner {
   unsigned serialize(char *buffer) {
     unsigned cursor = 0;
 
+    buffer[cursor++] = this->ends_with_word ? 1 : 0;
+
     assert(cursor + this->indent_level_stack.size() <
            TREE_SITTER_SERIALIZATION_BUFFER_SIZE);
     for (uint8_t indent_level : this->indent_level_stack) {
@@ -127,6 +131,7 @@ class Scanner {
     }
 
     size_t cursor = 0;
+    this->ends_with_word = buffer[cursor++] != 0;
     for (; cursor < length; cursor++) {
       this->indent_level_stack.push_back(static_cast<uint8_t>(buffer[cursor]));
     }
@@ -137,6 +142,25 @@ class Scanner {
       if (valid_symbols[TOKEN_EOF]) {
         lexer.recognized(TOKEN_EOF);
         return true;
+      } else {
+        return false;
+      }
+    }
+
+    if (valid_symbols[DELIM_STRONG] && lexer.eat_if('*')) {
+      bool word_before = this->ends_with_word;
+      bool word_after = std::iswalnum(static_cast<wint_t>(lexer.peek()));
+      if (!word_before || !word_after) {
+        return lexer.recognized(DELIM_STRONG);
+      } else {
+        return false;
+      }
+    }
+    if (valid_symbols[DELIM_EMPH] && lexer.eat_if('_')) {
+      bool word_before = this->ends_with_word;
+      bool word_after = std::iswalnum(static_cast<wint_t>(lexer.peek()));
+      if (!word_before || !word_after) {
+        return lexer.recognized(DELIM_EMPH);
       } else {
         return false;
       }
@@ -159,11 +183,13 @@ class Scanner {
 
  private:
   std::vector<uint8_t> indent_level_stack;
+  bool ends_with_word;
 
   bool scan_text(Lexer &lexer) {
     for (;;) {
       char32_t ch0 = lexer.bite();
       char32_t ch1 = lexer.peek();
+      this->ends_with_word = std::iswalnum(static_cast<wint_t>(ch1));
       switch (ch0) {
         case '\t':
         case '\n':

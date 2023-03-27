@@ -313,3 +313,27 @@ _*_Super emphasized_*_
     (strong
       (emph
         (text)))))
+
+===
+Stars in word
+===
+Very*long*word
+---
+(source_file
+  (text)
+  (text)
+  (text)
+  (text)
+  (text))
+
+===
+Underscores in word
+===
+Very_long_word
+---
+(source_file
+  (text)
+  (text)
+  (text)
+  (text)
+  (text))
