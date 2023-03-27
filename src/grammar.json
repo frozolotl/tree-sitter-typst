@@ -2,79 +2,74 @@
   "name": "typst",
   "rules": {
     "source_file": {
-      "type": "ALIAS",
+      "type": "REPEAT",
       "content": {
-        "type": "REPEAT",
-        "content": {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "whitespace"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "line_comment"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "block_comment"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "text"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "_markup_text"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "linebreak"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "escape"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "shorthand"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "smart_quote"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "raw"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "link"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "label"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "strong"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "emph"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "parbreak"
-            }
-          ]
-        }
-      },
-      "named": false,
-      "value": "markup"
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "space"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "parbreak"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "line_comment"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "block_comment"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "text"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_markup_expr_text"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "linebreak"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "escape"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "shorthand"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "smart_quote"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "raw"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "link"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "label"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "strong"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "emph"
+          }
+        ]
+      }
     },
-    "_markup_text": {
+    "_markup_expr_text": {
       "type": "ALIAS",
       "content": {
         "type": "TOKEN",
@@ -111,7 +106,7 @@
           ]
         }
       },
-      "named": false,
+      "named": true,
       "value": "text"
     },
     "linebreak": {
@@ -226,73 +221,72 @@
             "type": "FIELD",
             "name": "inner",
             "content": {
-              "type": "ALIAS",
+              "type": "REPEAT",
               "content": {
-                "type": "REPEAT",
-                "content": {
-                  "type": "CHOICE",
-                  "members": [
-                    {
-                      "type": "SYMBOL",
-                      "name": "whitespace"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "line_comment"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "block_comment"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "text"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "_markup_text"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "linebreak"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "escape"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "shorthand"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "smart_quote"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "raw"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "link"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "label"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "strong"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "emph"
-                    }
-                  ]
-                }
-              },
-              "named": false,
-              "value": "markup"
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "space"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "parbreak"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "line_comment"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "block_comment"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "text"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "_markup_expr_text"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "linebreak"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "escape"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "shorthand"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "smart_quote"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "raw"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "link"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "label"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "strong"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "emph"
+                  }
+                ]
+              }
             }
           },
           {
@@ -316,73 +310,72 @@
             "type": "FIELD",
             "name": "inner",
             "content": {
-              "type": "ALIAS",
+              "type": "REPEAT",
               "content": {
-                "type": "REPEAT",
-                "content": {
-                  "type": "CHOICE",
-                  "members": [
-                    {
-                      "type": "SYMBOL",
-                      "name": "whitespace"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "line_comment"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "block_comment"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "text"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "_markup_text"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "linebreak"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "escape"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "shorthand"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "smart_quote"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "raw"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "link"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "label"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "strong"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "emph"
-                    }
-                  ]
-                }
-              },
-              "named": false,
-              "value": "markup"
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "space"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "parbreak"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "line_comment"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "block_comment"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "text"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "_markup_expr_text"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "linebreak"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "escape"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "shorthand"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "smart_quote"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "raw"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "link"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "label"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "strong"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "emph"
+                  }
+                ]
+              }
             }
           },
           {
@@ -391,6 +384,119 @@
           }
         ]
       }
+    },
+    "heading": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "STRING",
+            "value": "="
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_token_eof"
+            },
+            {
+              "type": "REPEAT1",
+              "content": {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "space"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "parbreak"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "line_comment"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "block_comment"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "space"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "parbreak"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "line_comment"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "block_comment"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "text"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_markup_expr_text"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "linebreak"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "escape"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "shorthand"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "smart_quote"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "raw"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "link"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "label"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "strong"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "emph"
+              }
+            ]
+          }
+        }
+      ]
     },
     "ident": {
       "type": "PATTERN",
@@ -461,13 +567,13 @@
             },
             {
               "type": "SYMBOL",
-              "name": "eof"
+              "name": "_token_eof"
             }
           ]
         }
       ]
     },
-    "whitespace": {
+    "space": {
       "type": "TOKEN",
       "content": {
         "type": "CHOICE",
@@ -539,7 +645,7 @@
   "externals": [
     {
       "type": "SYMBOL",
-      "name": "eof"
+      "name": "_token_eof"
     },
     {
       "type": "SYMBOL",

@@ -12,10 +12,6 @@
           "named": true
         },
         {
-          "type": "eof",
-          "named": true
-        },
-        {
           "type": "line_comment",
           "named": true
         }
@@ -27,12 +23,64 @@
     "named": true,
     "fields": {
       "inner": {
-        "multiple": false,
+        "multiple": true,
         "required": false,
         "types": [
           {
-            "type": "markup",
-            "named": false
+            "type": "block_comment",
+            "named": true
+          },
+          {
+            "type": "emph",
+            "named": true
+          },
+          {
+            "type": "escape",
+            "named": true
+          },
+          {
+            "type": "label",
+            "named": true
+          },
+          {
+            "type": "line_comment",
+            "named": true
+          },
+          {
+            "type": "linebreak",
+            "named": true
+          },
+          {
+            "type": "link",
+            "named": true
+          },
+          {
+            "type": "parbreak",
+            "named": true
+          },
+          {
+            "type": "raw",
+            "named": true
+          },
+          {
+            "type": "shorthand",
+            "named": true
+          },
+          {
+            "type": "smart_quote",
+            "named": true
+          },
+          {
+            "type": "space",
+            "named": true
+          },
+          {
+            "type": "strong",
+            "named": true
+          },
+          {
+            "type": "text",
+            "named": true
           }
         ]
       }
@@ -44,8 +92,8 @@
     "fields": {}
   },
   {
-    "type": "markup",
-    "named": false,
+    "type": "source_file",
+    "named": true,
     "fields": {},
     "children": {
       "multiple": true,
@@ -96,36 +144,83 @@
           "named": true
         },
         {
+          "type": "space",
+          "named": true
+        },
+        {
           "type": "strong",
           "named": true
         },
         {
           "type": "text",
           "named": true
-        },
-        {
-          "type": "whitespace",
-          "named": true
         }
       ]
     }
-  },
-  {
-    "type": "source_file",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "strong",
     "named": true,
     "fields": {
       "inner": {
-        "multiple": false,
+        "multiple": true,
         "required": false,
         "types": [
           {
-            "type": "markup",
-            "named": false
+            "type": "block_comment",
+            "named": true
+          },
+          {
+            "type": "emph",
+            "named": true
+          },
+          {
+            "type": "escape",
+            "named": true
+          },
+          {
+            "type": "label",
+            "named": true
+          },
+          {
+            "type": "line_comment",
+            "named": true
+          },
+          {
+            "type": "linebreak",
+            "named": true
+          },
+          {
+            "type": "link",
+            "named": true
+          },
+          {
+            "type": "parbreak",
+            "named": true
+          },
+          {
+            "type": "raw",
+            "named": true
+          },
+          {
+            "type": "shorthand",
+            "named": true
+          },
+          {
+            "type": "smart_quote",
+            "named": true
+          },
+          {
+            "type": "space",
+            "named": true
+          },
+          {
+            "type": "strong",
+            "named": true
+          },
+          {
+            "type": "text",
+            "named": true
           }
         ]
       }
@@ -148,16 +243,16 @@
     "named": false
   },
   {
+    "type": "=",
+    "named": false
+  },
+  {
     "type": ">",
     "named": false
   },
   {
     "type": "_",
     "named": false
-  },
-  {
-    "type": "eof",
-    "named": true
   },
   {
     "type": "escape",
@@ -192,15 +287,11 @@
     "named": true
   },
   {
-    "type": "text",
-    "named": false
-  },
-  {
-    "type": "text",
+    "type": "space",
     "named": true
   },
   {
-    "type": "whitespace",
+    "type": "text",
     "named": true
   }
 ]

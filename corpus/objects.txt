@@ -1,0 +1,9 @@
+===
+Heading
+===
+= Foo Bar
+---
+(source_file
+  (heading
+    (space)
+    (text)))

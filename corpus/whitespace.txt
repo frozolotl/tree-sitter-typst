@@ -5,7 +5,7 @@ One newline
 
 ---
 (source_file
-  (whitespace))
+  (space))
 
 ===
 Parbreak

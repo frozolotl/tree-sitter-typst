@@ -1,7 +1,8 @@
 (line_comment) @comment.line
 (block_comment) @comment.block
 
-(text) @text.literal
+(ERROR) @string
+(text) @text.literal @keyword
 (escape) @string.escape
 (shorthand) @punctuation
 (smart_quote) @punctuation

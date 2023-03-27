@@ -8,24 +8,22 @@ module.exports = grammar({
   extras: $ => [],
 
   externals: $ => [
-    $.eof,
+    $._token_eof,
     $.raw,
     $.text,
   ],
 
   rules: {
-    source_file: $ => markup($, [
-      $.parbreak,
-    ]),
+    source_file: $ => markup($),
 
-    _markup_text: $ => alias(token(choice(
+    _markup_expr_text: $ => alias(token(choice(
       '[',
       ']',
       repeat1('='),
       '-',
       '+',
       '/',
-    )), 'text'),
+    )), $.text),
     linebreak: $ => token(seq(
       '\\',
       choice(LEAF.newline, /\s/),
@@ -50,14 +48,37 @@ module.exports = grammar({
     // FIXME: These should not apply within words.
     strong: $ => prec.left(seq(
       '*',
-      field('inner', markup($, [])),
+      field('inner', markup($, {
+        minus: [$.parbreak],
+      })),
       '*',
     )),
     emph: $ => prec.left(seq(
       '_',
-      field('inner', markup($, [])),
+      field('inner', markup($, {
+        minus: [$.parbreak],
+      })),
       '_',
     )),
+
+    heading: $ => seq(
+      repeat1('='),
+      choice(
+        $._token_eof,
+        repeat1(choice(
+          $.space,
+          $.parbreak,
+          $.line_comment,
+          $.block_comment,
+        )),
+      ),
+      markup($, {
+        minus: [
+          $.label,
+          $._markup_expr_text,
+        ],
+      })
+    ),
 
     ident: $ => /[_\p{XID_Start}][\-_\p{XID_Continue}]*/,
 
@@ -72,10 +93,10 @@ module.exports = grammar({
         /./,
         LEAF.newline,
       )),
-      choice('*/', $.eof),
+      choice('*/', $._token_eof),
     ),
 
-    whitespace: $ => token(choice(
+    space: $ => token(choice(
       seq(
         /[ \t]+/,
         optional(LEAF.newline),
@@ -93,18 +114,25 @@ module.exports = grammar({
   }
 });
 
-function markup($, additional_children) {
-  return alias(repeat(markup_expr($, additional_children)), 'markup');
+function markup($, options) {
+  //return alias(repeat(markup_expr($, options)), $.markup);
+  return repeat(markup_expr($, options));
 }
 
-function markup_expr($, additional_children) {
-  return choice(
-    $.whitespace,
+function markup_expr($, options) {
+  options = {
+    plus: [],
+    minus: [],
+    ...options,
+  };
+  let choices = [
+    $.space,
+    $.parbreak,
     $.line_comment,
     $.block_comment,
 
     $.text,
-    $._markup_text,
+    $._markup_expr_text,
     $.linebreak,
     $.escape,
     $.shorthand,
@@ -116,15 +144,13 @@ function markup_expr($, additional_children) {
     // TODO: SyntaxKind::Hashtag
     $.strong,
     $.emph,
-    // TODO: SyntaxKind::HeadingMarker
+    // $.heading,
     // TODO: SyntaxKind::ListMarker
     // TODO: SyntaxKind::EnumMarker
     // TODO: SyntaxKind::TermMarker
     // TODO: SyntaxKind::RefMarker
     // TODO: SyntaxKind::Dollar
-
-    // TODO: Those tokens that should actually be Text here.
-
-    ...additional_children
-  );
+    ...options.plus,
+  ].filter(x => !options.minus.includes(x));
+  return choice(...choices);
 }

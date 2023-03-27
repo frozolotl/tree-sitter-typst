@@ -50,8 +50,7 @@ Block comment, open ended
 /*
 ---
 (source_file
-  (block_comment
-    (eof)))
+  (block_comment))
 
 ===
 Block comment, open ended nested
@@ -61,6 +60,4 @@ Block comment, open ended nested
 (source_file
   (block_comment
     (block_comment)
-    (block_comment
-      (eof))
-    (eof)))
+    (block_comment)))

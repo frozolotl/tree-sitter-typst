@@ -9,13 +9,13 @@ faucibus a pellentesque sit.
 ---
 (source_file
   (text)
-  (whitespace)
+  (space)
   (text)
-  (whitespace)
+  (space)
   (text)
-  (whitespace)
+  (space)
   (text)
-  (whitespace)
+  (space)
   (text))
 
 ===
@@ -25,13 +25,13 @@ A/B-Testing. -5.5 is a number. Want to see me @5?. Semicolon; .-. ..
 ---
 (source_file
   (text)
-  (whitespace)
+  (space)
   (text)
-  (whitespace)
+  (space)
   (text)
-  (whitespace)
+  (space)
   (text)
-  (whitespace)
+  (space)
   (text))
 
 ===
@@ -41,13 +41,15 @@ foo[] == - + / bar
 ---
 (source_file
   (text)
-  (whitespace)
   (text)
-  (whitespace)
   (text)
-  (whitespace)
+  (space)
   (text)
-  (whitespace)
+  (space)
+  (text)
+  (space)
+  (text)
+  (space)
   (text))
 
 ===
@@ -57,7 +59,7 @@ Escape
 ---
 (source_file
   (escape)
-  (whitespace)
+  (space)
   (escape))
 
 ===
@@ -67,13 +69,13 @@ Shorthands
 ---
 (source_file
   (shorthand)
-  (whitespace)
+  (space)
   (shorthand)
-  (whitespace)
+  (space)
   (shorthand)
-  (whitespace)
+  (space)
   (shorthand)
-  (whitespace)
+  (space)
   (shorthand))
 
 ===
@@ -231,7 +233,7 @@ Plain *Strong* Plain
 ---
 (source_file
   (text)
-  (whitespace)
+  (space)
   (strong
     (text))
   (text))
@@ -243,7 +245,7 @@ Plain _Emph_ Plain
 ---
 (source_file
   (text)
-  (whitespace)
+  (space)
   (emph
     (text))
   (text))
@@ -255,10 +257,10 @@ Plain *Strong _Strong Emph_ Strong* Plain
 ---
 (source_file
   (text)
-  (whitespace)
+  (space)
   (strong
     (text)
-    (whitespace)
+    (space)
     (emph
       (text))
     (text))
@@ -271,10 +273,10 @@ Plain _Emphasis *Emphasis Strong* Emphasis_ Plain
 ---
 (source_file
   (text)
-  (whitespace)
+  (space)
   (emph
     (text)
-    (whitespace)
+    (space)
     (strong
       (text))
     (text))
