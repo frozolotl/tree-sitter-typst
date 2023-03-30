@@ -1,4 +1,5 @@
 #include <cassert>
+#include <cstdio>  // TODO: Remove
 #include <cwctype>
 #include <deque>
 #include <string_view>
@@ -9,11 +10,16 @@
 namespace {
 enum TokenType {
   TOKEN_EOF,
+  SPACE,
+  PARBREAK,
+  INDENT,
+  DEDENT,
   RAW,
   LINK_END,
   TEXT,
   DELIM_STRONG,
   DELIM_EMPH,
+  HEADING_START,
 };
 
 class Lexer {
@@ -97,6 +103,12 @@ class Lexer {
     return true;
   }
 
+  /// Skip whitespace.
+  void skip() {
+    this->lexer->advance(lexer, false);
+    this->swallow();
+  }
+
   /// Specifies the recognized symbol, returns true for convenience.
   bool recognized(TSSymbol symbol) {
     this->lexer->result_symbol = symbol;
@@ -104,7 +116,9 @@ class Lexer {
   }
 
   /// Whether the end of the input was reached.
-  bool eof() { return this->lexer->eof(this->lexer); }
+  bool eof() {
+    return this->lexer->lookahead == 0 && this->lexer->eof(this->lexer);
+  }
 };
 
 class Scanner {
@@ -115,29 +129,40 @@ class Scanner {
     unsigned cursor = 0;
 
     buffer[cursor++] = this->ends_with_word ? 1 : 0;
+    buffer[cursor++] = this->newline ? 1 : 0;
 
-    assert(cursor + this->indent_level_stack.size() <
+    assert(cursor + this->indent_length_stack.size() * 2 <
            TREE_SITTER_SERIALIZATION_BUFFER_SIZE);
-    for (uint8_t indent_level : this->indent_level_stack) {
-      buffer[cursor++] = char(indent_level);
+    for (uint8_t indent_length : this->indent_length_stack) {
+      buffer[cursor++] = static_cast<char>(indent_length);
+      buffer[cursor++] = static_cast<char>(indent_length << 8);
     }
     return cursor;
   }
 
   void deserialize(const char *buffer, unsigned length) {
-    this->indent_level_stack.clear();
+    // Default values.
+    this->indent_length_stack.clear();
+    this->ends_with_word = false;
+    this->newline = true;
     if (length == 0) {
       return;
     }
 
     size_t cursor = 0;
     this->ends_with_word = buffer[cursor++] != 0;
-    for (; cursor < length; cursor++) {
-      this->indent_level_stack.push_back(static_cast<uint8_t>(buffer[cursor]));
+    this->newline = buffer[cursor++] != 0;
+    for (; cursor < length; cursor += 2) {
+      uint16_t indent_length = static_cast<uint16_t>(buffer[cursor]) |
+                               (static_cast<uint16_t>(buffer[cursor + 1]) << 8);
+      this->indent_length_stack.push_back(indent_length);
     }
   }
 
   bool scan(Lexer &lexer, const bool *valid_symbols) {
+    bool ends_with_word = this->ends_with_word;
+    this->ends_with_word = false;
+
     if (lexer.eof()) {
       if (valid_symbols[TOKEN_EOF]) {
         lexer.recognized(TOKEN_EOF);
@@ -147,8 +172,22 @@ class Scanner {
       }
     }
 
+    // if (valid_symbols[HEADING_START]) {
+    //   printf("%d\n", this->newline);
+    // }
+    if (valid_symbols[HEADING_START] && this->newline && lexer.eat_if('=')) {
+      // printf("heading\n");
+      while (lexer.eat_if('='))
+        ;
+      return lexer.recognized(HEADING_START);
+    }
+
+    if (this->scan_space(lexer, valid_symbols)) {
+      return true;
+    }
+
     if (valid_symbols[DELIM_STRONG] && lexer.eat_if('*')) {
-      bool word_before = this->ends_with_word;
+      bool word_before = ends_with_word;
       bool word_after = std::iswalnum(static_cast<wint_t>(lexer.peek()));
       if (!word_before || !word_after) {
         return lexer.recognized(DELIM_STRONG);
@@ -157,7 +196,7 @@ class Scanner {
       }
     }
     if (valid_symbols[DELIM_EMPH] && lexer.eat_if('_')) {
-      bool word_before = this->ends_with_word;
+      bool word_before = ends_with_word;
       bool word_after = std::iswalnum(static_cast<wint_t>(lexer.peek()));
       if (!word_before || !word_after) {
         return lexer.recognized(DELIM_EMPH);
@@ -182,8 +221,64 @@ class Scanner {
   }
 
  private:
-  std::vector<uint8_t> indent_level_stack;
+  std::vector<uint16_t> indent_length_stack;
   bool ends_with_word;
+  bool newline;
+
+  bool scan_space(Lexer &lexer, const bool *valid_symbols) {
+    uint32_t indent_length = 0;
+    uint32_t newline_count = 0;
+    bool is_space = false;
+    for (;;) {
+      switch (lexer.peek()) {
+        case ' ': {
+          lexer.eat();
+          is_space = true;
+          indent_length++;
+          break;
+        }
+        case '\t': {
+          lexer.eat();
+          is_space = true;
+          indent_length += 8;
+          break;
+        }
+        case '\r': {
+          // CRLF should be considered as one newline, not two.
+          lexer.eat();
+          lexer.eat_if('\n');
+          is_space = true;
+          newline_count++;
+          indent_length = 0;
+          break;
+        }
+        case '\n':
+        case '\x0B':
+        case '\x0C':
+        case 0x85:
+        case 0x2028:
+        case 0x2029: {
+          // Newline
+          lexer.eat();
+          is_space = true;
+          newline_count++;
+          indent_length = 0;
+          break;
+        }
+        default: {
+          // Anything other than whitespace. Represents the exit condition.
+          // printf("nl=f, %c\n", lexer.peek());
+          this->newline = newline_count > 0;
+          if (valid_symbols[PARBREAK] && newline_count >= 2) {
+            return lexer.recognized(PARBREAK);
+          } else if (valid_symbols[SPACE] && is_space) {
+            return lexer.recognized(SPACE);
+          }
+          return false;
+        }
+      }
+    }
+  }
 
   bool scan_text(Lexer &lexer) {
     for (;;) {

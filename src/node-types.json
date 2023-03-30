@@ -39,6 +39,10 @@
             "named": true
           },
           {
+            "type": "heading",
+            "named": true
+          },
+          {
             "type": "label",
             "named": true
           },
@@ -87,6 +91,92 @@
     }
   },
   {
+    "type": "heading",
+    "named": true,
+    "fields": {
+      "text": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "block_comment",
+            "named": true
+          },
+          {
+            "type": "emph",
+            "named": true
+          },
+          {
+            "type": "escape",
+            "named": true
+          },
+          {
+            "type": "heading",
+            "named": true
+          },
+          {
+            "type": "label",
+            "named": true
+          },
+          {
+            "type": "line_comment",
+            "named": true
+          },
+          {
+            "type": "linebreak",
+            "named": true
+          },
+          {
+            "type": "link",
+            "named": true
+          },
+          {
+            "type": "parbreak",
+            "named": true
+          },
+          {
+            "type": "raw",
+            "named": true
+          },
+          {
+            "type": "shorthand",
+            "named": true
+          },
+          {
+            "type": "smart_quote",
+            "named": true
+          },
+          {
+            "type": "space",
+            "named": true
+          },
+          {
+            "type": "strong",
+            "named": true
+          },
+          {
+            "type": "text",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "heading_start",
+          "named": true
+        },
+        {
+          "type": "space",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "label",
     "named": true,
     "fields": {}
@@ -114,6 +204,10 @@
         },
         {
           "type": "escape",
+          "named": true
+        },
+        {
+          "type": "heading",
           "named": true
         },
         {
@@ -184,6 +278,10 @@
             "named": true
           },
           {
+            "type": "heading",
+            "named": true
+          },
+          {
             "type": "label",
             "named": true
           },
@@ -244,15 +342,15 @@
     "named": false
   },
   {
-    "type": "=",
-    "named": false
-  },
-  {
     "type": ">",
     "named": false
   },
   {
     "type": "escape",
+    "named": true
+  },
+  {
+    "type": "heading_start",
     "named": true
   },
   {

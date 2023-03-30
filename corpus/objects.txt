@@ -5,5 +5,43 @@ Heading
 ---
 (source_file
   (heading
+    (heading_start)
+    (space)
+    (text)))
+
+===
+Heading with preceding text
+===
+Hello world
+
+= Foo Bar
+---
+(source_file
+  (text)
+  (parbreak)
+  (heading
+    (heading_start)
+    (space)
+    (text)))
+
+===
+Not a heading
+===
+Text == Am I a heading?
+---
+(source_file
+  (text)
+  (space)
+  (text))
+
+===
+Comment before heading
+===
+/**/= Heading
+---
+(source_file
+  (block_comment)
+  (heading
+    (heading_start)
     (space)
     (text)))

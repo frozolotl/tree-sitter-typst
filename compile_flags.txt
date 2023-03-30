@@ -17,7 +17,6 @@
 -Wold-style-cast
 -Woverloaded-virtual
 -Wredundant-decls
--Wshadow
 -Wsign-conversion
 -Wsign-promo
 -Wstrict-null-sentinel

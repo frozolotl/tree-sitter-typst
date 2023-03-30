@@ -246,6 +246,7 @@ Plain *Strong* Plain
   (space)
   (strong
     (text))
+  (space)
   (text))
 
 ===
@@ -258,6 +259,7 @@ Plain _Emph_ Plain
   (space)
   (emph
     (text))
+  (space)
   (text))
 
 ===
@@ -273,7 +275,9 @@ Plain *Strong _Strong Emph_ Strong* Plain
     (space)
     (emph
       (text))
+    (space)
     (text))
+  (space)
   (text))
 
 ===
@@ -289,7 +293,9 @@ Plain _Emphasis *Emphasis Strong* Emphasis_ Plain
     (space)
     (strong
       (text))
+    (space)
     (text))
+  (space)
   (text))
 
 ===

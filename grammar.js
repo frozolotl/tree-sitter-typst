@@ -9,11 +9,16 @@ module.exports = grammar({
 
   externals: $ => [
     $._token_eof,
+    $.space,
+    $.parbreak,
+    $._indent,
+    $._dedent,
     $.raw,
     $._link_end,
     $.text,
     $._delim_strong,
     $._delim_emph,
+    $.heading_start,
   ],
 
   rules: {
@@ -68,24 +73,24 @@ module.exports = grammar({
       $._delim_emph,
     )),
 
-    heading: $ => seq(
-      repeat1('='),
+    heading: $ => prec.right(seq(
+      // $._newline,
+      // /=+/,
+      $.heading_start,
       choice(
         $._token_eof,
-        repeat1(choice(
+        $._space_no_newline,
+      ),
+      field('text', markup($, {
+        minus: [
           $.space,
           $.parbreak,
-          $.line_comment,
-          $.block_comment,
-        )),
-      ),
-      markup($, {
-        minus: [
-          $.label,
-          $._markup_expr_text,
         ],
-      })
-    ),
+        plus: [
+          $._space_no_newline,
+        ],
+      })),
+    )),
 
     ident: $ => /[_\p{XID_Start}][\-_\p{XID_Continue}]*/,
 
@@ -103,21 +108,22 @@ module.exports = grammar({
       choice('*/', $._token_eof),
     ),
 
-    space: $ => token(choice(
-      seq(
-        /[ \t]+/,
-        optional(LEAF.newline),
-      ),
-      seq(
-        /[ \t]*/,
-        LEAF.newline,
-      ),
-    )),
-    parbreak: $ => token(seq(
-      /[ \t]*/,
-      LEAF.newline,
-      repeat1(LEAF.newline),
-    )),
+    // space: $ => token(choice(
+    //   seq(
+    //     /[ \t]+/,
+    //     optional(LEAF.newline),
+    //   ),
+    //   seq(
+    //     /[ \t]*/,
+    //     LEAF.newline,
+    //   ),
+    // )),
+    _space_no_newline: $ => alias(/[ \t]+/, $.space),
+    // parbreak: $ => token(seq(
+    //   /[ \t]*/,
+    //   LEAF.newline,
+    //   repeat1(LEAF.newline),
+    // )),
   }
 });
 
@@ -151,7 +157,7 @@ function markup_expr($, options) {
     // TODO: SyntaxKind::Hashtag
     $.strong,
     $.emph,
-    // $.heading,
+    $.heading,
     // TODO: SyntaxKind::ListMarker
     // TODO: SyntaxKind::EnumMarker
     // TODO: SyntaxKind::TermMarker
