@@ -131,6 +131,8 @@ class Lexer {
     return this->not_empty ? MATCH : BREAK;
   }
 
+  bool at_line_start() { return this->lexer->get_column(lexer) == 0; }
+
   /// Whether the end of the input was reached.
   bool eof() {
     return this->lexer->lookahead == 0 && this->lexer->eof(this->lexer);
@@ -188,13 +190,15 @@ class Scanner {
       }
     }
 
-    if (valid_symbols[HEADING_START] && this->newline && lexer.eat_if('=')) {
+    HANDLE_SCAN_RESULT(this->scan_space(lexer, valid_symbols));
+    bool newline = this->newline;
+    this->newline = false;
+
+    if (valid_symbols[HEADING_START] && newline && lexer.eat_if('=')) {
       while (lexer.eat_if('='))
         ;
       HANDLE_SCAN_RESULT(lexer.recognized(HEADING_START));
     }
-
-    HANDLE_SCAN_RESULT(this->scan_space(lexer, valid_symbols));
 
     if (valid_symbols[DELIM_STRONG] && lexer.eat_if('*')) {
       bool word_before = ends_with_word;
@@ -236,6 +240,8 @@ class Scanner {
   bool newline;
 
   ScanResult scan_space(Lexer &lexer, const bool *valid_symbols) {
+    bool started_at_line_start = lexer.at_line_start();
+    bool is_at_first_char = true;
     uint32_t indent_length = 0;
     uint32_t newline_count = 0;
     bool is_space = false;
@@ -277,10 +283,7 @@ class Scanner {
         }
         default: {
           // Anything other than whitespace.
-          if (is_space) {
-            this->ends_with_word = false;
-          }
-          this->newline = newline_count > 0;
+          this->newline = started_at_line_start || newline_count > 0 || (is_at_first_char && this->newline);
           if (valid_symbols[PARBREAK] && newline_count >= 2) {
             return lexer.recognized(PARBREAK);
           } else if (valid_symbols[SPACE] && is_space && newline_count < 2) {
@@ -292,6 +295,7 @@ class Scanner {
           }
         }
       }
+      is_at_first_char = false;
     }
   }
 

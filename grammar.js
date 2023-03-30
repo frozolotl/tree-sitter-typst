@@ -25,12 +25,12 @@ module.exports = grammar({
     source_file: $ => optional($.markup),
 
     markup: $ => repeat1(choice(
-      $._markup_expr_base,
-      $.space,
-      $.parbreak,
-      $.strong,
-      $.emph,
-      $.heading,
+        $._markup_expr_base,
+        $.space,
+        $.parbreak,
+        $.strong,
+        $.emph,
+        $.heading,
     )),
     _markup_expr_base: $ => choice(
       $.line_comment,
@@ -101,6 +101,7 @@ module.exports = grammar({
         $._markup_expr_base,
         $.space,
         $.emph,
+        $.heading,
       )),
       $.markup,
     ),
@@ -114,18 +115,31 @@ module.exports = grammar({
         $._markup_expr_base,
         $.space,
         $.strong,
+        $.heading,
       )),
       $.markup,
     ),
 
-    heading: $ => prec.right(seq(
+    // Looks ugly, but seems to work.
+    heading: $ => seq(
       $.heading_start,
       choice(
         $._token_eof,
-        $._space_no_newline,
+        seq(
+          $._space_no_newline,
+          choice(
+            $._token_eof,
+            seq(
+              field('inner', $._markup_no_newline),
+              choice(
+                $._token_eof,
+                LEAF.newline,
+              ),
+            ),
+          ),
+        ),
       ),
-      field('inner', $._markup_no_newline),
-    )),
+    ),
     _markup_no_newline: $ => alias(
       prec.left(repeat1(choice(
         $._markup_expr_base,

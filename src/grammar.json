@@ -296,6 +296,10 @@
             {
               "type": "SYMBOL",
               "name": "emph"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "heading"
             }
           ]
         }
@@ -346,6 +350,10 @@
             {
               "type": "SYMBOL",
               "name": "strong"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "heading"
             }
           ]
         }
@@ -354,38 +362,66 @@
       "value": "markup"
     },
     "heading": {
-      "type": "PREC_RIGHT",
-      "value": 0,
-      "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "SYMBOL",
-            "name": "heading_start"
-          },
-          {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "_token_eof"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "_space_no_newline"
-              }
-            ]
-          },
-          {
-            "type": "FIELD",
-            "name": "inner",
-            "content": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "heading_start"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
               "type": "SYMBOL",
-              "name": "_markup_no_newline"
+              "name": "_token_eof"
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_space_no_newline"
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "_token_eof"
+                    },
+                    {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "FIELD",
+                          "name": "inner",
+                          "content": {
+                            "type": "SYMBOL",
+                            "name": "_markup_no_newline"
+                          }
+                        },
+                        {
+                          "type": "CHOICE",
+                          "members": [
+                            {
+                              "type": "SYMBOL",
+                              "name": "_token_eof"
+                            },
+                            {
+                              "type": "PATTERN",
+                              "value": "\\r\\n|[\\n\\x0B\\x0C\\r\\x85\\u2028\\u2029]"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
             }
-          }
-        ]
-      }
+          ]
+        }
+      ]
     },
     "_markup_no_newline": {
       "type": "ALIAS",
