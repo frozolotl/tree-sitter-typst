@@ -22,6 +22,22 @@ enum TokenType {
   HEADING_START,
 };
 
+enum ScanResult {
+  MATCH,
+  CONTINUE,
+  BREAK,
+};
+
+#define HANDLE_SCAN_RESULT(R) \
+  switch (R) {                \
+    case MATCH:               \
+      return true;            \
+    case CONTINUE:            \
+      break;                  \
+    case BREAK:               \
+      return false;           \
+  }
+
 class Lexer {
  private:
   TSLexer *lexer;
@@ -110,9 +126,9 @@ class Lexer {
   }
 
   /// Specifies the recognized symbol, returns true for convenience.
-  bool recognized(TSSymbol symbol) {
+  ScanResult recognized(TSSymbol symbol) {
     this->lexer->result_symbol = symbol;
-    return this->not_empty;
+    return this->not_empty ? MATCH : BREAK;
   }
 
   /// Whether the end of the input was reached.
@@ -172,25 +188,19 @@ class Scanner {
       }
     }
 
-    // if (valid_symbols[HEADING_START]) {
-    //   printf("%d\n", this->newline);
-    // }
     if (valid_symbols[HEADING_START] && this->newline && lexer.eat_if('=')) {
-      // printf("heading\n");
       while (lexer.eat_if('='))
         ;
-      return lexer.recognized(HEADING_START);
+      HANDLE_SCAN_RESULT(lexer.recognized(HEADING_START));
     }
 
-    if (this->scan_space(lexer, valid_symbols)) {
-      return true;
-    }
+    HANDLE_SCAN_RESULT(this->scan_space(lexer, valid_symbols));
 
     if (valid_symbols[DELIM_STRONG] && lexer.eat_if('*')) {
       bool word_before = ends_with_word;
       bool word_after = std::iswalnum(static_cast<wint_t>(lexer.peek()));
       if (!word_before || !word_after) {
-        return lexer.recognized(DELIM_STRONG);
+        HANDLE_SCAN_RESULT(lexer.recognized(DELIM_STRONG));
       } else {
         return false;
       }
@@ -199,22 +209,22 @@ class Scanner {
       bool word_before = ends_with_word;
       bool word_after = std::iswalnum(static_cast<wint_t>(lexer.peek()));
       if (!word_before || !word_after) {
-        return lexer.recognized(DELIM_EMPH);
+        HANDLE_SCAN_RESULT(lexer.recognized(DELIM_EMPH));
       } else {
         return false;
       }
     }
 
     if (valid_symbols[RAW] && lexer.eat_if('`')) {
-      return this->scan_raw(lexer);
+      HANDLE_SCAN_RESULT(this->scan_raw(lexer));
     }
 
     if (valid_symbols[LINK_END]) {
-      return this->scan_link(lexer);
+      HANDLE_SCAN_RESULT(this->scan_link(lexer));
     }
 
     if (valid_symbols[TEXT]) {
-      return this->scan_text(lexer);
+      HANDLE_SCAN_RESULT(this->scan_text(lexer));
     }
 
     return false;
@@ -225,7 +235,7 @@ class Scanner {
   bool ends_with_word;
   bool newline;
 
-  bool scan_space(Lexer &lexer, const bool *valid_symbols) {
+  ScanResult scan_space(Lexer &lexer, const bool *valid_symbols) {
     uint32_t indent_length = 0;
     uint32_t newline_count = 0;
     bool is_space = false;
@@ -266,21 +276,26 @@ class Scanner {
           break;
         }
         default: {
-          // Anything other than whitespace. Represents the exit condition.
-          // printf("nl=f, %c\n", lexer.peek());
+          // Anything other than whitespace.
+          if (is_space) {
+            this->ends_with_word = false;
+          }
           this->newline = newline_count > 0;
           if (valid_symbols[PARBREAK] && newline_count >= 2) {
             return lexer.recognized(PARBREAK);
-          } else if (valid_symbols[SPACE] && is_space) {
+          } else if (valid_symbols[SPACE] && is_space && newline_count < 2) {
             return lexer.recognized(SPACE);
+          } else if (is_space) {
+            return BREAK;
+          } else {
+            return CONTINUE;
           }
-          return false;
         }
       }
     }
   }
 
-  bool scan_text(Lexer &lexer) {
+  ScanResult scan_text(Lexer &lexer) {
     for (;;) {
       char32_t ch0 = lexer.bite();
       char32_t ch1 = lexer.peek();
@@ -366,10 +381,9 @@ class Scanner {
       }
       lexer.swallow();
     }
-    return false;
   }
 
-  bool scan_raw(Lexer &lexer) {
+  ScanResult scan_raw(Lexer &lexer) {
     uint32_t backticks_opened = 1;
     while (lexer.eat_if('`')) {
       backticks_opened++;
@@ -381,7 +395,7 @@ class Scanner {
     uint32_t backticks_closed = 0;
     while (backticks_closed < backticks_opened) {
       if (lexer.eof()) {
-        return false;
+        return BREAK;
       }
       if (lexer.eat() == '`') {
         backticks_closed++;
@@ -393,7 +407,7 @@ class Scanner {
     return lexer.recognized(RAW);
   }
 
-  bool scan_link(Lexer &lexer) {
+  ScanResult scan_link(Lexer &lexer) {
     while (!lexer.eof()) {
       char32_t ch = lexer.peek();
       if (('a' <= ch && ch <= 'z') || ('A' <= ch && ch <= 'Z') ||

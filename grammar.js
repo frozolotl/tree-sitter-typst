@@ -22,19 +22,52 @@ module.exports = grammar({
   ],
 
   rules: {
-    source_file: $ => markup($),
+    source_file: $ => optional($.markup),
 
-    _markup_expr_text: $ => alias(token(choice(
-      '[',
-      ']',
-      repeat1('='),
-      '-',
-      '+',
-      '/',
-      '*',
-      '_',
-      ':',
-    )), $.text),
+    markup: $ => repeat1(choice(
+      $._markup_expr_base,
+      $.space,
+      $.parbreak,
+      $.strong,
+      $.emph,
+      $.heading,
+    )),
+    _markup_expr_base: $ => choice(
+      $.line_comment,
+      $.block_comment,
+
+      $.text,
+      $._markup_expr_text,
+      $.linebreak,
+      $.escape,
+      $.shorthand,
+      $.smart_quote,
+      $.raw,
+      $.link,
+      $.label,
+
+      // TODO: SyntaxKind::Hashtag
+      // TODO: SyntaxKind::ListMarker
+      // TODO: SyntaxKind::EnumMarker
+      // TODO: SyntaxKind::TermMarker
+      // TODO: SyntaxKind::RefMarker
+      // TODO: SyntaxKind::Dollar
+    ),
+
+    _markup_expr_text: $ => alias(
+      token(choice(
+        '[',
+        ']',
+        repeat1('='),
+        '-',
+        '+',
+        '/',
+        '*',
+        '_',
+        ':',
+      )),
+      $.text,
+    ),
     linebreak: $ => token(seq(
       '\\',
       choice(LEAF.newline, /\s/),
@@ -60,37 +93,46 @@ module.exports = grammar({
 
     strong: $ => prec.left(seq(
       $._delim_strong,
-      field('inner', markup($, {
-        minus: [$.parbreak],
-      })),
+      field('inner', $._markup_strong),
       $._delim_strong,
     )),
+    _markup_strong: $ => alias(
+      repeat1(choice(
+        $._markup_expr_base,
+        $.space,
+        $.emph,
+      )),
+      $.markup,
+    ),
     emph: $ => prec.left(seq(
       $._delim_emph,
-      field('inner', markup($, {
-        minus: [$.parbreak],
-      })),
+      field('inner', $._markup_emph),
       $._delim_emph,
     )),
+    _markup_emph: $ => alias(
+      repeat1(choice(
+        $._markup_expr_base,
+        $.space,
+        $.strong,
+      )),
+      $.markup,
+    ),
 
     heading: $ => prec.right(seq(
-      // $._newline,
-      // /=+/,
       $.heading_start,
       choice(
         $._token_eof,
         $._space_no_newline,
       ),
-      field('text', markup($, {
-        minus: [
-          $.space,
-          $.parbreak,
-        ],
-        plus: [
-          $._space_no_newline,
-        ],
-      })),
+      field('inner', $._markup_no_newline),
     )),
+    _markup_no_newline: $ => alias(
+      prec.left(repeat1(choice(
+        $._markup_expr_base,
+        $._space_no_newline,
+      ))),
+      $.markup,
+    ),
 
     ident: $ => /[_\p{XID_Start}][\-_\p{XID_Continue}]*/,
 
@@ -108,62 +150,7 @@ module.exports = grammar({
       choice('*/', $._token_eof),
     ),
 
-    // space: $ => token(choice(
-    //   seq(
-    //     /[ \t]+/,
-    //     optional(LEAF.newline),
-    //   ),
-    //   seq(
-    //     /[ \t]*/,
-    //     LEAF.newline,
-    //   ),
-    // )),
     _space_no_newline: $ => alias(/[ \t]+/, $.space),
-    // parbreak: $ => token(seq(
-    //   /[ \t]*/,
-    //   LEAF.newline,
-    //   repeat1(LEAF.newline),
-    // )),
   }
 });
 
-function markup($, options) {
-  //return alias(repeat(markup_expr($, options)), $.markup);
-  return repeat(markup_expr($, options));
-}
-
-function markup_expr($, options) {
-  options = {
-    plus: [],
-    minus: [],
-    ...options,
-  };
-  let choices = [
-    $.space,
-    $.parbreak,
-    $.line_comment,
-    $.block_comment,
-
-    $.text,
-    $._markup_expr_text,
-    $.linebreak,
-    $.escape,
-    $.shorthand,
-    $.smart_quote,
-    $.raw,
-    $.link,
-    $.label,
-
-    // TODO: SyntaxKind::Hashtag
-    $.strong,
-    $.emph,
-    $.heading,
-    // TODO: SyntaxKind::ListMarker
-    // TODO: SyntaxKind::EnumMarker
-    // TODO: SyntaxKind::TermMarker
-    // TODO: SyntaxKind::RefMarker
-    // TODO: SyntaxKind::Dollar
-    ...options.plus,
-  ].filter(x => !options.minus.includes(x));
-  return choice(...choices);
-}
