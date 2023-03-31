@@ -1,7 +1,6 @@
 #include <cassert>
 #include <cwctype>
 #include <deque>
-#include <string_view>
 #include <vector>
 
 #include "tree_sitter/parser.h"
@@ -89,9 +88,9 @@ class Lexer {
   ///
   /// Warning: The lexer will be in an invalid state after this function was
   /// called. Proceed with caution.
-  bool bite_if(std::u32string_view str) {
-    for (char32_t ch : str) {
-      if (!this->bite_if(ch)) {
+  bool bite_if(const char32_t *s) {
+    for (; *s; ++s) {
+      if (!this->bite_if(*s)) {
         return false;
       }
     }
@@ -112,8 +111,8 @@ class Lexer {
   ///
   /// Warning: The lexer will be in an invalid state after this function was
   /// called and returned false. Proceed with caution.
-  bool eat_if(std::u32string_view str) {
-    this->bite_if(str);
+  bool eat_if(const char32_t *s) {
+    this->bite_if(s);
     this->swallow();
     return true;
   }
@@ -229,7 +228,6 @@ class Scanner {
 
   ScanResult scan_space(Lexer &lexer, const bool *valid_symbols) {
     bool started_at_line_start = lexer.at_line_start();
-    bool is_at_first_char = true;
     uint32_t indent_length = 0;
     uint32_t newline_count = 0;
     bool is_space = false;
