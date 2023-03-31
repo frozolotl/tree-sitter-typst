@@ -281,7 +281,6 @@ class Scanner {
           }
         }
       }
-      is_at_first_char = false;
     }
   }
 
@@ -399,6 +398,7 @@ class Scanner {
   }
 
   ScanResult scan_link(Lexer &lexer) {
+    std::vector<char32_t> bracket_stack;
     while (!lexer.eof()) {
       char32_t ch = lexer.peek();
       if (('a' <= ch && ch <= 'z') || ('A' <= ch && ch <= 'Z') ||
@@ -407,29 +407,64 @@ class Scanner {
         continue;
       }
       switch (ch) {
-        case '~':
-        case '/':
-        case '%':
-        case '?':
         case '#':
+        case '$':
+        case '%':
         case '&':
+        case '*':
         case '+':
+        case '-':
+        case '/':
         case '=':
-        case '\'':
-        case ',':
-        case ';': {
+        case '@':
+        case '_':
+        case '~': {
           lexer.eat();
           break;
         }
-        case '.': {
+        case '!':
+        case ',':
+        case '.':
+        case ':':
+        case ';':
+        case '?':
+        case '\'': {
           lexer.swallow();
           lexer.bite();
           break;
         }
+        case '[':
+        case '(': {
+          bracket_stack.push_back(ch);
+          lexer.eat();
+          break;
+        }
+        case ']': {
+          if (bracket_stack.empty() || bracket_stack.back() != '[') {
+            return BREAK;
+          }
+          bracket_stack.pop_back();
+          lexer.eat();
+          break;
+        }
+        case ')': {
+          if (bracket_stack.empty() || bracket_stack.back() != '(') {
+            return BREAK;
+          }
+          bracket_stack.pop_back();
+          lexer.eat();
+          break;
+        }
         default: {
+          if (!bracket_stack.empty()) {
+            return BREAK;
+          }
           return lexer.recognized(LINK_END);
         }
       }
+    }
+    if (!bracket_stack.empty()) {
+      return BREAK;
     }
     return lexer.recognized(LINK_END);
   }
