@@ -2,9 +2,11 @@
 A [typst](https://typst.app/) parser for tree-sitter.
 
 ## Goals
-This grammar will be kept as close as possible to the official parser.
-Visual inaccuracies should be considered a bug.
-It is however not a goal to produce the exact same syntax trees.
+* This grammar will be kept as close as possible to the official parser.
+  Visual inaccuracies should be considered a bug.
+  It is however not a goal to produce the exact same syntax trees.
+* Everything should be tested.
+* I try to keep the grammar up-to-date. The future will show if I manage to keep that promise.
 
 ## Missing Features
 - [ ] Code
