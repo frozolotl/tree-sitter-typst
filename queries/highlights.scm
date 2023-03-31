@@ -1,14 +1,16 @@
 (line_comment) @comment.line
 (block_comment) @comment.block
 
-(ERROR) @string
-(text) @text.literal @keyword
+(markup) @markup
 (escape) @string.escape
 (shorthand) @punctuation
 (smart_quote) @punctuation
 (raw) @markup.raw.inline
 (link) @markup.link.url
 (label) @markup.label
-
 (strong) @markup.bold
 (emph) @markup.italic
+
+(heading
+  (heading_start) @markup.heading.marker
+) @markup.heading
