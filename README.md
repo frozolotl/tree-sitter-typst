@@ -1,5 +1,5 @@
 # tree-sitter-typst
-A [typst](https://typst.app/) parser for tree-sitter.
+A tree-sitter grammar for the [typst](https://typst.app/) typesetting language with a focus on correctness.
 
 ## Goals
 * This grammar will be kept as close as possible to the official parser.
