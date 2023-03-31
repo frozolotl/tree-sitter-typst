@@ -6,6 +6,14 @@ This grammar will be kept as close as possible to the official parser.
 Visual inaccuracies should be considered a bug.
 It is however not a goal to produce the exact same syntax trees.
 
+## Missing Features
+- [ ] Code
+- [ ] Math
+- [ ] Lists
+- [ ] Enums
+- [ ] Terms
+- [ ] References
+
 ## Usage
 ### Helix
 Append the following configuration to your `~/.config/helix/languages.toml` or `%AppData%\helix\config.toml`.
