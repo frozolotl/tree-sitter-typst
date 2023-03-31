@@ -9,8 +9,9 @@ module.exports = grammar({
 
   externals: $ => [
     $._token_eof,
-    $.space,
+    $._space,
     $.parbreak,
+    $._newline,
     $._indent,
     $._dedent,
     $.raw,
@@ -18,20 +19,29 @@ module.exports = grammar({
     $.text,
     $._delim_strong,
     $._delim_emph,
-    $.heading_start,
   ],
 
   rules: {
     source_file: $ => optional($.markup),
 
-    markup: $ => repeat1(choice(
+    markup: $ => seq(
+      choice(
         $._markup_expr_base,
         $.space,
         $.parbreak,
         $.strong,
         $.emph,
-        $.heading,
-    )),
+        $._markup_expr_line_start_sof,
+      ),
+      repeat(choice(
+        $._markup_expr_base,
+        $.space,
+        $.parbreak,
+        $.strong,
+        $.emph,
+        $._markup_expr_line_start,
+      )),
+    ),
     _markup_expr_base: $ => choice(
       $.line_comment,
       $.block_comment,
@@ -53,9 +63,32 @@ module.exports = grammar({
       // TODO: SyntaxKind::RefMarker
       // TODO: SyntaxKind::Dollar
     ),
+    _markup_expr_line_start_sof: $ => seq(
+      repeat(prec.left(1, choice(
+        $.space,
+        $.parbreak,
+        $.block_comment,
+        $.line_comment,
+      ))),
+      $._markup_expr_line_start_content,
+    ),
+    _markup_expr_line_start: $ => seq(
+      $._whitespace_line,
+      $._markup_expr_line_start_content,
+    ),
+    _markup_expr_line_start_content: $ => repeat1(seq(
+      choice(
+        $.heading,
+      ),
+      choice(
+        $._token_eof,
+        alias($._newline, $.space),
+        $.parbreak,
+      )
+    )),
 
     _markup_expr_text: $ => alias(
-      token(choice(
+      token(prec(-1, choice(
         '[',
         ']',
         repeat1('='),
@@ -65,7 +98,7 @@ module.exports = grammar({
         '*',
         '_',
         ':',
-      )),
+      ))),
       $.text,
     ),
     linebreak: $ => token(seq(
@@ -91,59 +124,55 @@ module.exports = grammar({
       '>',
     ),
 
-    strong: $ => prec.left(seq(
+    strong: $ => seq(
       $._delim_strong,
       field('inner', $._markup_strong),
       $._delim_strong,
-    )),
+    ),
     _markup_strong: $ => alias(
       repeat1(choice(
         $._markup_expr_base,
         $.space,
         $.emph,
-        $.heading,
+        $._markup_expr_line_start,
       )),
       $.markup,
     ),
-    emph: $ => prec.left(seq(
+    emph: $ => seq(
       $._delim_emph,
       field('inner', $._markup_emph),
       $._delim_emph,
-    )),
+    ),
     _markup_emph: $ => alias(
       repeat1(choice(
         $._markup_expr_base,
         $.space,
         $.strong,
-        $.heading,
+        $._markup_expr_line_start,
       )),
       $.markup,
     ),
 
-    // Looks ugly, but seems to work.
+    heading_start: $ => /=+/,
     heading: $ => seq(
       $.heading_start,
       choice(
         $._token_eof,
         seq(
-          $._space_no_newline,
+          $._space_same_line,
           choice(
             $._token_eof,
-            seq(
-              field('inner', $._markup_no_newline),
-              choice(
-                $._token_eof,
-                LEAF.newline,
-              ),
-            ),
+            field('inner', $._markup_same_line),
           ),
         ),
       ),
     ),
-    _markup_no_newline: $ => alias(
+    _markup_same_line: $ => alias(
       prec.left(repeat1(choice(
         $._markup_expr_base,
-        $._space_no_newline,
+        $._space_same_line,
+        $.strong,
+        $.emph,
       ))),
       $.markup,
     ),
@@ -154,17 +183,28 @@ module.exports = grammar({
     block_comment: $ => seq(
       '/*',
       repeat(choice(
-        prec(1, choice(
+        choice(
           $.line_comment,
           $.block_comment,
-        )),
+        ),
         /./,
         LEAF.newline,
       )),
       choice('*/', $._token_eof),
     ),
 
-    _space_no_newline: $ => alias(/[ \t]+/, $.space),
+    space: $ => choice(
+      $._space,
+      $._newline,
+    ),
+    _whitespace_line: $ => prec(1, seq(
+      choice($._newline, $.parbreak),
+      repeat(choice(
+        $._space_same_line,
+        $.block_comment,
+      )),
+    )),
+    _space_same_line: $ => alias(/[ \t]+/, $.space),
   }
 });
 

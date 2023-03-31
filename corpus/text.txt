@@ -443,10 +443,9 @@ Y*
   (markup
     (strong
       (markup
-        (text)
-        (ERROR)
-        (space)
-        (text)))))
+        (text))
+      (ERROR
+        (parbreak)))))
 
 ================================================================================
 Strong with linebreak
@@ -475,10 +474,9 @@ Y_
   (markup
     (emph
       (markup
-        (text)
-        (ERROR)
-        (space)
-        (text)))))
+        (text))
+      (ERROR
+        (parbreak)))))
 
 ================================================================================
 Emphasis with linebreak

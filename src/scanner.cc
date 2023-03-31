@@ -1,5 +1,4 @@
 #include <cassert>
-#include <cstdio>  // TODO: Remove
 #include <cwctype>
 #include <deque>
 #include <string_view>
@@ -12,6 +11,7 @@ enum TokenType {
   TOKEN_EOF,
   SPACE,
   PARBREAK,
+  NEWLINE,
   INDENT,
   DEDENT,
   RAW,
@@ -19,7 +19,6 @@ enum TokenType {
   TEXT,
   DELIM_STRONG,
   DELIM_EMPH,
-  HEADING_START,
 };
 
 enum ScanResult {
@@ -147,7 +146,6 @@ class Scanner {
     unsigned cursor = 0;
 
     buffer[cursor++] = this->ends_with_word ? 1 : 0;
-    buffer[cursor++] = this->newline ? 1 : 0;
 
     assert(cursor + this->indent_length_stack.size() * 2 <
            TREE_SITTER_SERIALIZATION_BUFFER_SIZE);
@@ -162,14 +160,12 @@ class Scanner {
     // Default values.
     this->indent_length_stack.clear();
     this->ends_with_word = false;
-    this->newline = true;
     if (length == 0) {
       return;
     }
 
     size_t cursor = 0;
     this->ends_with_word = buffer[cursor++] != 0;
-    this->newline = buffer[cursor++] != 0;
     for (; cursor < length; cursor += 2) {
       uint16_t indent_length = static_cast<uint16_t>(buffer[cursor]) |
                                (static_cast<uint16_t>(buffer[cursor + 1]) << 8);
@@ -191,14 +187,6 @@ class Scanner {
     }
 
     HANDLE_SCAN_RESULT(this->scan_space(lexer, valid_symbols));
-    bool newline = this->newline;
-    this->newline = false;
-
-    if (valid_symbols[HEADING_START] && newline && lexer.eat_if('=')) {
-      while (lexer.eat_if('='))
-        ;
-      HANDLE_SCAN_RESULT(lexer.recognized(HEADING_START));
-    }
 
     if (valid_symbols[DELIM_STRONG] && lexer.eat_if('*')) {
       bool word_before = ends_with_word;
@@ -282,10 +270,10 @@ class Scanner {
           break;
         }
         default: {
-          // Anything other than whitespace.
-          this->newline = started_at_line_start || newline_count > 0 || (is_at_first_char && this->newline);
           if (valid_symbols[PARBREAK] && newline_count >= 2) {
             return lexer.recognized(PARBREAK);
+          } else if (valid_symbols[NEWLINE] && is_space && newline_count == 1) {
+            return lexer.recognized(NEWLINE);
           } else if (valid_symbols[SPACE] && is_space && newline_count < 2) {
             return lexer.recognized(SPACE);
           } else if (is_space) {
@@ -325,7 +313,8 @@ class Scanner {
         case '$':
         case '<':
         case '>':
-        case '#': {
+        case '#':
+        case '=': {
           return lexer.recognized(TEXT);
         }
         case ' ': {

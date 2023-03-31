@@ -80,7 +80,7 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "block_comment",
@@ -161,6 +161,11 @@
     }
   },
   {
+    "type": "space",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "strong",
     "named": true,
     "fields": {
@@ -222,10 +227,6 @@
   },
   {
     "type": "smart_quote",
-    "named": true
-  },
-  {
-    "type": "space",
     "named": true
   },
   {

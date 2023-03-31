@@ -46,12 +46,12 @@ Bar Baz
 (source_file
   (markup
     (text)
-    (space)
     (heading
       (heading_start)
       (space)
       (markup
         (text)))
+    (space)
     (text)))
 
 ================================================================================
@@ -85,13 +85,31 @@ Comment before heading
         (text)))))
 
 ================================================================================
-Not a heading
+Comment plus space before heading
 ================================================================================
-Text == Am I a heading?
+/**/ = Heading
 --------------------------------------------------------------------------------
 
 (source_file
   (markup
+    (block_comment)
+    (space)
+    (heading
+      (heading_start)
+      (space)
+      (markup
+        (text)))))
+
+================================================================================
+Not a heading
+================================================================================
+Text == Not a heading
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (text)
+    (space)
     (text)
     (space)
     (text)))
@@ -99,11 +117,30 @@ Text == Am I a heading?
 ================================================================================
 Non-text character before heading
 ================================================================================
-] = Am I a heading?
+] = Not a heading
 --------------------------------------------------------------------------------
 
 (source_file
   (markup
+    (text)
+    (space)
+    (text)
+    (space)
+    (text)))
+
+================================================================================
+Text before multi-line block comment before heading
+================================================================================
+test /*
+*/ = Not a heading
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (text)
+    (space)
+    (block_comment)
+    (space)
     (text)
     (space)
     (text)))
@@ -120,11 +157,53 @@ Strong heading
   (markup
     (strong
       (markup
-        (space)
         (heading
           (heading_start)
           (space)
           (markup
-            (text)))))))
-      
+            (text)))
+        (space)))))
 
+================================================================================
+Consecutive headings
+================================================================================
+= Foo
+= Bar
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (heading
+      (heading_start)
+      (space)
+      (markup
+        (text)))
+    (space)
+    (heading
+      (heading_start)
+      (space)
+      (markup
+        (text)))))
+
+================================================================================
+Heading with multiple markup expressions
+================================================================================
+= Foo *strong* https://example.com
+New line
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (heading
+      (heading_start)
+      (space)
+      (markup
+        (text)
+        (space)
+        (strong
+          (markup
+            (text)))
+        (space)
+        (link)))
+    (space)
+    (text)))
