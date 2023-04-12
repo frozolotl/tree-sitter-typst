@@ -125,6 +125,10 @@
         {
           "type": "SYMBOL",
           "name": "label"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "reference"
         }
       ]
     },
@@ -371,12 +375,41 @@
           "name": "text",
           "content": {
             "type": "PATTERN",
-            "value": "[\\-_\\p{XID_Continue}]+"
+            "value": "[\\-_:\\.\\p{XID_Continue}]+"
           }
         },
         {
           "type": "STRING",
           "value": ">"
+        }
+      ]
+    },
+    "reference": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "@"
+        },
+        {
+          "type": "FIELD",
+          "name": "text",
+          "content": {
+            "type": "PATTERN",
+            "value": "([:\\.]*[\\-_\\p{XID_Continue}])+"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "content_block"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
@@ -564,6 +597,31 @@
     "ident": {
       "type": "PATTERN",
       "value": "[_\\p{XID_Start}][\\-_\\p{XID_Continue}]*"
+    },
+    "content_block": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "["
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "markup"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "]"
+        }
+      ]
     },
     "line_comment": {
       "type": "TOKEN",

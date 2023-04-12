@@ -55,12 +55,12 @@ module.exports = grammar({
       $.raw,
       $.link,
       $.label,
+      $.reference,
 
       // TODO: SyntaxKind::Hashtag
       // TODO: SyntaxKind::ListMarker
       // TODO: SyntaxKind::EnumMarker
       // TODO: SyntaxKind::TermMarker
-      // TODO: SyntaxKind::RefMarker
       // TODO: SyntaxKind::Dollar
     ),
     _markup_expr_line_start_sof: $ => seq(
@@ -120,8 +120,13 @@ module.exports = grammar({
     ),
     label: $ => seq(
       '<',
-      field('text', /[\-_\p{XID_Continue}]+/),
+      field('text', /[\-_:\.\p{XID_Continue}]+/),
       '>',
+    ),
+    reference: $ => seq(
+      '@',
+      field('text', /([:\.]*[\-_\p{XID_Continue}])+/),
+      optional($.content_block),
     ),
 
     strong: $ => seq(
@@ -178,6 +183,12 @@ module.exports = grammar({
     ),
 
     ident: $ => /[_\p{XID_Start}][\-_\p{XID_Continue}]*/,
+
+    content_block: $ => seq(
+      '[',
+      optional($.markup),
+      ']',
+    ),
 
     line_comment: $ => token(seq('//', /.*/)),
     block_comment: $ => seq(

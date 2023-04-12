@@ -131,6 +131,11 @@ class Lexer {
 
   bool at_line_start() { return this->lexer->get_column(lexer) == 0; }
 
+  /// Whether anything was swallowed yet.
+  bool is_empty() {
+    return !this->not_empty;
+  }
+
   /// Whether the end of the input was reached.
   bool eof() {
     return this->lexer->lookahead == 0 && this->lexer->eof(this->lexer);
@@ -353,7 +358,10 @@ class Scanner {
           break;
         }
         case '@': {
-          if (ch1 == '_' || std::iswspace(static_cast<wint_t>(ch1))) {
+          if (lexer.eof() && lexer.is_empty()) {
+            return BREAK;
+          }
+          if (ch1 == '_' || std::iswalpha(static_cast<wint_t>(ch1))) {
             return lexer.recognized(TEXT);
           }
           break;
