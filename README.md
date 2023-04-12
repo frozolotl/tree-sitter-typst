@@ -14,7 +14,6 @@ A tree-sitter grammar for the [typst](https://typst.app/) typesetting language w
 - [ ] Lists
 - [ ] Enums
 - [ ] Terms
-- [ ] References
 
 ## Usage
 ### Helix
