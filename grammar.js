@@ -105,7 +105,10 @@ module.exports = grammar({
       '\\',
       choice(LEAF.newline, /\s/),
     )),
-    escape: $ => /\\u\{[a-fA-F0-9]{1,4}\}/,
+    escape: $ => token(choice(
+      /\\u\{[a-fA-F0-9]{1,4}\}/,
+      /\\[^\p{White_Space}]/,
+    )),
     shorthand: $ => token(choice(
       '...',
       '---',

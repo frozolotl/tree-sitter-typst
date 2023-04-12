@@ -303,8 +303,20 @@
       }
     },
     "escape": {
-      "type": "PATTERN",
-      "value": "\\\\u\\{[a-fA-F0-9]{1,4}\\}"
+      "type": "TOKEN",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "PATTERN",
+            "value": "\\\\u\\{[a-fA-F0-9]{1,4}\\}"
+          },
+          {
+            "type": "PATTERN",
+            "value": "\\\\[^\\p{White_Space}]"
+          }
+        ]
+      }
     },
     "shorthand": {
       "type": "TOKEN",
