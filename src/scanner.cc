@@ -429,7 +429,6 @@ class Scanner {
         case ';':
         case '?':
         case '\'': {
-          lexer.swallow();
           lexer.bite();
           break;
         }
