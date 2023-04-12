@@ -50,6 +50,22 @@
     }
   },
   {
+    "type": "equation",
+    "named": true,
+    "fields": {
+      "inner": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "math",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "heading",
     "named": true,
     "fields": {
@@ -106,6 +122,10 @@
           "named": true
         },
         {
+          "type": "equation",
+          "named": true
+        },
+        {
           "type": "escape",
           "named": true
         },
@@ -142,10 +162,6 @@
           "named": true
         },
         {
-          "type": "shorthand",
-          "named": true
-        },
-        {
           "type": "smart_quote",
           "named": true
         },
@@ -160,9 +176,53 @@
         {
           "type": "text",
           "named": true
+        },
+        {
+          "type": "text_shorthand",
+          "named": true
         }
       ]
     }
+  },
+  {
+    "type": "math",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "escape",
+          "named": true
+        },
+        {
+          "type": "linebreak",
+          "named": true
+        },
+        {
+          "type": "math_align_point",
+          "named": true
+        },
+        {
+          "type": "math_shorthand",
+          "named": true
+        },
+        {
+          "type": "math_text",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "math_shorthand",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "reference",
@@ -217,7 +277,43 @@
     }
   },
   {
+    "type": "!=",
+    "named": false
+  },
+  {
+    "type": "$",
+    "named": false
+  },
+  {
+    "type": "'",
+    "named": false
+  },
+  {
+    "type": "*",
+    "named": false
+  },
+  {
     "type": "*/",
+    "named": false
+  },
+  {
+    "type": "-",
+    "named": false
+  },
+  {
+    "type": "-->",
+    "named": false
+  },
+  {
+    "type": "->",
+    "named": false
+  },
+  {
+    "type": "->>",
+    "named": false
+  },
+  {
+    "type": "...",
     "named": false
   },
   {
@@ -225,11 +321,103 @@
     "named": false
   },
   {
+    "type": "::=",
+    "named": false
+  },
+  {
+    "type": ":=",
+    "named": false
+  },
+  {
     "type": "<",
     "named": false
   },
   {
+    "type": "<-",
+    "named": false
+  },
+  {
+    "type": "<--",
+    "named": false
+  },
+  {
+    "type": "<-->",
+    "named": false
+  },
+  {
+    "type": "<-<",
+    "named": false
+  },
+  {
+    "type": "<->",
+    "named": false
+  },
+  {
+    "type": "<<",
+    "named": false
+  },
+  {
+    "type": "<<-",
+    "named": false
+  },
+  {
+    "type": "<<<",
+    "named": false
+  },
+  {
+    "type": "<=",
+    "named": false
+  },
+  {
+    "type": "<==",
+    "named": false
+  },
+  {
+    "type": "<==>",
+    "named": false
+  },
+  {
+    "type": "<=>",
+    "named": false
+  },
+  {
+    "type": "<~",
+    "named": false
+  },
+  {
+    "type": "<~~",
+    "named": false
+  },
+  {
+    "type": "=:",
+    "named": false
+  },
+  {
+    "type": "==>",
+    "named": false
+  },
+  {
+    "type": "=>",
+    "named": false
+  },
+  {
     "type": ">",
+    "named": false
+  },
+  {
+    "type": ">->",
+    "named": false
+  },
+  {
+    "type": ">=",
+    "named": false
+  },
+  {
+    "type": ">>",
+    "named": false
+  },
+  {
+    "type": ">>>",
     "named": false
   },
   {
@@ -238,6 +426,10 @@
   },
   {
     "type": "[",
+    "named": false
+  },
+  {
+    "type": "[|",
     "named": false
   },
   {
@@ -261,6 +453,14 @@
     "named": true
   },
   {
+    "type": "math_align_point",
+    "named": true
+  },
+  {
+    "type": "math_text",
+    "named": true
+  },
+  {
     "type": "parbreak",
     "named": true
   },
@@ -269,15 +469,43 @@
     "named": true
   },
   {
-    "type": "shorthand",
+    "type": "smart_quote",
     "named": true
   },
   {
-    "type": "smart_quote",
+    "type": "string",
     "named": true
   },
   {
     "type": "text",
     "named": true
+  },
+  {
+    "type": "text_shorthand",
+    "named": true
+  },
+  {
+    "type": "|->",
+    "named": false
+  },
+  {
+    "type": "|=>",
+    "named": false
+  },
+  {
+    "type": "|]",
+    "named": false
+  },
+  {
+    "type": "||",
+    "named": false
+  },
+  {
+    "type": "~>",
+    "named": false
+  },
+  {
+    "type": "~~>",
+    "named": false
   }
 ]

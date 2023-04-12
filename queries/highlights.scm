@@ -3,7 +3,7 @@
 
 (markup) @markup
 (escape) @string.escape
-(shorthand) @punctuation
+(text_shorthand) @punctuation
 (smart_quote) @punctuation
 (raw) @markup.raw.inline
 (link) @markup.link.url

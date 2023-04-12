@@ -108,7 +108,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "shorthand"
+          "name": "text_shorthand"
         },
         {
           "type": "SYMBOL",
@@ -129,6 +129,10 @@
         {
           "type": "SYMBOL",
           "name": "reference"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "equation"
         }
       ]
     },
@@ -318,7 +322,7 @@
         ]
       }
     },
-    "shorthand": {
+    "text_shorthand": {
       "type": "TOKEN",
       "content": {
         "type": "CHOICE",
@@ -610,9 +614,251 @@
       "named": true,
       "value": "markup"
     },
-    "ident": {
+    "equation": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "$"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "inner",
+              "content": {
+                "type": "SYMBOL",
+                "name": "math"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "$"
+        }
+      ]
+    },
+    "math": {
+      "type": "REPEAT1",
+      "content": {
+        "type": "SYMBOL",
+        "name": "_math_expr"
+      }
+    },
+    "_math_expr": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "math_text"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "math_shorthand"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "linebreak"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "math_align_point"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "escape"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "string"
+        }
+      ]
+    },
+    "math_shorthand": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "->>"
+        },
+        {
+          "type": "STRING",
+          "value": "->"
+        },
+        {
+          "type": "STRING",
+          "value": "-->"
+        },
+        {
+          "type": "STRING",
+          "value": ":="
+        },
+        {
+          "type": "STRING",
+          "value": "::="
+        },
+        {
+          "type": "STRING",
+          "value": "!="
+        },
+        {
+          "type": "STRING",
+          "value": "..."
+        },
+        {
+          "type": "STRING",
+          "value": "[|"
+        },
+        {
+          "type": "STRING",
+          "value": "<==>"
+        },
+        {
+          "type": "STRING",
+          "value": "<-->"
+        },
+        {
+          "type": "STRING",
+          "value": "<--"
+        },
+        {
+          "type": "STRING",
+          "value": "<-<"
+        },
+        {
+          "type": "STRING",
+          "value": "<->"
+        },
+        {
+          "type": "STRING",
+          "value": "<<-"
+        },
+        {
+          "type": "STRING",
+          "value": "<<<"
+        },
+        {
+          "type": "STRING",
+          "value": "<=>"
+        },
+        {
+          "type": "STRING",
+          "value": "<=="
+        },
+        {
+          "type": "STRING",
+          "value": "<~~"
+        },
+        {
+          "type": "STRING",
+          "value": "<="
+        },
+        {
+          "type": "STRING",
+          "value": "<<"
+        },
+        {
+          "type": "STRING",
+          "value": "<-"
+        },
+        {
+          "type": "STRING",
+          "value": "<~"
+        },
+        {
+          "type": "STRING",
+          "value": ">->"
+        },
+        {
+          "type": "STRING",
+          "value": ">>>"
+        },
+        {
+          "type": "STRING",
+          "value": "==>"
+        },
+        {
+          "type": "STRING",
+          "value": "=>"
+        },
+        {
+          "type": "STRING",
+          "value": "=:"
+        },
+        {
+          "type": "STRING",
+          "value": ">="
+        },
+        {
+          "type": "STRING",
+          "value": ">>"
+        },
+        {
+          "type": "STRING",
+          "value": "|->"
+        },
+        {
+          "type": "STRING",
+          "value": "|=>"
+        },
+        {
+          "type": "STRING",
+          "value": "|]"
+        },
+        {
+          "type": "STRING",
+          "value": "||"
+        },
+        {
+          "type": "STRING",
+          "value": "~~>"
+        },
+        {
+          "type": "STRING",
+          "value": "~>"
+        },
+        {
+          "type": "STRING",
+          "value": "*"
+        },
+        {
+          "type": "STRING",
+          "value": "'"
+        },
+        {
+          "type": "STRING",
+          "value": "-"
+        }
+      ]
+    },
+    "math_align_point": {
+      "type": "STRING",
+      "value": "&"
+    },
+    "math_text": {
       "type": "PATTERN",
-      "value": "[_\\p{XID_Start}][\\-_\\p{XID_Continue}]*"
+      "value": "\\d+(\\.\\d+)*|\\P{M}\\p{M}+|."
+    },
+    "math_ident": {
+      "type": "TOKEN",
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "PATTERN",
+            "value": "\\p{XID_Start}"
+          },
+          {
+            "type": "PATTERN",
+            "value": "[\\p{XID_Start}\\p{Mn}\\p{Mc}\\p{Nd}\\u{00B7}\\u{0387}\\u{0E33}\\u{0EB3}\\u{1369}\\u{136A}\\u{136B}\\u{136C}\\u{136D}\\u{136E}\\u{136F}\\u{1370}\\u{1371}\\u{19DA}\\u{203F}\\u{2040}\\u{2054}\\u{FE33}\\u{FE34}\\u{FE4D}\\u{FE4E}\\u{FE4F}\\u{FF3F}\\u{FF9E}\\u{FF9F}]+"
+          }
+        ]
+      }
     },
     "content_block": {
       "type": "SEQ",
@@ -638,6 +884,14 @@
           "value": "]"
         }
       ]
+    },
+    "code_ident": {
+      "type": "PATTERN",
+      "value": "[_\\p{XID_Start}][\\-_\\p{XID_Continue}]*"
+    },
+    "string": {
+      "type": "PATTERN",
+      "value": "\"(\\\\\"|[^\"])*\""
     },
     "line_comment": {
       "type": "TOKEN",

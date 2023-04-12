@@ -24,6 +24,8 @@ module.exports = grammar({
   rules: {
     source_file: $ => optional($.markup),
 
+    // Markup
+
     markup: $ => seq(
       choice(
         $._markup_expr_base,
@@ -50,18 +52,19 @@ module.exports = grammar({
       $._markup_expr_text,
       $.linebreak,
       $.escape,
-      $.shorthand,
+      $.text_shorthand,
       $.smart_quote,
       $.raw,
       $.link,
       $.label,
       $.reference,
 
+      $.equation,
+
       // TODO: SyntaxKind::Hashtag
       // TODO: SyntaxKind::ListMarker
       // TODO: SyntaxKind::EnumMarker
       // TODO: SyntaxKind::TermMarker
-      // TODO: SyntaxKind::Dollar
     ),
     _markup_expr_line_start_sof: $ => seq(
       repeat(prec.left(1, choice(
@@ -109,7 +112,7 @@ module.exports = grammar({
       /\\u\{[a-fA-F0-9]{1,4}\}/,
       /\\[^\p{White_Space}]/,
     )),
-    shorthand: $ => token(choice(
+    text_shorthand: $ => token(choice(
       '...',
       '---',
       '--',
@@ -185,13 +188,60 @@ module.exports = grammar({
       $.markup,
     ),
 
-    ident: $ => /[_\p{XID_Start}][\-_\p{XID_Continue}]*/,
+    // Math
+
+    equation: $ => seq(
+      '$',
+      optional(field('inner', $.math)),
+      '$',
+    ),
+    math: $ => repeat1($._math_expr),
+    _math_expr: $ => choice(
+      // TODO: SyntaxKind::Hashtag
+      $.math_text,
+      // FIXME: check `maybe_delimited`
+      $.math_shorthand,
+      $.linebreak,
+      $.math_align_point,
+      $.escape,
+      $.string,
+    ),
+
+    math_shorthand: $ => choice(
+      '->>', '->', '-->', ':=',
+      '::=', '!=', '...', '[|',
+      '<==>', '<-->', '<--', '<-<',
+      '<->', '<<-', '<<<', '<=>',
+      '<==', '<~~', '<=', '<<',
+      '<-', '<~', '>->', '>>>',
+      '==>', '=>', '=:', '>=',
+      '>>', '|->', '|=>', '|]',
+      '||', '~~>', '~>', '*',
+      '\'', '-',
+    ),
+    math_align_point: $ => '&',
+
+    math_text: $ => /\d+(\.\d+)*|\P{M}\p{M}+|./,
+    math_ident: $ => token(seq(
+      /\p{XID_Start}/,
+      // This should actually just be \p{XID_Continue} without underscores,
+      // but regular expressions don't seem to support that.
+      // So, here's a nice little regex that matches the same characters.
+      /[\p{XID_Start}\p{Mn}\p{Mc}\p{Nd}\u{00B7}\u{0387}\u{0E33}\u{0EB3}\u{1369}\u{136A}\u{136B}\u{136C}\u{136D}\u{136E}\u{136F}\u{1370}\u{1371}\u{19DA}\u{203F}\u{2040}\u{2054}\u{FE33}\u{FE34}\u{FE4D}\u{FE4E}\u{FE4F}\u{FF3F}\u{FF9E}\u{FF9F}]+/,
+    )),
+
+    // Code
 
     content_block: $ => seq(
       '[',
       optional($.markup),
       ']',
     ),
+
+    code_ident: $ => /[_\p{XID_Start}][\-_\p{XID_Continue}]*/,
+    string: $ => /"(\\"|[^"])*"/,
+
+    // Whitespace and Comments
 
     line_comment: $ => token(seq('//', /.*/)),
     block_comment: $ => seq(

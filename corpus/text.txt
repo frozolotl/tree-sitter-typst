@@ -99,15 +99,15 @@ Shorthands
 
 (source_file
   (markup
-    (shorthand)
+    (text_shorthand)
     (space)
-    (shorthand)
+    (text_shorthand)
     (space)
-    (shorthand)
+    (text_shorthand)
     (space)
-    (shorthand)
+    (text_shorthand)
     (space)
-    (shorthand)))
+    (text_shorthand)))
 
 ================================================================================
 SmartQuote, single
@@ -267,7 +267,7 @@ Hey, check out https://example.com/...
   (markup
     (text)
     (link)
-    (shorthand)))
+    (text_shorthand)))
 
 ================================================================================
 Link, exclamation mark, then shorthand
@@ -280,7 +280,7 @@ Hey, check out https://example.com/!...
     (text)
     (link)
     (text)
-    (shorthand)))
+    (text_shorthand)))
 
 ================================================================================
 Link, nested brackets
@@ -310,8 +310,7 @@ https://bar]
 --------------------------------------------------------------------------------
 
 (source_file
-  (ERROR
-    (ident)))
+  (ERROR))
 
 ================================================================================
 Link, badly paired brackets [)
@@ -320,8 +319,7 @@ https://[bar)
 --------------------------------------------------------------------------------
 
 (source_file
-  (ERROR
-    (ident)))
+  (ERROR))
 
 ================================================================================
 Link, badly paired brackets (]
@@ -330,8 +328,7 @@ https://(bar]
 --------------------------------------------------------------------------------
 
 (source_file
-  (ERROR
-    (ident)))
+  (ERROR))
 
 ================================================================================
 Link, but not http(s)
