@@ -129,7 +129,7 @@ module.exports = grammar({
     reference: $ => seq(
       '@',
       field('text', /([:\.]*[\-_\p{XID_Continue}])+/),
-      optional($.content_block),
+      optional(field('content', $.content_block)),
     ),
 
     strong: $ => seq(

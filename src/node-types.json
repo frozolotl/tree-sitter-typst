@@ -167,16 +167,17 @@
   {
     "type": "reference",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "content_block",
-          "named": true
-        }
-      ]
+    "fields": {
+      "content": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "content_block",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
