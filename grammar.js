@@ -205,6 +205,9 @@ module.exports = grammar({
       $.math_align_point,
       $.escape,
       $.string,
+
+      $.math_field_access,
+      $.math_function_call,
     ),
 
     math_shorthand: $ => choice(
@@ -221,6 +224,36 @@ module.exports = grammar({
     ),
     math_align_point: $ => '&',
 
+    math_field_access: $ => seq(
+      $.math_ident,
+      repeat(seq('.', $._math_text_ident)),
+    ),
+    math_function_call: $ => seq(
+      $.math_field_access,
+      '(',
+      field('args', optional($.math_args)),
+      ')'
+    ),
+    math_args: $ => choice(
+      repeat1(seq(
+        choice(',', ';'),
+        optional(choice($.math_arg_named, $.math)),
+      )),
+      seq(
+        choice($.math_arg_named, $.math),
+        repeat(seq(
+          choice(',', ';'),
+          optional(choice($.math_arg_named, $.math)),
+        )),
+      ),
+    ),
+    math_arg_named: $ => seq(
+      field('name', $._math_text_ident),
+      ':',
+      optional(field('arg', $.math)),
+    ),
+
+    /// FIXME: Grapheme clusters are not parsed correctly.
     math_text: $ => /\d+(\.\d+)*|\P{M}\p{M}+|./,
     math_ident: $ => token(seq(
       /\p{XID_Start}/,
@@ -229,6 +262,10 @@ module.exports = grammar({
       // So, here's a nice little regex that matches the same characters.
       /[\p{XID_Start}\p{Mn}\p{Mc}\p{Nd}\u{00B7}\u{0387}\u{0E33}\u{0EB3}\u{1369}\u{136A}\u{136B}\u{136C}\u{136D}\u{136E}\u{136F}\u{1370}\u{1371}\u{19DA}\u{203F}\u{2040}\u{2054}\u{FE33}\u{FE34}\u{FE4D}\u{FE4E}\u{FE4F}\u{FF3F}\u{FF9E}\u{FF9F}]+/,
     )),
+    _math_text_ident: $ => choice(
+      $.math_ident,
+      alias($.math_text, $.math_ident),
+    ),
 
     // Code
 
@@ -271,4 +308,3 @@ module.exports = grammar({
     _space_same_line: $ => alias(/[ \t]+/, $.space),
   }
 });
-
