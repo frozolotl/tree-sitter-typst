@@ -254,7 +254,7 @@ module.exports = grammar({
     ),
 
     /// FIXME: Grapheme clusters are not parsed correctly.
-    math_text: $ => /\d+(\.\d+)*|\P{M}\p{M}+|./,
+    math_text: $ => /\d+(\.\d+)?|\P{M}\p{M}+|./,
     math_ident: $ => token(seq(
       /\p{XID_Start}/,
       // This should actually just be \p{XID_Continue} without underscores,

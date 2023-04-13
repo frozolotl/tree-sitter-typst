@@ -1048,7 +1048,7 @@
     },
     "math_text": {
       "type": "PATTERN",
-      "value": "\\d+(\\.\\d+)*|\\P{M}\\p{M}+|."
+      "value": "\\d+(\\.\\d+)?|\\P{M}\\p{M}+|."
     },
     "math_ident": {
       "type": "TOKEN",
