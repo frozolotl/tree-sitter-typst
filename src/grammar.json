@@ -655,6 +655,10 @@
       "members": [
         {
           "type": "SYMBOL",
+          "name": "_trivia"
+        },
+        {
+          "type": "SYMBOL",
           "name": "math_text"
         },
         {
@@ -717,10 +721,6 @@
         {
           "type": "STRING",
           "value": "..."
-        },
-        {
-          "type": "STRING",
-          "value": "[|"
         },
         {
           "type": "STRING",
@@ -816,14 +816,6 @@
         },
         {
           "type": "STRING",
-          "value": "|]"
-        },
-        {
-          "type": "STRING",
-          "value": "||"
-        },
-        {
-          "type": "STRING",
           "value": "~~>"
         },
         {
@@ -843,6 +835,42 @@
           "value": "-"
         }
       ]
+    },
+    "_math_shorthand_open": {
+      "type": "ALIAS",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "[|"
+          },
+          {
+            "type": "STRING",
+            "value": "||"
+          }
+        ]
+      },
+      "named": true,
+      "value": "math_shorthand"
+    },
+    "_math_shorthand_close": {
+      "type": "ALIAS",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "|]"
+          },
+          {
+            "type": "STRING",
+            "value": "||"
+          }
+        ]
+      },
+      "named": true,
+      "value": "math_shorthand"
     },
     "math_align_point": {
       "type": "STRING",
@@ -912,48 +940,25 @@
         {
           "type": "REPEAT1",
           "content": {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "STRING",
-                    "value": ","
-                  },
-                  {
-                    "type": "STRING",
-                    "value": ";"
-                  }
-                ]
-              },
-              {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "CHOICE",
-                    "members": [
-                      {
-                        "type": "SYMBOL",
-                        "name": "math_arg_named"
-                      },
-                      {
-                        "type": "SYMBOL",
-                        "name": "math"
-                      }
-                    ]
-                  },
-                  {
-                    "type": "BLANK"
-                  }
-                ]
-              }
-            ]
+            "type": "SYMBOL",
+            "name": "_math_arg"
           }
         },
         {
           "type": "SEQ",
           "members": [
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_trivia"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
             {
               "type": "CHOICE",
               "members": [
@@ -970,44 +975,60 @@
             {
               "type": "REPEAT",
               "content": {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "CHOICE",
-                    "members": [
-                      {
-                        "type": "STRING",
-                        "value": ","
-                      },
-                      {
-                        "type": "STRING",
-                        "value": ";"
-                      }
-                    ]
-                  },
-                  {
-                    "type": "CHOICE",
-                    "members": [
-                      {
-                        "type": "CHOICE",
-                        "members": [
-                          {
-                            "type": "SYMBOL",
-                            "name": "math_arg_named"
-                          },
-                          {
-                            "type": "SYMBOL",
-                            "name": "math"
-                          }
-                        ]
-                      },
-                      {
-                        "type": "BLANK"
-                      }
-                    ]
-                  }
-                ]
+                "type": "SYMBOL",
+                "name": "_math_arg"
               }
+            }
+          ]
+        }
+      ]
+    },
+    "_math_arg": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": ","
+            },
+            {
+              "type": "STRING",
+              "value": ";"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_trivia"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "math_arg_named"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "math"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
             }
           ]
         }
@@ -1027,6 +1048,18 @@
         {
           "type": "STRING",
           "value": ":"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_trivia"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         },
         {
           "type": "CHOICE",
@@ -1116,6 +1149,27 @@
     "string": {
       "type": "PATTERN",
       "value": "\"(\\\\\"|[^\"])*\""
+    },
+    "_trivia": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "space"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "parbreak"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "line_comment"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "block_comment"
+        }
+      ]
     },
     "line_comment": {
       "type": "TOKEN",
@@ -1247,7 +1301,26 @@
   },
   "extras": [],
   "conflicts": [],
-  "precedences": [],
+  "precedences": [
+    [
+      {
+        "type": "SYMBOL",
+        "name": "math_args"
+      },
+      {
+        "type": "SYMBOL",
+        "name": "math_arg_named"
+      },
+      {
+        "type": "SYMBOL",
+        "name": "_math_arg"
+      },
+      {
+        "type": "SYMBOL",
+        "name": "_math_expr"
+      }
+    ]
+  ],
   "externals": [
     {
       "type": "SYMBOL",

@@ -193,7 +193,15 @@
       "required": true,
       "types": [
         {
+          "type": "block_comment",
+          "named": true
+        },
+        {
           "type": "escape",
+          "named": true
+        },
+        {
+          "type": "line_comment",
           "named": true
         },
         {
@@ -218,6 +226,14 @@
         },
         {
           "type": "math_text",
+          "named": true
+        },
+        {
+          "type": "parbreak",
+          "named": true
+        },
+        {
+          "type": "space",
           "named": true
         },
         {
@@ -251,6 +267,28 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "block_comment",
+          "named": true
+        },
+        {
+          "type": "line_comment",
+          "named": true
+        },
+        {
+          "type": "parbreak",
+          "named": true
+        },
+        {
+          "type": "space",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -262,11 +300,27 @@
       "required": false,
       "types": [
         {
+          "type": "block_comment",
+          "named": true
+        },
+        {
+          "type": "line_comment",
+          "named": true
+        },
+        {
           "type": "math",
           "named": true
         },
         {
           "type": "math_arg_named",
+          "named": true
+        },
+        {
+          "type": "parbreak",
+          "named": true
+        },
+        {
+          "type": "space",
           "named": true
         }
       ]
@@ -547,10 +601,6 @@
     "named": false
   },
   {
-    "type": "[|",
-    "named": false
-  },
-  {
     "type": "]",
     "named": false
   },
@@ -612,14 +662,6 @@
   },
   {
     "type": "|=>",
-    "named": false
-  },
-  {
-    "type": "|]",
-    "named": false
-  },
-  {
-    "type": "||",
     "named": false
   },
   {

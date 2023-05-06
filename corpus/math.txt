@@ -19,7 +19,7 @@ $-> ~~>$
     (equation
       (math
         (math_shorthand)
-        (math_text)
+        (space)
         (math_shorthand)))))
 
 ================================================================================
@@ -206,8 +206,8 @@ $foo(1, 2)$
           (math_args
             (math
               (math_text))
+            (space)
             (math
-              (math_text)
               (math_text))))))))
 
 ================================================================================
@@ -226,8 +226,8 @@ $foo(1, 2,)$
           (math_args
             (math
               (math_text))
+            (space)
             (math
-              (math_text)
               (math_text))))))))
 
 ================================================================================
@@ -246,6 +246,46 @@ $foo(bar:5)$
           args: (math_args
             (math_arg_named
               name: (math_ident)
+              arg: (math
+                (math_text)))))))))
+
+================================================================================
+Function call, one named argument without value
+================================================================================
+$foo(bar:)$
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (equation
+      inner: (math
+        (math_function_call
+          (math_field_access
+            (math_ident))
+          args: (math_args
+            (math_arg_named
+              name: (math_ident))))))))
+
+================================================================================
+Function call, one unnamed argument, then one named argument
+================================================================================
+$foo(0, bar: 1)$
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (equation
+      inner: (math
+        (math_function_call
+          (math_field_access
+            (math_ident))
+          args: (math_args
+            (math
+              (math_text))
+            (space)
+            (math_arg_named
+              name: (math_ident)
+              (space)
               arg: (math
                 (math_text)))))))))
 
@@ -297,12 +337,12 @@ $mat(1, 2; 3, 4)$
           (math_args
             (math
               (math_text))
+            (space)
             (math
-              (math_text)
               (math_text))
+            (space)
             (math
-              (math_text)
               (math_text))
+            (space)
             (math
-              (math_text)
               (math_text))))))))

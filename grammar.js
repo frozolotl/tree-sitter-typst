@@ -2,6 +2,8 @@ const LEAF = {
   newline: /\r\n|[\n\x0B\x0C\r\x85\u2028\u2029]/,
 };
 
+let trivia = $ => optional($._trivia);
+
 module.exports = grammar({
   name: 'typst',
 
@@ -19,6 +21,15 @@ module.exports = grammar({
     $.text,
     $._delim_strong,
     $._delim_emph,
+  ],
+
+  precedences: $ => [
+    [
+      $.math_args,
+      $.math_arg_named,
+      $._math_arg,
+      $._math_expr,
+    ],
   ],
 
   rules: {
@@ -197,6 +208,8 @@ module.exports = grammar({
     ),
     math: $ => repeat1($._math_expr),
     _math_expr: $ => choice(
+      $._trivia,
+
       // TODO: SyntaxKind::Hashtag
       $.math_text,
       // FIXME: check `maybe_delimited`
@@ -212,44 +225,49 @@ module.exports = grammar({
 
     math_shorthand: $ => choice(
       '->>', '->', '-->', ':=',
-      '::=', '!=', '...', '[|',
-      '<==>', '<-->', '<--', '<-<',
-      '<->', '<<-', '<<<', '<=>',
-      '<==', '<~~', '<=', '<<',
-      '<-', '<~', '>->', '>>>',
-      '==>', '=>', '=:', '>=',
-      '>>', '|->', '|=>', '|]',
-      '||', '~~>', '~>', '*',
-      '\'', '-',
+      '::=', '!=', '...', '<==>',
+      '<-->', '<--', '<-<', '<->',
+      '<<-', '<<<', '<=>', '<==',
+      '<~~', '<=', '<<', '<-',
+      '<~', '>->', '>>>', '==>',
+      '=>', '=:', '>=', '>>',
+      '|->', '|=>', '~~>', '~>',
+      '*', '\'', '-',
     ),
+    _math_shorthand_open: $ => alias(choice('[|', '||'), $.math_shorthand),
+    _math_shorthand_close: $ => alias(choice('|]', '||'), $.math_shorthand),
     math_align_point: $ => '&',
 
     math_field_access: $ => seq(
       $.math_ident,
-      repeat(seq('.', $._math_text_ident)),
+      repeat(seq(
+        '.',
+        $._math_text_ident,
+      )),
     ),
     math_function_call: $ => seq(
       $.math_field_access,
       '(',
       field('args', optional($.math_args)),
-      ')'
+      ')',
     ),
     math_args: $ => choice(
-      repeat1(seq(
-        choice(',', ';'),
-        optional(choice($.math_arg_named, $.math)),
-      )),
+      repeat1($._math_arg),
       seq(
+        trivia($),
         choice($.math_arg_named, $.math),
-        repeat(seq(
-          choice(',', ';'),
-          optional(choice($.math_arg_named, $.math)),
-        )),
+        repeat($._math_arg),
       ),
+    ),
+    _math_arg: $ => seq(
+      choice(',', ';'),
+      trivia($),
+      optional(choice($.math_arg_named, $.math)),
     ),
     math_arg_named: $ => seq(
       field('name', $._math_text_ident),
       ':',
+      trivia($),
       optional(field('arg', $.math)),
     ),
 
@@ -280,6 +298,12 @@ module.exports = grammar({
 
     // Whitespace and Comments
 
+    _trivia: $ => choice(
+      $.space,
+      $.parbreak,
+      $.line_comment,
+      $.block_comment,
+    ),
     line_comment: $ => token(seq('//', /.*/)),
     block_comment: $ => seq(
       '/*',
