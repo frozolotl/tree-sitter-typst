@@ -214,7 +214,7 @@ module.exports = grammar({
       $.math_text,
       $.math_shorthand,
       $.math_delimited,
-      $._math_delimited_fence,
+      $.math_delimited_fence,
       $.linebreak,
       $.math_align_point,
       $.escape,
@@ -246,21 +246,15 @@ module.exports = grammar({
         /[\u{0029}\u{005D}\u{007D}\u{2309}\u{230B}\u{231D}\u{231F}\u{2773}\u{27E7}\u{27E9}\u{27EB}\u{27ED}\u{27EF}\u{2984}\u{2986}\u{2988}\u{298A}\u{298C}\u{298E}\u{2990}\u{2992}\u{2994}\u{2996}\u{2998}\u{29D9}\u{29DB}\u{29FD}]/
       )),
     ),
-    _math_delimited_fence: $ => alias(
-      seq(
-        choice(
-          alias('||', $.math_shorthand),
-          $._math_fence,
-        ),
-        $.math,
-        choice(
-          alias('||', $.math_shorthand),
-          $._math_fence,
-        ),
-      ),
-      $.math_delimited,
+    math_delimited_fence: $ => seq(
+      field('left', $._math_fence),
+      $.math,
+      field('right', $._math_fence),
     ),
-    _math_fence: $ => /[\u{7C}\u{2016}\u{2980}\u{2982}\u{2999}\u{299a}]/,
+    _math_fence: $ => choice(
+      alias('||', $.math_shorthand),
+      /[\u{7C}\u{2016}\u{2980}\u{2982}\u{2999}\u{299a}]/
+    ),
     math_align_point: $ => '&',
 
     math_field_access: $ => seq(

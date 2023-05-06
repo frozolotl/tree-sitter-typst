@@ -217,6 +217,10 @@
           "named": true
         },
         {
+          "type": "math_delimited_fence",
+          "named": true
+        },
+        {
           "type": "math_field_access",
           "named": true
         },
@@ -336,6 +340,42 @@
     "fields": {
       "left": {
         "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "math_shorthand",
+            "named": true
+          }
+        ]
+      },
+      "right": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "math_shorthand",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "math",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "math_delimited_fence",
+    "named": true,
+    "fields": {
+      "left": {
+        "multiple": false,
         "required": false,
         "types": [
           {
@@ -356,63 +396,11 @@
       }
     },
     "children": {
-      "multiple": true,
-      "required": false,
+      "multiple": false,
+      "required": true,
       "types": [
         {
-          "type": "block_comment",
-          "named": true
-        },
-        {
-          "type": "escape",
-          "named": true
-        },
-        {
-          "type": "line_comment",
-          "named": true
-        },
-        {
-          "type": "linebreak",
-          "named": true
-        },
-        {
           "type": "math",
-          "named": true
-        },
-        {
-          "type": "math_align_point",
-          "named": true
-        },
-        {
-          "type": "math_delimited",
-          "named": true
-        },
-        {
-          "type": "math_field_access",
-          "named": true
-        },
-        {
-          "type": "math_function_call",
-          "named": true
-        },
-        {
-          "type": "math_shorthand",
-          "named": true
-        },
-        {
-          "type": "math_text",
-          "named": true
-        },
-        {
-          "type": "parbreak",
-          "named": true
-        },
-        {
-          "type": "space",
-          "named": true
-        },
-        {
-          "type": "string",
           "named": true
         }
       ]

@@ -675,7 +675,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "_math_delimited_fence"
+          "name": "math_delimited_fence"
         },
         {
           "type": "SYMBOL",
@@ -901,59 +901,48 @@
         }
       ]
     },
-    "_math_delimited_fence": {
-      "type": "ALIAS",
-      "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "ALIAS",
-                "content": {
-                  "type": "STRING",
-                  "value": "||"
-                },
-                "named": true,
-                "value": "math_shorthand"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "_math_fence"
-              }
-            ]
-          },
-          {
+    "math_delimited_fence": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "left",
+          "content": {
             "type": "SYMBOL",
-            "name": "math"
-          },
-          {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "ALIAS",
-                "content": {
-                  "type": "STRING",
-                  "value": "||"
-                },
-                "named": true,
-                "value": "math_shorthand"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "_math_fence"
-              }
-            ]
+            "name": "_math_fence"
           }
-        ]
-      },
-      "named": true,
-      "value": "math_delimited"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "math"
+        },
+        {
+          "type": "FIELD",
+          "name": "right",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_math_fence"
+          }
+        }
+      ]
     },
     "_math_fence": {
-      "type": "PATTERN",
-      "value": "[\\u{7C}\\u{2016}\\u{2980}\\u{2982}\\u{2999}\\u{299a}]"
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "STRING",
+            "value": "||"
+          },
+          "named": true,
+          "value": "math_shorthand"
+        },
+        {
+          "type": "PATTERN",
+          "value": "[\\u{7C}\\u{2016}\\u{2980}\\u{2982}\\u{2999}\\u{299a}]"
+        }
+      ]
     },
     "math_align_point": {
       "type": "STRING",
