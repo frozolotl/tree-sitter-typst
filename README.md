@@ -10,7 +10,6 @@ A tree-sitter grammar for the [typst](https://typst.app/) typesetting language w
 
 ## Missing Features
 - [ ] Code
-- [ ] Math
 - [ ] Lists
 - [ ] Enums
 - [ ] Terms

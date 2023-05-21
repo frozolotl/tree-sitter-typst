@@ -31,8 +31,10 @@ module.exports = grammar({
       $._math_expr,
     ],
     [
-      $.math_delimited,
-      $.math_shorthand,
+      $.math_root,
+      $.math_attach_below,
+      $.math_attach_above,
+      $.math_frac,
     ],
   ],
 
@@ -214,7 +216,7 @@ module.exports = grammar({
       optional(field('inner', $.math)),
       '$',
     ),
-    math: $ => prec.left(repeat1($._math_expr)),
+    math: $ => prec.left(repeat1(prec.left($._math_expr))),
     _math_expr: $ => choice(
       $._trivia,
 
@@ -232,6 +234,9 @@ module.exports = grammar({
       $.math_function_call,
 
       $.math_root,
+      $.math_attach_below,
+      $.math_attach_above,
+      $.math_frac,
     ),
 
     math_shorthand: $ => choice(
@@ -303,9 +308,24 @@ module.exports = grammar({
     ),
 
     math_root: $ => seq(
-      field('op', choice('√', '∛', '∜')),
+      choice('√', '∛', '∜'),
       field('expr', $._math_expr),
     ),
+    math_attach_below: $ => prec.right(seq(
+      field('expr', $._math_expr),
+      '_',
+      field('below', $._math_expr),
+    )),
+    math_attach_above: $ => prec.right(seq(
+      field('expr', $._math_expr),
+      '^',
+      field('above', $._math_expr),
+    )),
+    math_frac: $ => prec.left(seq(
+      field('numerator', $._math_expr),
+      '/',
+      field('denominator', $._math_expr),
+    )),
 
     /// FIXME: Grapheme clusters are not parsed correctly.
     math_text: $ => /\d+(\.\d+)?|\P{M}\p{M}+|./,

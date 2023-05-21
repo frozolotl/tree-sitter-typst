@@ -213,6 +213,14 @@
           "named": true
         },
         {
+          "type": "math_attach_above",
+          "named": true
+        },
+        {
+          "type": "math_attach_below",
+          "named": true
+        },
+        {
           "type": "math_delimited",
           "named": true
         },
@@ -222,6 +230,10 @@
         },
         {
           "type": "math_field_access",
+          "named": true
+        },
+        {
+          "type": "math_frac",
           "named": true
         },
         {
@@ -336,6 +348,330 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "math_attach_above",
+    "named": true,
+    "fields": {
+      "above": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "block_comment",
+            "named": true
+          },
+          {
+            "type": "escape",
+            "named": true
+          },
+          {
+            "type": "line_comment",
+            "named": true
+          },
+          {
+            "type": "linebreak",
+            "named": true
+          },
+          {
+            "type": "math_align_point",
+            "named": true
+          },
+          {
+            "type": "math_attach_above",
+            "named": true
+          },
+          {
+            "type": "math_attach_below",
+            "named": true
+          },
+          {
+            "type": "math_delimited",
+            "named": true
+          },
+          {
+            "type": "math_delimited_fence",
+            "named": true
+          },
+          {
+            "type": "math_field_access",
+            "named": true
+          },
+          {
+            "type": "math_frac",
+            "named": true
+          },
+          {
+            "type": "math_function_call",
+            "named": true
+          },
+          {
+            "type": "math_root",
+            "named": true
+          },
+          {
+            "type": "math_shorthand",
+            "named": true
+          },
+          {
+            "type": "math_text",
+            "named": true
+          },
+          {
+            "type": "parbreak",
+            "named": true
+          },
+          {
+            "type": "space",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      },
+      "expr": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "block_comment",
+            "named": true
+          },
+          {
+            "type": "escape",
+            "named": true
+          },
+          {
+            "type": "line_comment",
+            "named": true
+          },
+          {
+            "type": "linebreak",
+            "named": true
+          },
+          {
+            "type": "math_align_point",
+            "named": true
+          },
+          {
+            "type": "math_attach_above",
+            "named": true
+          },
+          {
+            "type": "math_attach_below",
+            "named": true
+          },
+          {
+            "type": "math_delimited",
+            "named": true
+          },
+          {
+            "type": "math_delimited_fence",
+            "named": true
+          },
+          {
+            "type": "math_field_access",
+            "named": true
+          },
+          {
+            "type": "math_frac",
+            "named": true
+          },
+          {
+            "type": "math_function_call",
+            "named": true
+          },
+          {
+            "type": "math_root",
+            "named": true
+          },
+          {
+            "type": "math_shorthand",
+            "named": true
+          },
+          {
+            "type": "math_text",
+            "named": true
+          },
+          {
+            "type": "parbreak",
+            "named": true
+          },
+          {
+            "type": "space",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "math_attach_below",
+    "named": true,
+    "fields": {
+      "below": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "block_comment",
+            "named": true
+          },
+          {
+            "type": "escape",
+            "named": true
+          },
+          {
+            "type": "line_comment",
+            "named": true
+          },
+          {
+            "type": "linebreak",
+            "named": true
+          },
+          {
+            "type": "math_align_point",
+            "named": true
+          },
+          {
+            "type": "math_attach_above",
+            "named": true
+          },
+          {
+            "type": "math_attach_below",
+            "named": true
+          },
+          {
+            "type": "math_delimited",
+            "named": true
+          },
+          {
+            "type": "math_delimited_fence",
+            "named": true
+          },
+          {
+            "type": "math_field_access",
+            "named": true
+          },
+          {
+            "type": "math_frac",
+            "named": true
+          },
+          {
+            "type": "math_function_call",
+            "named": true
+          },
+          {
+            "type": "math_root",
+            "named": true
+          },
+          {
+            "type": "math_shorthand",
+            "named": true
+          },
+          {
+            "type": "math_text",
+            "named": true
+          },
+          {
+            "type": "parbreak",
+            "named": true
+          },
+          {
+            "type": "space",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      },
+      "expr": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "block_comment",
+            "named": true
+          },
+          {
+            "type": "escape",
+            "named": true
+          },
+          {
+            "type": "line_comment",
+            "named": true
+          },
+          {
+            "type": "linebreak",
+            "named": true
+          },
+          {
+            "type": "math_align_point",
+            "named": true
+          },
+          {
+            "type": "math_attach_above",
+            "named": true
+          },
+          {
+            "type": "math_attach_below",
+            "named": true
+          },
+          {
+            "type": "math_delimited",
+            "named": true
+          },
+          {
+            "type": "math_delimited_fence",
+            "named": true
+          },
+          {
+            "type": "math_field_access",
+            "named": true
+          },
+          {
+            "type": "math_frac",
+            "named": true
+          },
+          {
+            "type": "math_function_call",
+            "named": true
+          },
+          {
+            "type": "math_root",
+            "named": true
+          },
+          {
+            "type": "math_shorthand",
+            "named": true
+          },
+          {
+            "type": "math_text",
+            "named": true
+          },
+          {
+            "type": "parbreak",
+            "named": true
+          },
+          {
+            "type": "space",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -471,6 +807,168 @@
     }
   },
   {
+    "type": "math_frac",
+    "named": true,
+    "fields": {
+      "denominator": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "block_comment",
+            "named": true
+          },
+          {
+            "type": "escape",
+            "named": true
+          },
+          {
+            "type": "line_comment",
+            "named": true
+          },
+          {
+            "type": "linebreak",
+            "named": true
+          },
+          {
+            "type": "math_align_point",
+            "named": true
+          },
+          {
+            "type": "math_attach_above",
+            "named": true
+          },
+          {
+            "type": "math_attach_below",
+            "named": true
+          },
+          {
+            "type": "math_delimited",
+            "named": true
+          },
+          {
+            "type": "math_delimited_fence",
+            "named": true
+          },
+          {
+            "type": "math_field_access",
+            "named": true
+          },
+          {
+            "type": "math_frac",
+            "named": true
+          },
+          {
+            "type": "math_function_call",
+            "named": true
+          },
+          {
+            "type": "math_root",
+            "named": true
+          },
+          {
+            "type": "math_shorthand",
+            "named": true
+          },
+          {
+            "type": "math_text",
+            "named": true
+          },
+          {
+            "type": "parbreak",
+            "named": true
+          },
+          {
+            "type": "space",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      },
+      "numerator": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "block_comment",
+            "named": true
+          },
+          {
+            "type": "escape",
+            "named": true
+          },
+          {
+            "type": "line_comment",
+            "named": true
+          },
+          {
+            "type": "linebreak",
+            "named": true
+          },
+          {
+            "type": "math_align_point",
+            "named": true
+          },
+          {
+            "type": "math_attach_above",
+            "named": true
+          },
+          {
+            "type": "math_attach_below",
+            "named": true
+          },
+          {
+            "type": "math_delimited",
+            "named": true
+          },
+          {
+            "type": "math_delimited_fence",
+            "named": true
+          },
+          {
+            "type": "math_field_access",
+            "named": true
+          },
+          {
+            "type": "math_frac",
+            "named": true
+          },
+          {
+            "type": "math_function_call",
+            "named": true
+          },
+          {
+            "type": "math_root",
+            "named": true
+          },
+          {
+            "type": "math_shorthand",
+            "named": true
+          },
+          {
+            "type": "math_text",
+            "named": true
+          },
+          {
+            "type": "parbreak",
+            "named": true
+          },
+          {
+            "type": "space",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "math_function_call",
     "named": true,
     "fields": {
@@ -525,6 +1023,14 @@
             "named": true
           },
           {
+            "type": "math_attach_above",
+            "named": true
+          },
+          {
+            "type": "math_attach_below",
+            "named": true
+          },
+          {
             "type": "math_delimited",
             "named": true
           },
@@ -534,6 +1040,10 @@
           },
           {
             "type": "math_field_access",
+            "named": true
+          },
+          {
+            "type": "math_frac",
             "named": true
           },
           {
@@ -563,24 +1073,6 @@
           {
             "type": "string",
             "named": true
-          }
-        ]
-      },
-      "op": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "√",
-            "named": false
-          },
-          {
-            "type": "∛",
-            "named": false
-          },
-          {
-            "type": "∜",
-            "named": false
           }
         ]
       }
@@ -697,6 +1189,10 @@
   },
   {
     "type": "...",
+    "named": false
+  },
+  {
+    "type": "/",
     "named": false
   },
   {
@@ -821,6 +1317,14 @@
   },
   {
     "type": "]",
+    "named": false
+  },
+  {
+    "type": "^",
+    "named": false
+  },
+  {
+    "type": "_",
     "named": false
   },
   {

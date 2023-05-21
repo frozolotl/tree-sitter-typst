@@ -20,6 +20,8 @@
   "$" @punctuation.special)
 
 (math_shorthand) @punctuation
+(math_delimited_left) @punctuation.bracket
+(math_delimited_right) @punctuation.bracket
 (math_align_point) @operator
 
 (math_field_access
@@ -30,6 +32,15 @@
   ["," ";"] @punctuation.delimiter)
 (math_arg_named
   ":" @punctuation.delimiter)
+
+(math_root
+  ["√" "∛" "∜"] @operator)
+(math_attach_below
+  "_" @operator)
+(math_attach_above
+  "^" @operator)
+(math_frac
+  "/" @operator)
 
 ((math_text) @constant.numeric.integer
   (#match? @constant.numeric.integer "^\\d+$"))

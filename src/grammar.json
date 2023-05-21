@@ -649,8 +649,12 @@
       "content": {
         "type": "REPEAT1",
         "content": {
-          "type": "SYMBOL",
-          "name": "_math_expr"
+          "type": "PREC_LEFT",
+          "value": 0,
+          "content": {
+            "type": "SYMBOL",
+            "name": "_math_expr"
+          }
         }
       }
     },
@@ -704,6 +708,18 @@
         {
           "type": "SYMBOL",
           "name": "math_root"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "math_attach_below"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "math_attach_above"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "math_frac"
         }
       ]
     },
@@ -1215,25 +1231,21 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "FIELD",
-          "name": "op",
-          "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "STRING",
-                "value": "√"
-              },
-              {
-                "type": "STRING",
-                "value": "∛"
-              },
-              {
-                "type": "STRING",
-                "value": "∜"
-              }
-            ]
-          }
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "√"
+            },
+            {
+              "type": "STRING",
+              "value": "∛"
+            },
+            {
+              "type": "STRING",
+              "value": "∜"
+            }
+          ]
         },
         {
           "type": "FIELD",
@@ -1244,6 +1256,93 @@
           }
         }
       ]
+    },
+    "math_attach_below": {
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "FIELD",
+            "name": "expr",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_math_expr"
+            }
+          },
+          {
+            "type": "STRING",
+            "value": "_"
+          },
+          {
+            "type": "FIELD",
+            "name": "below",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_math_expr"
+            }
+          }
+        ]
+      }
+    },
+    "math_attach_above": {
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "FIELD",
+            "name": "expr",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_math_expr"
+            }
+          },
+          {
+            "type": "STRING",
+            "value": "^"
+          },
+          {
+            "type": "FIELD",
+            "name": "above",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_math_expr"
+            }
+          }
+        ]
+      }
+    },
+    "math_frac": {
+      "type": "PREC_LEFT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "FIELD",
+            "name": "numerator",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_math_expr"
+            }
+          },
+          {
+            "type": "STRING",
+            "value": "/"
+          },
+          {
+            "type": "FIELD",
+            "name": "denominator",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_math_expr"
+            }
+          }
+        ]
+      }
     },
     "math_text": {
       "type": "PATTERN",
@@ -1493,11 +1592,19 @@
     [
       {
         "type": "SYMBOL",
-        "name": "math_delimited"
+        "name": "math_root"
       },
       {
         "type": "SYMBOL",
-        "name": "math_shorthand"
+        "name": "math_attach_below"
+      },
+      {
+        "type": "SYMBOL",
+        "name": "math_attach_above"
+      },
+      {
+        "type": "SYMBOL",
+        "name": "math_frac"
       }
     ]
   ],
