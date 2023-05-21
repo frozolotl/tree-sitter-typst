@@ -24,16 +24,26 @@ Make sure you have replaced the path on the last line with the correct one.
 [[language]]
 name = "typst"
 scope = "source.typst"
-injection-regex = "^typst$"
+injection-regex = "^typ(st)?$"
 file-types = ["typ"]
 comment-token = "//"
 indent = { tab-width = 2, unit = "  " }
 roots = []
-language-server = { command = "typst-lsp" }
+
+[language.auto-pairs]
+'(' = ')'
+'{' = '}'
+'[' = ']'
+'"' = '"'
+'`' = '`'
+'$' = '$'
 
 [[grammar]]
 name = "typst"
 source = { path = "<path to tree-sitter-typst>" }
+
+[[language-servers.typst-lsp]]
+command = "typst-lsp"
 ```
 
 Now, symlink your query files.
