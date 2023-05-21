@@ -30,6 +30,14 @@ module.exports = grammar({
       $._math_arg,
       $._math_expr,
     ],
+    [
+      $.math_delimited,
+      $.math_shorthand,
+    ],
+  ],
+
+  conflicts: $ => [
+    [$.math_delimited_fence],
   ],
 
   rules: {
@@ -222,6 +230,8 @@ module.exports = grammar({
 
       $.math_field_access,
       $.math_function_call,
+
+      $.math_root,
     ),
 
     math_shorthand: $ => choice(
@@ -235,23 +245,25 @@ module.exports = grammar({
       '|->', '|=>', '~~>', '~>',
       '*', '\'', '-',
     ),
-    math_delimited: $ => seq(
-      field('left', choice(
-        alias('[|', $.math_shorthand),
-        /[\u{0028}\u{005B}\u{007B}\u{2308}\u{230A}\u{231C}\u{231E}\u{2772}\u{27E6}\u{27E8}\u{27EA}\u{27EC}\u{27EE}\u{2983}\u{2985}\u{2987}\u{2989}\u{298B}\u{298D}\u{298F}\u{2991}\u{2993}\u{2995}\u{2997}\u{29D8}\u{29DA}\u{29FC}]/,
-      )),
-      $.math,
-      field('right', choice(
-        alias('|]', $.math_shorthand),
-        /[\u{0029}\u{005D}\u{007D}\u{2309}\u{230B}\u{231D}\u{231F}\u{2773}\u{27E7}\u{27E9}\u{27EB}\u{27ED}\u{27EF}\u{2984}\u{2986}\u{2988}\u{298A}\u{298C}\u{298E}\u{2990}\u{2992}\u{2994}\u{2996}\u{2998}\u{29D9}\u{29DB}\u{29FD}]/
-      )),
+    math_delimited: $ => prec.right(seq(
+      field('left', $.math_delimited_left),
+      optional(field('inner', $.math)),
+      optional(field('right', $.math_delimited_right)),
+    )),
+    math_delimited_left: $ => choice(
+      alias('[|', $.math_shorthand),
+      /[\u{0028}\u{005B}\u{007B}\u{2308}\u{230A}\u{231C}\u{231E}\u{2772}\u{27E6}\u{27E8}\u{27EA}\u{27EC}\u{27EE}\u{2983}\u{2985}\u{2987}\u{2989}\u{298B}\u{298D}\u{298F}\u{2991}\u{2993}\u{2995}\u{2997}\u{29D8}\u{29DA}\u{29FC}]/,
     ),
-    math_delimited_fence: $ => seq(
-      field('left', $._math_fence),
-      $.math,
-      field('right', $._math_fence),
+    math_delimited_right: $ => choice(
+      alias('|]', $.math_shorthand),
+      /[\u{0029}\u{005D}\u{007D}\u{2309}\u{230B}\u{231D}\u{231F}\u{2773}\u{27E7}\u{27E9}\u{27EB}\u{27ED}\u{27EF}\u{2984}\u{2986}\u{2988}\u{298A}\u{298C}\u{298E}\u{2990}\u{2992}\u{2994}\u{2996}\u{2998}\u{29D9}\u{29DB}\u{29FD}]/
     ),
-    _math_fence: $ => choice(
+    math_delimited_fence: $ => prec.right(seq(
+      field('left', $.math_fence),
+      optional(field('inner', $.math)),
+      field('right', optional($.math_fence)),
+    )),
+    math_fence: $ => choice(
       alias('||', $.math_shorthand),
       /[\u{7C}\u{2016}\u{2980}\u{2982}\u{2999}\u{299a}]/
     ),
@@ -288,6 +300,11 @@ module.exports = grammar({
       ':',
       trivia($),
       optional(field('arg', $.math)),
+    ),
+
+    math_root: $ => seq(
+      field('op', choice('√', '∛', '∜')),
+      field('expr', $._math_expr),
     ),
 
     /// FIXME: Grapheme clusters are not parsed correctly.

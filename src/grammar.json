@@ -700,6 +700,10 @@
         {
           "type": "SYMBOL",
           "name": "math_function_call"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "math_root"
         }
       ]
     },
@@ -849,84 +853,140 @@
       ]
     },
     "math_delimited": {
-      "type": "SEQ",
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "FIELD",
+            "name": "left",
+            "content": {
+              "type": "SYMBOL",
+              "name": "math_delimited_left"
+            }
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "FIELD",
+                "name": "inner",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "math"
+                }
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "FIELD",
+                "name": "right",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "math_delimited_right"
+                }
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "math_delimited_left": {
+      "type": "CHOICE",
       "members": [
         {
-          "type": "FIELD",
-          "name": "left",
+          "type": "ALIAS",
           "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "ALIAS",
-                "content": {
-                  "type": "STRING",
-                  "value": "[|"
-                },
-                "named": true,
-                "value": "math_shorthand"
-              },
-              {
-                "type": "PATTERN",
-                "value": "[\\u{0028}\\u{005B}\\u{007B}\\u{2308}\\u{230A}\\u{231C}\\u{231E}\\u{2772}\\u{27E6}\\u{27E8}\\u{27EA}\\u{27EC}\\u{27EE}\\u{2983}\\u{2985}\\u{2987}\\u{2989}\\u{298B}\\u{298D}\\u{298F}\\u{2991}\\u{2993}\\u{2995}\\u{2997}\\u{29D8}\\u{29DA}\\u{29FC}]"
-              }
-            ]
-          }
+            "type": "STRING",
+            "value": "[|"
+          },
+          "named": true,
+          "value": "math_shorthand"
         },
         {
-          "type": "SYMBOL",
-          "name": "math"
+          "type": "PATTERN",
+          "value": "[\\u{0028}\\u{005B}\\u{007B}\\u{2308}\\u{230A}\\u{231C}\\u{231E}\\u{2772}\\u{27E6}\\u{27E8}\\u{27EA}\\u{27EC}\\u{27EE}\\u{2983}\\u{2985}\\u{2987}\\u{2989}\\u{298B}\\u{298D}\\u{298F}\\u{2991}\\u{2993}\\u{2995}\\u{2997}\\u{29D8}\\u{29DA}\\u{29FC}]"
+        }
+      ]
+    },
+    "math_delimited_right": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "STRING",
+            "value": "|]"
+          },
+          "named": true,
+          "value": "math_shorthand"
         },
         {
-          "type": "FIELD",
-          "name": "right",
-          "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "ALIAS",
-                "content": {
-                  "type": "STRING",
-                  "value": "|]"
-                },
-                "named": true,
-                "value": "math_shorthand"
-              },
-              {
-                "type": "PATTERN",
-                "value": "[\\u{0029}\\u{005D}\\u{007D}\\u{2309}\\u{230B}\\u{231D}\\u{231F}\\u{2773}\\u{27E7}\\u{27E9}\\u{27EB}\\u{27ED}\\u{27EF}\\u{2984}\\u{2986}\\u{2988}\\u{298A}\\u{298C}\\u{298E}\\u{2990}\\u{2992}\\u{2994}\\u{2996}\\u{2998}\\u{29D9}\\u{29DB}\\u{29FD}]"
-              }
-            ]
-          }
+          "type": "PATTERN",
+          "value": "[\\u{0029}\\u{005D}\\u{007D}\\u{2309}\\u{230B}\\u{231D}\\u{231F}\\u{2773}\\u{27E7}\\u{27E9}\\u{27EB}\\u{27ED}\\u{27EF}\\u{2984}\\u{2986}\\u{2988}\\u{298A}\\u{298C}\\u{298E}\\u{2990}\\u{2992}\\u{2994}\\u{2996}\\u{2998}\\u{29D9}\\u{29DB}\\u{29FD}]"
         }
       ]
     },
     "math_delimited_fence": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "FIELD",
-          "name": "left",
-          "content": {
-            "type": "SYMBOL",
-            "name": "_math_fence"
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "FIELD",
+            "name": "left",
+            "content": {
+              "type": "SYMBOL",
+              "name": "math_fence"
+            }
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "FIELD",
+                "name": "inner",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "math"
+                }
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "FIELD",
+            "name": "right",
+            "content": {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "math_fence"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            }
           }
-        },
-        {
-          "type": "SYMBOL",
-          "name": "math"
-        },
-        {
-          "type": "FIELD",
-          "name": "right",
-          "content": {
-            "type": "SYMBOL",
-            "name": "_math_fence"
-          }
-        }
-      ]
+        ]
+      }
     },
-    "_math_fence": {
+    "math_fence": {
       "type": "CHOICE",
       "members": [
         {
@@ -1151,6 +1211,40 @@
         }
       ]
     },
+    "math_root": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "op",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "√"
+              },
+              {
+                "type": "STRING",
+                "value": "∛"
+              },
+              {
+                "type": "STRING",
+                "value": "∜"
+              }
+            ]
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "expr",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_math_expr"
+          }
+        }
+      ]
+    },
     "math_text": {
       "type": "PATTERN",
       "value": "\\d+(\\.\\d+)?|\\P{M}\\p{M}+|."
@@ -1372,7 +1466,11 @@
     }
   },
   "extras": [],
-  "conflicts": [],
+  "conflicts": [
+    [
+      "math_delimited_fence"
+    ]
+  ],
   "precedences": [
     [
       {
@@ -1390,6 +1488,16 @@
       {
         "type": "SYMBOL",
         "name": "_math_expr"
+      }
+    ],
+    [
+      {
+        "type": "SYMBOL",
+        "name": "math_delimited"
+      },
+      {
+        "type": "SYMBOL",
+        "name": "math_shorthand"
       }
     ]
   ],

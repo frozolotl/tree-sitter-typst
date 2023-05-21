@@ -229,6 +229,10 @@
           "named": true
         },
         {
+          "type": "math_root",
+          "named": true
+        },
+        {
           "type": "math_shorthand",
           "named": true
         },
@@ -338,48 +342,58 @@
     "type": "math_delimited",
     "named": true,
     "fields": {
+      "inner": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "math",
+            "named": true
+          }
+        ]
+      },
       "left": {
         "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "math_shorthand",
+            "type": "math_delimited_left",
             "named": true
           }
         ]
       },
       "right": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
-            "type": "math_shorthand",
+            "type": "math_delimited_right",
             "named": true
           }
         ]
       }
-    },
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "math",
-          "named": true
-        }
-      ]
     }
   },
   {
     "type": "math_delimited_fence",
     "named": true,
     "fields": {
-      "left": {
+      "inner": {
         "multiple": false,
         "required": false,
         "types": [
           {
-            "type": "math_shorthand",
+            "type": "math",
+            "named": true
+          }
+        ]
+      },
+      "left": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "math_fence",
             "named": true
           }
         ]
@@ -389,18 +403,53 @@
         "required": false,
         "types": [
           {
-            "type": "math_shorthand",
+            "type": "math_fence",
             "named": true
           }
         ]
       }
-    },
+    }
+  },
+  {
+    "type": "math_delimited_left",
+    "named": true,
+    "fields": {},
     "children": {
       "multiple": false,
-      "required": true,
+      "required": false,
       "types": [
         {
-          "type": "math",
+          "type": "math_shorthand",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "math_delimited_right",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "math_shorthand",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "math_fence",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "math_shorthand",
           "named": true
         }
       ]
@@ -445,6 +494,96 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "math_root",
+    "named": true,
+    "fields": {
+      "expr": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "block_comment",
+            "named": true
+          },
+          {
+            "type": "escape",
+            "named": true
+          },
+          {
+            "type": "line_comment",
+            "named": true
+          },
+          {
+            "type": "linebreak",
+            "named": true
+          },
+          {
+            "type": "math_align_point",
+            "named": true
+          },
+          {
+            "type": "math_delimited",
+            "named": true
+          },
+          {
+            "type": "math_delimited_fence",
+            "named": true
+          },
+          {
+            "type": "math_field_access",
+            "named": true
+          },
+          {
+            "type": "math_function_call",
+            "named": true
+          },
+          {
+            "type": "math_root",
+            "named": true
+          },
+          {
+            "type": "math_shorthand",
+            "named": true
+          },
+          {
+            "type": "math_text",
+            "named": true
+          },
+          {
+            "type": "parbreak",
+            "named": true
+          },
+          {
+            "type": "space",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      },
+      "op": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "√",
+            "named": false
+          },
+          {
+            "type": "∛",
+            "named": false
+          },
+          {
+            "type": "∜",
+            "named": false
+          }
+        ]
+      }
     }
   },
   {
@@ -750,6 +889,18 @@
   },
   {
     "type": "~~>",
+    "named": false
+  },
+  {
+    "type": "√",
+    "named": false
+  },
+  {
+    "type": "∛",
+    "named": false
+  },
+  {
+    "type": "∜",
     "named": false
   }
 ]

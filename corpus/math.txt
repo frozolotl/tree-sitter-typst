@@ -33,8 +33,10 @@ $⟪x⟫$
     (equation
       inner: (math
         (math_delimited
-          (math
-            (math_text)))))))
+          left: (math_delimited_left)
+          inner: (math
+            (math_text))
+          right: (math_delimited_right))))))
 
 ================================================================================
 Delimited, shorthand
@@ -47,11 +49,28 @@ $[|x|]$
     (equation
       inner: (math
         (math_delimited
-          left: (math_shorthand)
-          (math
+          left: (math_delimited_left
+            (math_shorthand))
+          inner: (math
             (math_text))
-          right: (math_shorthand))))))
+          right: (math_delimited_right
+            (math_shorthand)))))))
 
+================================================================================
+Delimited, shorthand, no content
+================================================================================
+$[||]$
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (equation
+      inner: (math
+        (math_delimited
+          left: (math_delimited_left
+            (math_shorthand))
+          right: (math_delimited_right
+            (math_shorthand)))))))
 
 ================================================================================
 Delimited, non-matching
@@ -64,8 +83,26 @@ $[|x⟫$
     (equation
       inner: (math
         (math_delimited
-          left: (math_shorthand)
-          (math
+          left: (math_delimited_left
+            (math_shorthand))
+          inner: (math
+            (math_text))
+          right: (math_delimited_right))))))
+
+================================================================================
+Delimited, unclosed
+================================================================================
+$[|x$
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (equation
+      inner: (math
+        (math_delimited
+          left: (math_delimited_left
+            (math_shorthand))
+          inner: (math
             (math_text)))))))
 
 ================================================================================
@@ -79,10 +116,62 @@ $||x||$
     (equation
       inner: (math
         (math_delimited_fence
-          left: (math_shorthand)
-          (math
+          left: (math_fence
+            (math_shorthand))
+          inner: (math
             (math_text))
-          right: (math_shorthand))))))
+          right: (math_fence
+            (math_shorthand)))))))
+
+================================================================================
+Delimited, fenced, no content
+================================================================================
+$||||$
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (equation
+      inner: (math
+        (math_delimited_fence
+          left: (math_fence
+            (math_shorthand))
+          right: (math_fence
+            (math_shorthand)))))))
+
+================================================================================
+Single fence
+================================================================================
+$||$
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (equation
+      inner: (math
+        (math_delimited_fence
+          left: (math_fence
+            (math_shorthand)))))))
+
+================================================================================
+Triple fence
+================================================================================
+$||||||$
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (equation
+      inner: (math
+        (math_delimited_fence
+          left: (math_fence
+            (math_shorthand))
+          inner: (math
+            (math_delimited_fence
+              left: (math_fence
+                (math_shorthand))
+              right: (math_fence
+                (math_shorthand)))))))))
 
 ================================================================================
 Linebreak
@@ -408,3 +497,51 @@ $mat(1, 2; 3, 4)$
             (space)
             (math
               (math_text))))))))
+
+================================================================================
+Root
+================================================================================
+$√x$
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (equation
+      inner: (math
+        (math_root
+          expr: (math_text))))))
+
+================================================================================
+Root, parenthesized
+================================================================================
+$√(x)$
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (equation
+      inner: (math
+        (math_root
+          expr: (math_delimited
+            left: (math_delimited_left)
+            inner: (math
+              (math_text))
+            right: (math_delimited_right)))))))
+
+================================================================================
+Root, actual function call
+================================================================================
+$√sin(x)$
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (equation
+      inner: (math
+        (math_root
+          expr: (math_function_call
+            (math_field_access
+              (math_ident))
+            args: (math_args
+              (math
+                (math_text)))))))))
