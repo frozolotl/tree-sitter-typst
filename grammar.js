@@ -85,8 +85,8 @@ module.exports = grammar({
       $.reference,
 
       $.equation,
+      $.embedded_code_expr,
 
-      // TODO: SyntaxKind::Hashtag
       // TODO: SyntaxKind::ListMarker
       // TODO: SyntaxKind::EnumMarker
       // TODO: SyntaxKind::TermMarker
@@ -222,7 +222,7 @@ module.exports = grammar({
     _math_expr: $ => choice(
       $._trivia,
 
-      // TODO: SyntaxKind::Hashtag
+      $.embedded_code_expr,
       $.math_text,
       $.math_shorthand,
       $.math_delimited,
@@ -356,6 +356,23 @@ module.exports = grammar({
 
     // Code
 
+    // TODO: check if src/lexer/parser.rs:576 matters
+    embedded_code_expr: $ => seq('#', $._code_expr),
+
+    code: $ => repeat1($._code_expr), 
+
+    _code_expr: $ => $._code_primary,
+    _code_primary: $ => choice(
+      $.code_ident,
+      $.code_block,
+      $.content_block,
+    ),
+
+    code_block: $ => seq(
+      '{',
+      optional($.code),
+      '}',
+    ),
     content_block: $ => seq(
       '[',
       optional($.markup),

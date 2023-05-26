@@ -50,6 +50,14 @@
 
 ;; Code
 
+(embedded_code_expr
+  "#" @punctuation.special)
+(code_block
+  ["{" "}"] @punctuation.bracket)
+(content_block
+  ["[" "]"] @punctuation.bracket)
+
+(code_ident) @identifier
 (string) @string
 
 ;; Comments
