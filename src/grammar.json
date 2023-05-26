@@ -192,13 +192,8 @@
         "type": "SEQ",
         "members": [
           {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "heading"
-              }
-            ]
+            "type": "SYMBOL",
+            "name": "heading"
           },
           {
             "type": "CHOICE",

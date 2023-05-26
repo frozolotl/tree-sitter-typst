@@ -105,9 +105,7 @@ module.exports = grammar({
       $._markup_expr_line_start_content,
     ),
     _markup_expr_line_start_content: $ => repeat1(seq(
-      choice(
-        $.heading,
-      ),
+      $.heading,
       choice(
         $._token_eof,
         alias($._newline, $.space),
@@ -256,11 +254,11 @@ module.exports = grammar({
       '|->', '|=>', '~~>', '~>',
       '*', '\'', '-',
     ),
-    math_delimited: $ => (seq(
+    math_delimited: $ => seq(
       field('left', $.math_delimited_left),
       field('inner', optional($.math)),
       field('right', $.math_delimited_right),
-    )),
+    ),
     math_delimited_unclosed: $ => seq(
       field('left', $.math_delimited_left),
       field('inner', optional($.math)),
