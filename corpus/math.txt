@@ -57,6 +57,25 @@ $[|x|]$
             (math_shorthand)))))))
 
 ================================================================================
+Delimited, multiple expressions as content
+================================================================================
+$(a, b)$
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (equation
+      inner: (math
+        (math_delimited
+          left: (math_delimited_left)
+          inner: (math
+            (math_text)
+            (math_text)
+            (space)
+            (math_text))
+          right: (math_delimited_right))))))
+
+================================================================================
 Delimited, shorthand, no content
 ================================================================================
 $[||]$
@@ -99,14 +118,14 @@ $[|x$
   (markup
     (equation
       inner: (math
-        (math_delimited
+        (math_delimited_unclosed
           left: (math_delimited_left
             (math_shorthand))
           inner: (math
             (math_text)))))))
 
 ================================================================================
-Delimited, fenced
+Delimited, fenced FIXME
 ================================================================================
 $||x||$
 --------------------------------------------------------------------------------
@@ -115,13 +134,14 @@ $||x||$
   (markup
     (equation
       inner: (math
-        (math_delimited_fence
+        (math_delimited_fence_unclosed
           left: (math_fence
             (math_shorthand))
           inner: (math
-            (math_text))
-          right: (math_fence
-            (math_shorthand)))))))
+            (math_text)
+            (math_delimited_fence_unclosed
+              left: (math_fence
+                (math_shorthand)))))))))
 
 ================================================================================
 Delimited, fenced, no content
@@ -149,7 +169,7 @@ $||$
   (markup
     (equation
       inner: (math
-        (math_delimited_fence
+        (math_delimited_fence_unclosed
           left: (math_fence
             (math_shorthand)))))))
 
@@ -166,12 +186,11 @@ $||||||$
         (math_delimited_fence
           left: (math_fence
             (math_shorthand))
-          inner: (math
-            (math_delimited_fence
-              left: (math_fence
-                (math_shorthand))
-              right: (math_fence
-                (math_shorthand)))))))))
+          right: (math_fence
+            (math_shorthand)))
+        (math_delimited_fence_unclosed
+          left: (math_fence
+            (math_shorthand)))))))
 
 ================================================================================
 Linebreak

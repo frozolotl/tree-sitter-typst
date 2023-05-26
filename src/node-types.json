@@ -229,6 +229,14 @@
           "named": true
         },
         {
+          "type": "math_delimited_fence_unclosed",
+          "named": true
+        },
+        {
+          "type": "math_delimited_unclosed",
+          "named": true
+        },
+        {
           "type": "math_field_access",
           "named": true
         },
@@ -395,6 +403,14 @@
             "named": true
           },
           {
+            "type": "math_delimited_fence_unclosed",
+            "named": true
+          },
+          {
+            "type": "math_delimited_unclosed",
+            "named": true
+          },
+          {
             "type": "math_field_access",
             "named": true
           },
@@ -470,6 +486,14 @@
           },
           {
             "type": "math_delimited_fence",
+            "named": true
+          },
+          {
+            "type": "math_delimited_fence_unclosed",
+            "named": true
+          },
+          {
+            "type": "math_delimited_unclosed",
             "named": true
           },
           {
@@ -557,6 +581,14 @@
             "named": true
           },
           {
+            "type": "math_delimited_fence_unclosed",
+            "named": true
+          },
+          {
+            "type": "math_delimited_unclosed",
+            "named": true
+          },
+          {
             "type": "math_field_access",
             "named": true
           },
@@ -635,6 +667,14 @@
             "named": true
           },
           {
+            "type": "math_delimited_fence_unclosed",
+            "named": true
+          },
+          {
+            "type": "math_delimited_unclosed",
+            "named": true
+          },
+          {
             "type": "math_field_access",
             "named": true
           },
@@ -700,7 +740,7 @@
       },
       "right": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
             "type": "math_delimited_right",
@@ -736,7 +776,33 @@
       },
       "right": {
         "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "math_fence",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "math_delimited_fence_unclosed",
+    "named": true,
+    "fields": {
+      "inner": {
+        "multiple": false,
         "required": false,
+        "types": [
+          {
+            "type": "math",
+            "named": true
+          }
+        ]
+      },
+      "left": {
+        "multiple": false,
+        "required": true,
         "types": [
           {
             "type": "math_fence",
@@ -774,6 +840,32 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "math_delimited_unclosed",
+    "named": true,
+    "fields": {
+      "inner": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "math",
+            "named": true
+          }
+        ]
+      },
+      "left": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "math_delimited_left",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -848,6 +940,14 @@
           },
           {
             "type": "math_delimited_fence",
+            "named": true
+          },
+          {
+            "type": "math_delimited_fence_unclosed",
+            "named": true
+          },
+          {
+            "type": "math_delimited_unclosed",
             "named": true
           },
           {
@@ -926,6 +1026,14 @@
           },
           {
             "type": "math_delimited_fence",
+            "named": true
+          },
+          {
+            "type": "math_delimited_fence_unclosed",
+            "named": true
+          },
+          {
+            "type": "math_delimited_unclosed",
             "named": true
           },
           {
@@ -1036,6 +1144,14 @@
           },
           {
             "type": "math_delimited_fence",
+            "named": true
+          },
+          {
+            "type": "math_delimited_fence_unclosed",
+            "named": true
+          },
+          {
+            "type": "math_delimited_unclosed",
             "named": true
           },
           {
