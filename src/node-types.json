@@ -1,5 +1,80 @@
 [
   {
+    "type": "array",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "array",
+          "named": true
+        },
+        {
+          "type": "block_comment",
+          "named": true
+        },
+        {
+          "type": "code_block",
+          "named": true
+        },
+        {
+          "type": "code_ident",
+          "named": true
+        },
+        {
+          "type": "code_number",
+          "named": true
+        },
+        {
+          "type": "code_parenthesized",
+          "named": true
+        },
+        {
+          "type": "content_block",
+          "named": true
+        },
+        {
+          "type": "dict",
+          "named": true
+        },
+        {
+          "type": "equation",
+          "named": true
+        },
+        {
+          "type": "label",
+          "named": true
+        },
+        {
+          "type": "line_comment",
+          "named": true
+        },
+        {
+          "type": "parbreak",
+          "named": true
+        },
+        {
+          "type": "raw",
+          "named": true
+        },
+        {
+          "type": "space",
+          "named": true
+        },
+        {
+          "type": "spread",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "block_comment",
     "named": true,
     "fields": {},
@@ -27,15 +102,11 @@
       "required": false,
       "types": [
         {
-          "type": "code_array",
+          "type": "array",
           "named": true
         },
         {
           "type": "code_block",
-          "named": true
-        },
-        {
-          "type": "code_dict",
           "named": true
         },
         {
@@ -55,66 +126,7 @@
           "named": true
         },
         {
-          "type": "equation",
-          "named": true
-        },
-        {
-          "type": "label",
-          "named": true
-        },
-        {
-          "type": "raw",
-          "named": true
-        },
-        {
-          "type": "string",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "code_array",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "block_comment",
-          "named": true
-        },
-        {
-          "type": "code_array",
-          "named": true
-        },
-        {
-          "type": "code_block",
-          "named": true
-        },
-        {
-          "type": "code_dict",
-          "named": true
-        },
-        {
-          "type": "code_ident",
-          "named": true
-        },
-        {
-          "type": "code_number",
-          "named": true
-        },
-        {
-          "type": "code_parenthesized",
-          "named": true
-        },
-        {
-          "type": "code_spread",
-          "named": true
-        },
-        {
-          "type": "content_block",
+          "type": "dict",
           "named": true
         },
         {
@@ -126,19 +138,7 @@
           "named": true
         },
         {
-          "type": "line_comment",
-          "named": true
-        },
-        {
-          "type": "parbreak",
-          "named": true
-        },
-        {
           "type": "raw",
-          "named": true
-        },
-        {
-          "type": "space",
           "named": true
         },
         {
@@ -162,149 +162,6 @@
           }
         ]
       }
-    }
-  },
-  {
-    "type": "code_dict",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "block_comment",
-          "named": true
-        },
-        {
-          "type": "code_named",
-          "named": true
-        },
-        {
-          "type": "code_spread",
-          "named": true
-        },
-        {
-          "type": "line_comment",
-          "named": true
-        },
-        {
-          "type": "parbreak",
-          "named": true
-        },
-        {
-          "type": "space",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "code_named",
-    "named": true,
-    "fields": {
-      "key": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "code_ident",
-            "named": true
-          },
-          {
-            "type": "string",
-            "named": true
-          }
-        ]
-      },
-      "value": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "auto",
-            "named": false
-          },
-          {
-            "type": "code_array",
-            "named": true
-          },
-          {
-            "type": "code_block",
-            "named": true
-          },
-          {
-            "type": "code_dict",
-            "named": true
-          },
-          {
-            "type": "code_ident",
-            "named": true
-          },
-          {
-            "type": "code_number",
-            "named": true
-          },
-          {
-            "type": "code_parenthesized",
-            "named": true
-          },
-          {
-            "type": "content_block",
-            "named": true
-          },
-          {
-            "type": "equation",
-            "named": true
-          },
-          {
-            "type": "false",
-            "named": false
-          },
-          {
-            "type": "label",
-            "named": true
-          },
-          {
-            "type": "none",
-            "named": false
-          },
-          {
-            "type": "raw",
-            "named": true
-          },
-          {
-            "type": "string",
-            "named": true
-          },
-          {
-            "type": "true",
-            "named": false
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "block_comment",
-          "named": true
-        },
-        {
-          "type": "line_comment",
-          "named": true
-        },
-        {
-          "type": "parbreak",
-          "named": true
-        },
-        {
-          "type": "space",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -335,19 +192,15 @@
         "required": true,
         "types": [
           {
+            "type": "array",
+            "named": true
+          },
+          {
             "type": "auto",
             "named": false
           },
           {
-            "type": "code_array",
-            "named": true
-          },
-          {
             "type": "code_block",
-            "named": true
-          },
-          {
-            "type": "code_dict",
             "named": true
           },
           {
@@ -364,6 +217,10 @@
           },
           {
             "type": "content_block",
+            "named": true
+          },
+          {
+            "type": "dict",
             "named": true
           },
           {
@@ -399,77 +256,6 @@
     }
   },
   {
-    "type": "code_spread",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "block_comment",
-          "named": true
-        },
-        {
-          "type": "code_array",
-          "named": true
-        },
-        {
-          "type": "code_block",
-          "named": true
-        },
-        {
-          "type": "code_dict",
-          "named": true
-        },
-        {
-          "type": "code_ident",
-          "named": true
-        },
-        {
-          "type": "code_number",
-          "named": true
-        },
-        {
-          "type": "code_parenthesized",
-          "named": true
-        },
-        {
-          "type": "content_block",
-          "named": true
-        },
-        {
-          "type": "equation",
-          "named": true
-        },
-        {
-          "type": "label",
-          "named": true
-        },
-        {
-          "type": "line_comment",
-          "named": true
-        },
-        {
-          "type": "parbreak",
-          "named": true
-        },
-        {
-          "type": "raw",
-          "named": true
-        },
-        {
-          "type": "space",
-          "named": true
-        },
-        {
-          "type": "string",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "content_block",
     "named": true,
     "fields": {
@@ -486,6 +272,41 @@
     }
   },
   {
+    "type": "dict",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "block_comment",
+          "named": true
+        },
+        {
+          "type": "line_comment",
+          "named": true
+        },
+        {
+          "type": "named_value",
+          "named": true
+        },
+        {
+          "type": "parbreak",
+          "named": true
+        },
+        {
+          "type": "space",
+          "named": true
+        },
+        {
+          "type": "spread",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "embedded_code_expr",
     "named": true,
     "fields": {},
@@ -494,15 +315,11 @@
       "required": false,
       "types": [
         {
-          "type": "code_array",
+          "type": "array",
           "named": true
         },
         {
           "type": "code_block",
-          "named": true
-        },
-        {
-          "type": "code_dict",
           "named": true
         },
         {
@@ -519,6 +336,10 @@
         },
         {
           "type": "content_block",
+          "named": true
+        },
+        {
+          "type": "dict",
           "named": true
         },
         {
@@ -1758,6 +1579,114 @@
     "fields": {}
   },
   {
+    "type": "named_value",
+    "named": true,
+    "fields": {
+      "key": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "code_ident",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "array",
+            "named": true
+          },
+          {
+            "type": "auto",
+            "named": false
+          },
+          {
+            "type": "code_block",
+            "named": true
+          },
+          {
+            "type": "code_ident",
+            "named": true
+          },
+          {
+            "type": "code_number",
+            "named": true
+          },
+          {
+            "type": "code_parenthesized",
+            "named": true
+          },
+          {
+            "type": "content_block",
+            "named": true
+          },
+          {
+            "type": "dict",
+            "named": true
+          },
+          {
+            "type": "equation",
+            "named": true
+          },
+          {
+            "type": "false",
+            "named": false
+          },
+          {
+            "type": "label",
+            "named": true
+          },
+          {
+            "type": "none",
+            "named": false
+          },
+          {
+            "type": "raw",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          },
+          {
+            "type": "true",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "block_comment",
+          "named": true
+        },
+        {
+          "type": "line_comment",
+          "named": true
+        },
+        {
+          "type": "parbreak",
+          "named": true
+        },
+        {
+          "type": "space",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "reference",
     "named": true,
     "fields": {
@@ -1792,6 +1721,77 @@
     "type": "space",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "spread",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "array",
+          "named": true
+        },
+        {
+          "type": "block_comment",
+          "named": true
+        },
+        {
+          "type": "code_block",
+          "named": true
+        },
+        {
+          "type": "code_ident",
+          "named": true
+        },
+        {
+          "type": "code_number",
+          "named": true
+        },
+        {
+          "type": "code_parenthesized",
+          "named": true
+        },
+        {
+          "type": "content_block",
+          "named": true
+        },
+        {
+          "type": "dict",
+          "named": true
+        },
+        {
+          "type": "equation",
+          "named": true
+        },
+        {
+          "type": "label",
+          "named": true
+        },
+        {
+          "type": "line_comment",
+          "named": true
+        },
+        {
+          "type": "parbreak",
+          "named": true
+        },
+        {
+          "type": "raw",
+          "named": true
+        },
+        {
+          "type": "space",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "strong",

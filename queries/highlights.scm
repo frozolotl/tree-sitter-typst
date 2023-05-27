@@ -57,11 +57,11 @@
 (embedded_code_expr
   "#" @punctuation.special)
 
-(code_dict
+(dict
   ":" @operator)
-(code_named
+(named_value
   ":" @punctuation.delimiter)
-(code_spread
+(spread
   ".." @operator)
 
 (code_ident) @identifier

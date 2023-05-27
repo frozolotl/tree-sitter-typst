@@ -1502,11 +1502,11 @@
         },
         {
           "type": "SYMBOL",
-          "name": "code_array"
+          "name": "array"
         },
         {
           "type": "SYMBOL",
-          "name": "code_dict"
+          "name": "dict"
         },
         {
           "type": "SYMBOL",
@@ -1621,9 +1621,9 @@
         }
       ]
     },
-    "code_array": {
+    "array": {
       "type": "PREC",
-      "value": "code_array",
+      "value": "array",
       "content": {
         "type": "SEQ",
         "members": [
@@ -1651,7 +1651,7 @@
                 "members": [
                   {
                     "type": "PREC",
-                    "value": "code_array",
+                    "value": "array",
                     "content": {
                       "type": "CHOICE",
                       "members": [
@@ -1661,7 +1661,7 @@
                         },
                         {
                           "type": "SYMBOL",
-                          "name": "code_spread"
+                          "name": "spread"
                         }
                       ]
                     }
@@ -1701,7 +1701,7 @@
                         },
                         {
                           "type": "PREC",
-                          "value": "code_array",
+                          "value": "array",
                           "content": {
                             "type": "CHOICE",
                             "members": [
@@ -1711,7 +1711,7 @@
                               },
                               {
                                 "type": "SYMBOL",
-                                "name": "code_spread"
+                                "name": "spread"
                               }
                             ]
                           }
@@ -1769,9 +1769,9 @@
         ]
       }
     },
-    "code_dict": {
+    "dict": {
       "type": "PREC",
-      "value": "code_dict",
+      "value": "dict",
       "content": {
         "type": "SEQ",
         "members": [
@@ -1828,17 +1828,17 @@
                 "members": [
                   {
                     "type": "PREC",
-                    "value": "code_dict",
+                    "value": "dict",
                     "content": {
                       "type": "CHOICE",
                       "members": [
                         {
                           "type": "SYMBOL",
-                          "name": "code_named"
+                          "name": "named_value"
                         },
                         {
                           "type": "SYMBOL",
-                          "name": "code_spread"
+                          "name": "spread"
                         }
                       ]
                     }
@@ -1878,17 +1878,17 @@
                         },
                         {
                           "type": "PREC",
-                          "value": "code_dict",
+                          "value": "dict",
                           "content": {
                             "type": "CHOICE",
                             "members": [
                               {
                                 "type": "SYMBOL",
-                                "name": "code_named"
+                                "name": "named_value"
                               },
                               {
                                 "type": "SYMBOL",
-                                "name": "code_spread"
+                                "name": "spread"
                               }
                             ]
                           }
@@ -1946,7 +1946,7 @@
         ]
       }
     },
-    "code_named": {
+    "named_value": {
       "type": "SEQ",
       "members": [
         {
@@ -2004,7 +2004,7 @@
         }
       ]
     },
-    "code_spread": {
+    "spread": {
       "type": "PREC_RIGHT",
       "value": 0,
       "content": {
@@ -2386,17 +2386,17 @@
       },
       {
         "type": "STRING",
-        "value": "code_array"
+        "value": "array"
       },
       {
         "type": "STRING",
-        "value": "code_dict"
+        "value": "dict"
       }
     ],
     [
       {
         "type": "SYMBOL",
-        "name": "code_named"
+        "name": "named_value"
       },
       {
         "type": "SYMBOL",

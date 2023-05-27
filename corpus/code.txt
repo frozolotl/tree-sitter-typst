@@ -53,7 +53,7 @@ Empty array
 (source_file
   (markup
     (embedded_code_expr
-      (code_array))))
+      (array))))
 
 ================================================================================
 Parenthesized
@@ -75,7 +75,7 @@ Array, one element
 (source_file
   (markup
     (embedded_code_expr
-      (code_array))))
+      (array))))
 
 ================================================================================
 Array, multiple elements
@@ -86,7 +86,7 @@ Array, multiple elements
 (source_file
   (markup
     (embedded_code_expr
-      (code_array
+      (array
         (space)
         (space)))))
 
@@ -103,7 +103,7 @@ Array, multiple elements, spacing everywhere, trailing comma
 (source_file
   (markup
     (embedded_code_expr
-      (code_array
+      (array
         (space)
         (space)
         (space)
@@ -121,8 +121,8 @@ Array, one spread
 (source_file
   (markup
     (embedded_code_expr
-      (code_array
-        (code_spread
+      (array
+        (spread
           (code_ident))))))
 
 ================================================================================
@@ -134,13 +134,13 @@ Array, multiple spreads, spacing everywhere
 (source_file
   (markup
     (embedded_code_expr
-      (code_array
+      (array
         (space)
-        (code_spread
+        (spread
           (space)
           (code_ident))
         (space)
-        (code_spread
+        (spread
           (space)
           (code_ident))
         (space)))))
@@ -154,7 +154,7 @@ Empty dictionary
 (source_file
   (markup
     (embedded_code_expr
-      (code_dict))))
+      (dict))))
 
 ================================================================================
 Empty dictionary with extra spacing
@@ -165,7 +165,7 @@ Empty dictionary with extra spacing
 (source_file
   (markup
     (embedded_code_expr
-      (code_dict
+      (dict
         (space)
         (space)))))
 
@@ -178,9 +178,9 @@ Empty dictionary, empty spread
 (source_file
   (markup
     (embedded_code_expr
-      (code_dict
+      (dict
         (space)
-        (code_spread)))))
+        (spread)))))
 
 ================================================================================
 Prefixed dictionary, spread from variable
@@ -191,9 +191,9 @@ Prefixed dictionary, spread from variable
 (source_file
   (markup
     (embedded_code_expr
-      (code_dict
+      (dict
         (space)
-        (code_spread
+        (spread
           (code_ident))))))
 
 ================================================================================
@@ -205,12 +205,12 @@ Prefixed dictionary, multiple spreads
 (source_file
   (markup
     (embedded_code_expr
-      (code_dict
+      (dict
         (space)
-        (code_spread
+        (spread
           (code_ident))
         (space)
-        (code_spread
+        (spread
           (code_ident))))))
 
 ================================================================================
@@ -222,9 +222,9 @@ Prefixed dictionary, spread with space
 (source_file
   (markup
     (embedded_code_expr
-      (code_dict
+      (dict
         (space)
-        (code_spread
+        (spread
           (space)
           (code_ident))))))
 
@@ -237,13 +237,13 @@ Prefixed dictionary, with values
 (source_file
   (markup
     (embedded_code_expr
-      (code_dict
+      (dict
         (space)
-        (code_named
+        (named_value
           (code_ident)
           (space))
         (space)
-        (code_named
+        (named_value
           (string)
           (space))))))
 
@@ -259,13 +259,13 @@ Prefixed dictionary, with values, trailing comma
 (source_file
   (markup
     (embedded_code_expr
-      (code_dict
+      (dict
         (space)
-        (code_named
+        (named_value
           (code_ident)
           (space))
         (space)
-        (code_named
+        (named_value
           (string)
           (space))
         (space)))))
@@ -282,15 +282,15 @@ Unprefixed dictionary, with values, spaces everywhere
 (source_file
   (markup
     (embedded_code_expr
-      (code_dict
+      (dict
         (space)
-        (code_named
+        (named_value
           (code_ident)
           (space)
           (space))
         (space)
         (space)
-        (code_named
+        (named_value
           (string)
           (space)
           (space))
@@ -308,15 +308,15 @@ Unprefixed dictionary, with values, spaces everywhere, trailing comma
 (source_file
   (markup
     (embedded_code_expr
-      (code_dict
+      (dict
         (space)
-        (code_named
+        (named_value
           (code_ident)
           (space)
           (space))
         (space)
         (space)
-        (code_named
+        (named_value
           (string)
           (space)
           (space))
