@@ -1517,6 +1517,10 @@
           "name": "string"
         },
         {
+          "type": "SYMBOL",
+          "name": "label"
+        },
+        {
           "type": "STRING",
           "value": "none"
         },

@@ -401,6 +401,7 @@ module.exports = grammar({
 
       $.code_number,
       $.string,
+      $.label,
 
       'none',
       'auto',
@@ -496,7 +497,6 @@ module.exports = grammar({
       ),
       optional(LEAF.number_unit),
     )),
-    // code_number_unit: $ => token(),
     string: $ => /"(\\"|[^"])*"/,
 
     // Whitespace and Comments

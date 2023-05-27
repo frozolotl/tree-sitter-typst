@@ -59,6 +59,10 @@
           "named": true
         },
         {
+          "type": "label",
+          "named": true
+        },
+        {
           "type": "string",
           "named": true
         }
@@ -111,6 +115,10 @@
         },
         {
           "type": "equation",
+          "named": true
+        },
+        {
+          "type": "label",
           "named": true
         },
         {
@@ -246,6 +254,10 @@
             "named": false
           },
           {
+            "type": "label",
+            "named": true
+          },
+          {
             "type": "none",
             "named": false
           },
@@ -351,6 +363,10 @@
             "named": false
           },
           {
+            "type": "label",
+            "named": true
+          },
+          {
             "type": "none",
             "named": false
           },
@@ -408,6 +424,10 @@
         },
         {
           "type": "equation",
+          "named": true
+        },
+        {
+          "type": "label",
           "named": true
         },
         {
@@ -483,6 +503,10 @@
         },
         {
           "type": "equation",
+          "named": true
+        },
+        {
+          "type": "label",
           "named": true
         },
         {
