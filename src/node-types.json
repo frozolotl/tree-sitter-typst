@@ -43,6 +43,10 @@
           "named": true
         },
         {
+          "type": "code_number",
+          "named": true
+        },
+        {
           "type": "code_parenthesized",
           "named": true
         },
@@ -52,6 +56,10 @@
         },
         {
           "type": "equation",
+          "named": true
+        },
+        {
+          "type": "string",
           "named": true
         }
       ]
@@ -86,6 +94,10 @@
           "named": true
         },
         {
+          "type": "code_number",
+          "named": true
+        },
+        {
           "type": "code_parenthesized",
           "named": true
         },
@@ -111,6 +123,10 @@
         },
         {
           "type": "space",
+          "named": true
+        },
+        {
+          "type": "string",
           "named": true
         }
       ]
@@ -210,6 +226,10 @@
             "named": true
           },
           {
+            "type": "code_number",
+            "named": true
+          },
+          {
             "type": "code_parenthesized",
             "named": true
           },
@@ -228,6 +248,10 @@
           {
             "type": "none",
             "named": false
+          },
+          {
+            "type": "string",
+            "named": true
           },
           {
             "type": "true",
@@ -254,6 +278,25 @@
         },
         {
           "type": "space",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "code_number",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "code_float",
+          "named": true
+        },
+        {
+          "type": "code_int",
           "named": true
         }
       ]
@@ -288,6 +331,10 @@
             "named": true
           },
           {
+            "type": "code_number",
+            "named": true
+          },
+          {
             "type": "code_parenthesized",
             "named": true
           },
@@ -306,6 +353,10 @@
           {
             "type": "none",
             "named": false
+          },
+          {
+            "type": "string",
+            "named": true
           },
           {
             "type": "true",
@@ -344,6 +395,10 @@
           "named": true
         },
         {
+          "type": "code_number",
+          "named": true
+        },
+        {
           "type": "code_parenthesized",
           "named": true
         },
@@ -365,6 +420,10 @@
         },
         {
           "type": "space",
+          "named": true
+        },
+        {
+          "type": "string",
           "named": true
         }
       ]
@@ -411,6 +470,10 @@
           "named": true
         },
         {
+          "type": "code_number",
+          "named": true
+        },
+        {
           "type": "code_parenthesized",
           "named": true
         },
@@ -420,6 +483,10 @@
         },
         {
           "type": "equation",
+          "named": true
+        },
+        {
+          "type": "string",
           "named": true
         }
       ]
@@ -1899,7 +1966,15 @@
     "named": false
   },
   {
+    "type": "code_float",
+    "named": true
+  },
+  {
     "type": "code_ident",
+    "named": true
+  },
+  {
+    "type": "code_int",
     "named": true
   },
   {

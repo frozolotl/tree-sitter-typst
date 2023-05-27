@@ -1,5 +1,6 @@
 const LEAF = {
   newline: /\r\n|[\n\x0B\x0C\r\x85\u2028\u2029]/,
+  number_unit: /pt|em|mm|cm|in|deg|rad|em|fr|%/,
 };
 
 let trivia = $ => optional($._trivia);
@@ -398,6 +399,9 @@ module.exports = grammar({
       $.code_array,
       $.code_dict,
 
+      $.code_number,
+      $.string,
+
       'none',
       'auto',
       'true',
@@ -466,6 +470,33 @@ module.exports = grammar({
     )),
 
     code_ident: $ => /[_\p{XID_Start}][\-_\p{XID_Continue}]*/,
+    code_number: $ => choice($.code_int, $.code_float),
+    code_int: $ => token(seq(
+      choice(
+        /0b[01]+/,
+        /0o[0-7]+/,
+        /0x[0-9a-fA-F]+/,
+        /[0-9]+/,
+      ),
+      optional(LEAF.number_unit),
+    )),
+    code_float: $ => token(seq(
+      choice(
+        seq(
+          choice(
+            /[0-9]+\.[0-9]*/,
+            /\.[0-9]+/
+          ),
+          optional(/[eE][-+]?[0-9]+/),
+        ),
+        seq(
+          /[0-9]+/,
+          /[eE][-+]?[0-9]+/,
+        ),
+      ),
+      optional(LEAF.number_unit),
+    )),
+    // code_number_unit: $ => token(),
     string: $ => /"(\\"|[^"])*"/,
 
     // Whitespace and Comments
