@@ -402,6 +402,7 @@ module.exports = grammar({
       $.code_number,
       $.string,
       $.label,
+      $.raw,
 
       'none',
       'auto',
