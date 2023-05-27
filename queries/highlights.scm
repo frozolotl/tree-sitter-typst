@@ -34,6 +34,8 @@
     field: (_) @function.method))
 (math_function_call
   (math_field_access) @function)
+(math_arg_named
+  ":" @punctuation.delimiter)
 
 (math_root
   ["√" "∛" "∜"] @operator)
@@ -54,6 +56,13 @@
 
 (embedded_code_expr
   "#" @punctuation.special)
+
+(code_dict
+  ":" @operator)
+(code_named
+  ":" @punctuation.delimiter)
+(code_spread
+  ".." @operator)
 
 (code_ident) @identifier
 (string) @string
@@ -77,7 +86,6 @@
 [
   ","
   ";"
-  ":"
 ] @punctuation.delimiter
 
 (line_comment) @comment.line
