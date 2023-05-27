@@ -251,7 +251,8 @@ $dot.c$
     (equation
       (math
         (math_field_access
-          (math_ident)
+          (math_field_access
+            (math_ident))
           (math_ident))))))
 
 ================================================================================
@@ -265,8 +266,10 @@ $dot.h.c$
     (equation
       (math
         (math_field_access
-          (math_ident)
-          (math_ident)
+          (math_field_access
+            (math_field_access
+              (math_ident))
+            (math_ident))
           (math_ident))))))
 
 ================================================================================
@@ -280,7 +283,8 @@ $foo.5.5$
     (equation
       (math
         (math_field_access
-          (math_ident)
+          (math_field_access
+            (math_ident))
           (math_ident))))))
 
 ================================================================================
@@ -294,7 +298,8 @@ $foo.♥$
     (equation
       (math
         (math_field_access
-          (math_ident)
+          (math_field_access
+            (math_ident))
           (math_ident))))))
 
 ================================================================================
@@ -412,7 +417,7 @@ $foo(bar:5)$
       inner: (math
         (math_function_call
           (math_field_access
-            (math_ident))
+            value: (math_ident))
           args: (math_args
             (math_arg_named
               name: (math_ident)
@@ -431,7 +436,7 @@ $foo(bar:)$
       inner: (math
         (math_function_call
           (math_field_access
-            (math_ident))
+            value: (math_ident))
           args: (math_args
             (math_arg_named
               name: (math_ident))))))))
@@ -448,7 +453,7 @@ $foo(0, bar: 1)$
       inner: (math
         (math_function_call
           (math_field_access
-            (math_ident))
+            value: (math_ident))
           args: (math_args
             (math
               (math_text))
@@ -560,7 +565,7 @@ $√sin(x)$
         (math_root
           expr: (math_function_call
             (math_field_access
-              (math_ident))
+              value: (math_ident))
             args: (math_args
               (math
                 (math_text)))))))))

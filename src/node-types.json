@@ -31,11 +31,23 @@
           "named": true
         },
         {
+          "type": "code_dict",
+          "named": true
+        },
+        {
           "type": "code_ident",
           "named": true
         },
         {
+          "type": "code_parenthesized",
+          "named": true
+        },
+        {
           "type": "content_block",
+          "named": true
+        },
+        {
+          "type": "equation",
           "named": true
         }
       ]
@@ -44,13 +56,240 @@
   {
     "type": "code_block",
     "named": true,
+    "fields": {
+      "inner": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "code",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "code_dict",
+    "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": false,
       "types": [
         {
-          "type": "code",
+          "type": "block_comment",
+          "named": true
+        },
+        {
+          "type": "code_named",
+          "named": true
+        },
+        {
+          "type": "code_spread",
+          "named": true
+        },
+        {
+          "type": "line_comment",
+          "named": true
+        },
+        {
+          "type": "parbreak",
+          "named": true
+        },
+        {
+          "type": "space",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "code_named",
+    "named": true,
+    "fields": {
+      "key": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "code_ident",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "auto",
+            "named": false
+          },
+          {
+            "type": "code_block",
+            "named": true
+          },
+          {
+            "type": "code_dict",
+            "named": true
+          },
+          {
+            "type": "code_ident",
+            "named": true
+          },
+          {
+            "type": "code_parenthesized",
+            "named": true
+          },
+          {
+            "type": "content_block",
+            "named": true
+          },
+          {
+            "type": "equation",
+            "named": true
+          },
+          {
+            "type": "false",
+            "named": false
+          },
+          {
+            "type": "none",
+            "named": false
+          },
+          {
+            "type": "true",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "block_comment",
+          "named": true
+        },
+        {
+          "type": "line_comment",
+          "named": true
+        },
+        {
+          "type": "parbreak",
+          "named": true
+        },
+        {
+          "type": "space",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "code_parenthesized",
+    "named": true,
+    "fields": {
+      "inner": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "auto",
+            "named": false
+          },
+          {
+            "type": "code_block",
+            "named": true
+          },
+          {
+            "type": "code_dict",
+            "named": true
+          },
+          {
+            "type": "code_ident",
+            "named": true
+          },
+          {
+            "type": "code_parenthesized",
+            "named": true
+          },
+          {
+            "type": "content_block",
+            "named": true
+          },
+          {
+            "type": "equation",
+            "named": true
+          },
+          {
+            "type": "false",
+            "named": false
+          },
+          {
+            "type": "none",
+            "named": false
+          },
+          {
+            "type": "true",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "code_spread",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "block_comment",
+          "named": true
+        },
+        {
+          "type": "code_block",
+          "named": true
+        },
+        {
+          "type": "code_dict",
+          "named": true
+        },
+        {
+          "type": "code_ident",
+          "named": true
+        },
+        {
+          "type": "code_parenthesized",
+          "named": true
+        },
+        {
+          "type": "content_block",
+          "named": true
+        },
+        {
+          "type": "equation",
+          "named": true
+        },
+        {
+          "type": "line_comment",
+          "named": true
+        },
+        {
+          "type": "parbreak",
+          "named": true
+        },
+        {
+          "type": "space",
           "named": true
         }
       ]
@@ -59,16 +298,17 @@
   {
     "type": "content_block",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "markup",
-          "named": true
-        }
-      ]
+    "fields": {
+      "inner": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "markup",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -84,11 +324,23 @@
           "named": true
         },
         {
+          "type": "code_dict",
+          "named": true
+        },
+        {
           "type": "code_ident",
           "named": true
         },
         {
+          "type": "code_parenthesized",
+          "named": true
+        },
+        {
           "type": "content_block",
+          "named": true
+        },
+        {
+          "type": "equation",
           "named": true
         }
       ]
@@ -971,16 +1223,31 @@
   {
     "type": "math_field_access",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "math_ident",
-          "named": true
-        }
-      ]
+    "fields": {
+      "field": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "math_ident",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "math_field_access",
+            "named": true
+          },
+          {
+            "type": "math_ident",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -1405,6 +1672,10 @@
     "named": false
   },
   {
+    "type": "..",
+    "named": false
+  },
+  {
     "type": "...",
     "named": false
   },
@@ -1545,12 +1816,20 @@
     "named": false
   },
   {
+    "type": "auto",
+    "named": false
+  },
+  {
     "type": "code_ident",
     "named": true
   },
   {
     "type": "escape",
     "named": true
+  },
+  {
+    "type": "false",
+    "named": false
   },
   {
     "type": "heading_start",
@@ -1577,6 +1856,10 @@
     "named": true
   },
   {
+    "type": "none",
+    "named": false
+  },
+  {
     "type": "parbreak",
     "named": true
   },
@@ -1599,6 +1882,10 @@
   {
     "type": "text_shorthand",
     "named": true
+  },
+  {
+    "type": "true",
+    "named": false
   },
   {
     "type": "{",

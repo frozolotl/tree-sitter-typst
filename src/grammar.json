@@ -1070,27 +1070,45 @@
       "value": "&"
     },
     "math_field_access": {
-      "type": "SEQ",
+      "type": "CHOICE",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "math_ident"
+          "type": "FIELD",
+          "name": "value",
+          "content": {
+            "type": "SYMBOL",
+            "name": "math_ident"
+          }
         },
         {
-          "type": "REPEAT",
-          "content": {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "STRING",
-                "value": "."
-              },
-              {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "value",
+              "content": {
                 "type": "SYMBOL",
-                "name": "_math_text_ident"
+                "name": "math_field_access"
               }
-            ]
-          }
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "."
+                },
+                {
+                  "type": "FIELD",
+                  "name": "field",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "_math_text_ident"
+                  }
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -1447,9 +1465,17 @@
         "name": "_code_expr"
       }
     },
-    "_code_expr": {
+    "_code_expr_atomic": {
       "type": "SYMBOL",
       "name": "_code_primary"
+    },
+    "_code_expr": {
+      "type": "SYMBOL",
+      "name": "_code_expr_atomic"
+    },
+    "_code_expr_or_pattern": {
+      "type": "SYMBOL",
+      "name": "_code_expr"
     },
     "_code_primary": {
       "type": "CHOICE",
@@ -1465,6 +1491,34 @@
         {
           "type": "SYMBOL",
           "name": "content_block"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "code_parenthesized"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "equation"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "code_dict"
+        },
+        {
+          "type": "STRING",
+          "value": "none"
+        },
+        {
+          "type": "STRING",
+          "value": "auto"
+        },
+        {
+          "type": "STRING",
+          "value": "true"
+        },
+        {
+          "type": "STRING",
+          "value": "false"
         }
       ]
     },
@@ -1479,8 +1533,12 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "SYMBOL",
-              "name": "code"
+              "type": "FIELD",
+              "name": "inner",
+              "content": {
+                "type": "SYMBOL",
+                "name": "code"
+              }
             },
             {
               "type": "BLANK"
@@ -1504,8 +1562,12 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "SYMBOL",
-              "name": "markup"
+              "type": "FIELD",
+              "name": "inner",
+              "content": {
+                "type": "SYMBOL",
+                "name": "markup"
+              }
             },
             {
               "type": "BLANK"
@@ -1517,6 +1579,287 @@
           "value": "]"
         }
       ]
+    },
+    "code_parenthesized": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "FIELD",
+          "name": "inner",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_code_expr_or_pattern"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
+    },
+    "code_dict": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_trivia"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": ":"
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "_trivia"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "code_named"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "code_spread"
+                    }
+                  ]
+                },
+                {
+                  "type": "REPEAT",
+                  "content": {
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "CHOICE",
+                        "members": [
+                          {
+                            "type": "SYMBOL",
+                            "name": "_trivia"
+                          },
+                          {
+                            "type": "BLANK"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "STRING",
+                        "value": ","
+                      },
+                      {
+                        "type": "CHOICE",
+                        "members": [
+                          {
+                            "type": "SYMBOL",
+                            "name": "_trivia"
+                          },
+                          {
+                            "type": "BLANK"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "CHOICE",
+                        "members": [
+                          {
+                            "type": "SYMBOL",
+                            "name": "code_named"
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "code_spread"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "_trivia"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "STRING",
+                      "value": ","
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_trivia"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
+    },
+    "code_named": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "key",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "string"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "code_ident"
+              }
+            ]
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_trivia"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_trivia"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "FIELD",
+          "name": "value",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_code_expr"
+          }
+        }
+      ]
+    },
+    "code_spread": {
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": ".."
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_trivia"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_code_expr"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        ]
+      }
     },
     "code_ident": {
       "type": "PATTERN",

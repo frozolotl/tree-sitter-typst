@@ -3,6 +3,17 @@ const LEAF = {
 };
 
 let trivia = $ => optional($._trivia);
+let delimitedTrivia = ($, delimiter, item) => optional(seq(
+  item,
+  repeat(seq(
+    trivia($),
+    delimiter,
+    trivia($),
+    item,
+  )),
+  trivia($),
+  optional(delimiter),
+));
 
 module.exports = grammar({
   name: 'typst',
@@ -287,12 +298,15 @@ module.exports = grammar({
     ),
     math_align_point: $ => '&',
 
-    math_field_access: $ => seq(
-      $.math_ident,
-      repeat(seq(
-        '.',
-        $._math_text_ident,
-      )),
+    math_field_access: $ => choice(
+      field('value', $.math_ident),
+      seq(
+        field('value', $.math_field_access),
+        seq(
+          '.',
+          field('field', $._math_text_ident),
+        ),
+      ),
     ),
     math_function_call: $ => seq(
       $.math_field_access,
@@ -359,25 +373,74 @@ module.exports = grammar({
     // TODO: check if src/lexer/parser.rs:576 matters
     embedded_code_expr: $ => seq('#', $._code_expr),
 
-    code: $ => repeat1($._code_expr), 
+    code: $ => repeat1($._code_expr),
 
-    _code_expr: $ => $._code_primary,
+    _code_expr_atomic: $ => $._code_primary,
+    // FIXME: non-atomic and pattern parts are missing
+    _code_expr: $ => $._code_expr_atomic,
+    _code_expr_or_pattern: $ => $._code_expr,
     _code_primary: $ => choice(
       $.code_ident,
       $.code_block,
       $.content_block,
+      $.code_parenthesized,
+      $.equation,
+
+      $.code_dict,
+
+      'none',
+      'auto',
+      'true',
+      'false',
     ),
 
     code_block: $ => seq(
       '{',
-      optional($.code),
+      optional(field('inner', $.code)),
       '}',
     ),
     content_block: $ => seq(
       '[',
-      optional($.markup),
+      optional(field('inner', $.markup)),
       ']',
     ),
+    code_parenthesized: $ => seq(
+      '(',
+      field('inner', $._code_expr_or_pattern),
+      ')',
+    ),
+    code_dict: $ => seq(
+      '(',
+      trivia($),
+      optional(seq(
+        ':',
+        trivia($),
+      )),
+      delimitedTrivia($,
+        ',',
+        choice(
+          $.code_named,
+          $.code_spread,
+        ),
+      ),
+      trivia($),
+      ')',
+    ),
+    code_named: $ => seq(
+      field('key', choice(
+        $.string,
+        $.code_ident,
+      )),
+      trivia($),
+      ':',
+      trivia($),
+      field('value', $._code_expr),
+    ),
+    code_spread: $ => prec.right(seq(
+      '..',
+      trivia($),
+      optional($._code_expr),
+    )),
 
     code_ident: $ => /[_\p{XID_Start}][\-_\p{XID_Continue}]*/,
     string: $ => /"(\\"|[^"])*"/,

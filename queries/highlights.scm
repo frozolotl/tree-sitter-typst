@@ -26,12 +26,14 @@
 
 (math_field_access
   "." @punctuation.delimiter)
+(math_field_access
+  value: (_) @variable
+  field: (_)? @variable.other.member)
 (math_function_call
-  ["(" ")"] @punctuation.bracket)
-(math_args
-  ["," ";"] @punctuation.delimiter)
-(math_arg_named
-  ":" @punctuation.delimiter)
+  (math_field_access
+    field: (_) @function.method))
+(math_function_call
+  (math_field_access) @function)
 
 (math_root
   ["√" "∛" "∜"] @operator)
@@ -52,15 +54,31 @@
 
 (embedded_code_expr
   "#" @punctuation.special)
-(code_block
-  ["{" "}"] @punctuation.bracket)
-(content_block
-  ["[" "]"] @punctuation.bracket)
 
 (code_ident) @identifier
 (string) @string
+[
+  "none"
+  "auto"
+  "true"
+  "false"
+] @constant.builtin
 
-;; Comments
+;; Any
+
+[
+  "{"
+  "}"
+  "["
+  "]"
+  "("
+  ")"
+] @punctuation.bracket
+[
+  ","
+  ";"
+  ":"
+] @punctuation.delimiter
 
 (line_comment) @comment.line
 (block_comment) @comment.block
