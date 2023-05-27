@@ -27,6 +27,10 @@
       "required": false,
       "types": [
         {
+          "type": "code_array",
+          "named": true
+        },
+        {
           "type": "code_block",
           "named": true
         },
@@ -48,6 +52,65 @@
         },
         {
           "type": "equation",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "code_array",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "block_comment",
+          "named": true
+        },
+        {
+          "type": "code_array",
+          "named": true
+        },
+        {
+          "type": "code_block",
+          "named": true
+        },
+        {
+          "type": "code_dict",
+          "named": true
+        },
+        {
+          "type": "code_ident",
+          "named": true
+        },
+        {
+          "type": "code_parenthesized",
+          "named": true
+        },
+        {
+          "type": "code_spread",
+          "named": true
+        },
+        {
+          "type": "content_block",
+          "named": true
+        },
+        {
+          "type": "equation",
+          "named": true
+        },
+        {
+          "type": "line_comment",
+          "named": true
+        },
+        {
+          "type": "parbreak",
+          "named": true
+        },
+        {
+          "type": "space",
           "named": true
         }
       ]
@@ -131,6 +194,10 @@
             "named": false
           },
           {
+            "type": "code_array",
+            "named": true
+          },
+          {
             "type": "code_block",
             "named": true
           },
@@ -205,6 +272,10 @@
             "named": false
           },
           {
+            "type": "code_array",
+            "named": true
+          },
+          {
             "type": "code_block",
             "named": true
           },
@@ -254,6 +325,10 @@
       "types": [
         {
           "type": "block_comment",
+          "named": true
+        },
+        {
+          "type": "code_array",
           "named": true
         },
         {
@@ -319,6 +394,10 @@
       "multiple": false,
       "required": false,
       "types": [
+        {
+          "type": "code_array",
+          "named": true
+        },
         {
           "type": "code_block",
           "named": true

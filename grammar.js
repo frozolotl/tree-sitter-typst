@@ -55,6 +55,15 @@ module.exports = grammar({
       $.math_delimited_fence,
       $.math_delimited_fence_unclosed,
     ],
+    [
+      $.code_parenthesized,
+      'code_array',
+      'code_dict',
+    ],
+    [
+      $.code_named,
+      $._code_primary,
+    ]
   ],
 
   rules: {
@@ -386,6 +395,7 @@ module.exports = grammar({
       $.code_parenthesized,
       $.equation,
 
+      $.code_array,
       $.code_dict,
 
       'none',
@@ -406,10 +416,23 @@ module.exports = grammar({
     ),
     code_parenthesized: $ => seq(
       '(',
-      field('inner', $._code_expr_or_pattern),
+      field('inner', $._code_expr),
       ')',
     ),
-    code_dict: $ => seq(
+    code_array: $ => prec('code_array', seq(
+      '(',
+      trivia($),
+      delimitedTrivia($,
+        ',',
+        prec('code_array', choice(
+          $._code_expr,
+          $.code_spread,
+        )),
+      ),
+      trivia($),
+      ')',
+    )),
+    code_dict: $ => prec('code_dict', seq(
       '(',
       trivia($),
       optional(seq(
@@ -418,14 +441,14 @@ module.exports = grammar({
       )),
       delimitedTrivia($,
         ',',
-        choice(
+        prec('code_dict', choice(
           $.code_named,
           $.code_spread,
-        ),
+        )),
       ),
       trivia($),
       ')',
-    ),
+    )),
     code_named: $ => seq(
       field('key', choice(
         $.string,
