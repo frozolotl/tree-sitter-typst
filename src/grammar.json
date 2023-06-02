@@ -1463,32 +1463,15 @@
             "type": "CHOICE",
             "members": [
               {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "SYMBOL",
-                    "name": "_code_expr_or_stmt"
-                  },
-                  {
-                    "type": "CHOICE",
-                    "members": [
-                      {
-                        "type": "STRING",
-                        "value": ";"
-                      },
-                      {
-                        "type": "BLANK"
-                      }
-                    ]
-                  }
-                ]
+                "type": "SYMBOL",
+                "name": "_code_expr"
               },
               {
                 "type": "SEQ",
                 "members": [
                   {
                     "type": "SYMBOL",
-                    "name": "_code_expr"
+                    "name": "_code_expr_or_stmt"
                   },
                   {
                     "type": "CHOICE",
@@ -2577,7 +2560,7 @@
                       },
                       {
                         "type": "SYMBOL",
-                        "name": "params_named"
+                        "name": "param_named"
                       },
                       {
                         "type": "SYMBOL",
@@ -2635,7 +2618,7 @@
                             },
                             {
                               "type": "SYMBOL",
-                              "name": "params_named"
+                              "name": "param_named"
                             },
                             {
                               "type": "SYMBOL",
@@ -2701,12 +2684,12 @@
         }
       ]
     },
-    "params_named": {
+    "param_named": {
       "type": "SEQ",
       "members": [
         {
           "type": "FIELD",
-          "name": "key",
+          "name": "name",
           "content": {
             "type": "SYMBOL",
             "name": "code_ident"
@@ -3155,7 +3138,7 @@
     [
       {
         "type": "SYMBOL",
-        "name": "params_named"
+        "name": "param_named"
       },
       {
         "type": "STRING",

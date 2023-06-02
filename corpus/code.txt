@@ -1,4 +1,19 @@
 ================================================================================
+Inline code expression
+================================================================================
+foo #bar baz
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (text)
+    (space)
+    (embedded_code_expr
+      (code_ident))
+    (space)
+    (text)))
+
+================================================================================
 Identifier
 ================================================================================
 #foo
@@ -34,7 +49,7 @@ Content block with content
           (text))))))
 
 ================================================================================
-Empty Code block
+Empty code block
 ================================================================================
 #{}
 --------------------------------------------------------------------------------
@@ -594,6 +609,153 @@ Function definition
         pattern: (pattern_closure
           name: (code_ident)
           params: (params))
+        (space)
+        (space)))))
+
+================================================================================
+Function definition, space in parentheses
+================================================================================
+#let foo( ) = none
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (embedded_code_expr
+      (let_binding
+        (space)
+        pattern: (pattern_closure
+          name: (code_ident)
+          params: (params
+            (space)))
+        (space)
+        (space)))))
+
+================================================================================
+Function definition, one argument
+================================================================================
+#let foo(bar) = none
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (embedded_code_expr
+      (let_binding
+        (space)
+        pattern: (pattern_closure
+          name: (code_ident)
+          params: (params
+            (code_ident)))
+        (space)
+        (space)))))
+
+================================================================================
+Function definition, one argument, spacing everywhere, trailing comma
+================================================================================
+#let foo( bar , ) = none
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (embedded_code_expr
+      (let_binding
+        (space)
+        pattern: (pattern_closure
+          name: (code_ident)
+          params: (params
+            (space)
+            (code_ident)
+            (space)
+            (space)))
+        (space)
+        (space)))))
+
+================================================================================
+Function definition, multiple arguments
+================================================================================
+#let foo(bar, baz, quux) = none
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (embedded_code_expr
+      (let_binding
+        (space)
+        pattern: (pattern_closure
+          name: (code_ident)
+          params: (params
+            (code_ident)
+            (space)
+            (code_ident)
+            (space)
+            (code_ident)))
+        (space)
+        (space)))))
+
+================================================================================
+Function definition, named arguments
+================================================================================
+#let foo(bar: (), baz : "") = none
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (embedded_code_expr
+      (let_binding
+        (space)
+        pattern: (pattern_closure
+          name: (code_ident)
+          params: (params
+            (param_named
+              name: (code_ident)
+              (space)
+              value: (array))
+            (space)
+            (param_named
+              name: (code_ident)
+              (space)
+              (space)
+              value: (string))))
+        (space)
+        (space)))))
+
+================================================================================
+Function definition, spread
+================================================================================
+#let foo(..bar) = none
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (embedded_code_expr
+      (let_binding
+        (space)
+        pattern: (pattern_closure
+          name: (code_ident)
+          params: (params
+            (pattern_spread
+              (code_ident))))
+        (space)
+        (space)))))
+
+================================================================================
+Function definition, destructuring
+================================================================================
+#let foo((bar: baz)) = none
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (embedded_code_expr
+      (let_binding
+        (space)
+        pattern: (pattern_closure
+          name: (code_ident)
+          params: (params
+            (pattern_destructuring
+              (pattern_named
+                field: (code_ident)
+                (space)
+                binding: (code_ident)))))
         (space)
         (space)))))
 

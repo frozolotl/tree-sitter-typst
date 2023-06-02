@@ -1829,53 +1829,10 @@
     }
   },
   {
-    "type": "params",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "block_comment",
-          "named": true
-        },
-        {
-          "type": "code_ident",
-          "named": true
-        },
-        {
-          "type": "line_comment",
-          "named": true
-        },
-        {
-          "type": "params_named",
-          "named": true
-        },
-        {
-          "type": "parbreak",
-          "named": true
-        },
-        {
-          "type": "pattern_destructuring",
-          "named": true
-        },
-        {
-          "type": "pattern_spread",
-          "named": true
-        },
-        {
-          "type": "space",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "params_named",
+    "type": "param_named",
     "named": true,
     "fields": {
-      "key": {
+      "name": {
         "multiple": false,
         "required": true,
         "types": [
@@ -1970,6 +1927,49 @@
         },
         {
           "type": "parbreak",
+          "named": true
+        },
+        {
+          "type": "space",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "params",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "block_comment",
+          "named": true
+        },
+        {
+          "type": "code_ident",
+          "named": true
+        },
+        {
+          "type": "line_comment",
+          "named": true
+        },
+        {
+          "type": "param_named",
+          "named": true
+        },
+        {
+          "type": "parbreak",
+          "named": true
+        },
+        {
+          "type": "pattern_destructuring",
+          "named": true
+        },
+        {
+          "type": "pattern_spread",
           "named": true
         },
         {

@@ -85,7 +85,7 @@ module.exports = grammar({
       'pattern_destructuring',
     ],
     [
-      $.params_named,
+      $.param_named,
       'params',
     ],
   ],
@@ -403,16 +403,12 @@ module.exports = grammar({
 
     // Code
 
-    // TODO: check if src/lexer/parser.rs:576 matters
     embedded_code_expr: $ => prec.left(seq(
       '#',
       choice(
+        $._code_expr,
         seq(
           $._code_expr_or_stmt,
-          optional(';'),
-        ),
-        seq(
-          $._code_expr,
           choice(
             ';',
             $._token_eof,
@@ -582,15 +578,15 @@ module.exports = grammar({
         prec('params', choice(
           $.code_ident,
           $.pattern_spread,
-          $.params_named,
+          $.param_named,
           $.pattern_destructuring,
         )),
       ),
       trivia($),
       ')',
     ),
-    params_named: $ => seq(
-      field('key', $.code_ident),
+    param_named: $ => seq(
+      field('name', $.code_ident),
       trivia($),
       ':',
       trivia($),

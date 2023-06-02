@@ -82,12 +82,6 @@
   (code_ident) @variable)
 (pattern_spread
   ".." @operator)
-(pattern_named
-  [
-    ":" @punctuation.delimiter
-    field: (_) @variable.other.member
-    binding: (_) @variable 
-  ])
 (pattern_closure
   name: (_) @function)
 (params
@@ -104,8 +98,14 @@
           binding: (code_ident) @variable.parameter)
       ])
   ])
-(params_named
-      key: (_) @variable.parameter)
+(param_named
+  name: (_) @variable.parameter)
+(pattern_named
+  [
+    field: (_) @variable.other.member
+    ":" @punctuation.delimiter
+    binding: (_) @variable 
+  ])
 
 (code_ident) @identifier
 (code_number) @constant.numeric
