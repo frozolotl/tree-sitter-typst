@@ -418,8 +418,6 @@ module.exports = grammar({
       ),
     )),
 
-    code: $ => repeat1($._code_expr_or_stmt),
-
     _code_expr_or_stmt: $ => choice(
       $._code_expr,
       $._code_stmt,
@@ -450,7 +448,9 @@ module.exports = grammar({
 
     code_block: $ => seq(
       '{',
-      optional(field('inner', $.code)),
+      trivia($),
+      repeat($._code_expr_or_stmt),
+      trivia($),
       '}',
     ),
     content_block: $ => seq(
@@ -460,7 +460,9 @@ module.exports = grammar({
     ),
     code_parenthesized: $ => seq(
       '(',
+      trivia($),
       field('inner', $._code_expr_or_stmt),
+      trivia($),
       ')',
     ),
 

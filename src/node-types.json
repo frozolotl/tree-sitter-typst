@@ -98,7 +98,7 @@
     }
   },
   {
-    "type": "code",
+    "type": "code_block",
     "named": true,
     "fields": {},
     "children": {
@@ -107,6 +107,10 @@
       "types": [
         {
           "type": "array",
+          "named": true
+        },
+        {
+          "type": "block_comment",
           "named": true
         },
         {
@@ -146,7 +150,19 @@
           "named": true
         },
         {
+          "type": "line_comment",
+          "named": true
+        },
+        {
+          "type": "parbreak",
+          "named": true
+        },
+        {
           "type": "raw",
+          "named": true
+        },
+        {
+          "type": "space",
           "named": true
         },
         {
@@ -154,22 +170,6 @@
           "named": true
         }
       ]
-    }
-  },
-  {
-    "type": "code_block",
-    "named": true,
-    "fields": {
-      "inner": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "code",
-            "named": true
-          }
-        ]
-      }
     }
   },
   {
@@ -265,6 +265,28 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "block_comment",
+          "named": true
+        },
+        {
+          "type": "line_comment",
+          "named": true
+        },
+        {
+          "type": "parbreak",
+          "named": true
+        },
+        {
+          "type": "space",
+          "named": true
+        }
+      ]
     }
   },
   {

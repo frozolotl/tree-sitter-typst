@@ -1497,13 +1497,6 @@
         ]
       }
     },
-    "code": {
-      "type": "REPEAT1",
-      "content": {
-        "type": "SYMBOL",
-        "name": "_code_expr_or_stmt"
-      }
-    },
     "_code_expr_or_stmt": {
       "type": "CHOICE",
       "members": [
@@ -1602,12 +1595,27 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "FIELD",
-              "name": "inner",
-              "content": {
-                "type": "SYMBOL",
-                "name": "code"
-              }
+              "type": "SYMBOL",
+              "name": "_trivia"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_code_expr_or_stmt"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_trivia"
             },
             {
               "type": "BLANK"
@@ -1657,12 +1665,36 @@
           "value": "("
         },
         {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_trivia"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
           "type": "FIELD",
           "name": "inner",
           "content": {
             "type": "SYMBOL",
             "name": "_code_expr_or_stmt"
           }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_trivia"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         },
         {
           "type": "STRING",
