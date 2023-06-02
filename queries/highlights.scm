@@ -24,16 +24,20 @@
 (math_delimited_right) @punctuation.bracket
 (math_align_point) @operator
 
-(math_field_access
-  "." @punctuation.delimiter)
-(math_field_access
-  value: (_) @variable
-  field: (_)? @variable.other.member)
 (math_function_call
-  (math_field_access
-    field: (_) @function.method))
-(math_function_call
-  (math_field_access) @function)
+  [
+    (math_field_access
+      value: (_) @function)
+    (math_field_access
+      field: (_) @function.method)
+  ])
+(math_field_access
+  [
+    "." @punctuation.delimiter
+    value: (_) @variable
+    object: (_) @variable
+    field: (_) @variable.other.member  
+  ])
 (math_arg_named
   ":" @punctuation.delimiter)
 
@@ -63,6 +67,45 @@
   ":" @punctuation.delimiter)
 (spread
   ".." @operator)
+
+(let_binding
+  "let" @keyword.storage
+  "=" @operator)
+(pattern
+  [
+    "_" @variable
+    (code_ident) @variable
+  ])
+(pattern_parenthesized
+  (code_ident) @variable)
+(pattern_destructuring
+  (code_ident) @variable)
+(pattern_spread
+  ".." @operator)
+(pattern_named
+  [
+    ":" @punctuation.delimiter
+    field: (_) @variable.other.member
+    binding: (_) @variable 
+  ])
+(pattern_closure
+  name: (_) @function)
+(params
+  [
+    (code_ident) @variable.parameter
+    (pattern_spread
+      (code_ident) @variable.parameter)
+    (pattern_destructuring
+      [
+        (code_ident) @variable.parameter
+        (pattern_spread
+          (code_ident) @variable.parameter)
+        (pattern_named
+          binding: (code_ident) @variable.parameter)
+      ])
+  ])
+(params_named
+      key: (_) @variable.parameter)
 
 (code_ident) @identifier
 (code_number) @constant.numeric

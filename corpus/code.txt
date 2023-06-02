@@ -441,3 +441,159 @@ Raw
     (embedded_code_expr
       (raw))))
 
+================================================================================
+Let binding, just declaration
+================================================================================
+#let test
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (embedded_code_expr
+      (let_binding
+        (space)
+        pattern: (pattern
+          (code_ident))))))
+
+================================================================================
+Let binding, with value set
+================================================================================
+#let test = 5
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (embedded_code_expr
+      (let_binding
+        (space)
+        pattern: (pattern
+          (code_ident))
+        (space)
+        (space)
+        expr: (code_number
+          (code_int))))))
+
+================================================================================
+Let binding, name parenthesized
+================================================================================
+#let (test) = none
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (embedded_code_expr
+      (let_binding
+        (space)
+        pattern: (pattern
+          (pattern_parenthesized
+            (code_ident)))
+        (space)
+        (space)))))
+
+================================================================================
+Let binding, underscore as name
+================================================================================
+#let _ = none
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (embedded_code_expr
+      (let_binding
+        (space)
+        pattern: (pattern)
+        (space)
+        (space)))))
+
+================================================================================
+Let binding, empty array destructuring
+================================================================================
+#let () = ()
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (embedded_code_expr
+      (let_binding
+        (space)
+        pattern: (pattern_destructuring)
+        (space)
+        (space)
+        expr: (array)))))
+
+================================================================================
+Let binding, non-empty array destructuring
+================================================================================
+#let (foo, bar) = none
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (embedded_code_expr
+      (let_binding
+        (space)
+        pattern: (pattern_destructuring
+          (code_ident)
+          (space)
+          (code_ident))
+        (space)
+        (space)))))
+
+================================================================================
+Let binding, array destructuring, trailing comma
+================================================================================
+#let ( foo , ) = none
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (embedded_code_expr
+      (let_binding
+        (space)
+        pattern: (pattern_destructuring
+          (space)
+          (code_ident)
+          (space)
+          (space))
+        (space)
+        (space)))))
+
+================================================================================
+Let binding, dictionary destructuring
+================================================================================
+#let ( foo : bar ) = none
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (embedded_code_expr
+      (let_binding
+        (space)
+        pattern: (pattern_destructuring
+          (space)
+          (pattern_named
+            field: (code_ident)
+            (space)
+            (space)
+            binding: (code_ident))
+          (space))
+        (space)
+        (space)))))
+
+================================================================================
+Function definition
+================================================================================
+#let foo() = none
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (embedded_code_expr
+      (let_binding
+        (space)
+        pattern: (pattern_closure
+          name: (code_ident)
+          params: (params))
+        (space)
+        (space)))))
+

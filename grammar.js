@@ -12,8 +12,11 @@ let delimitedTrivia = ($, delimiter, item) => optional(seq(
     trivia($),
     item,
   )),
-  trivia($),
-  optional(delimiter),
+
+  optional(seq(
+    trivia($),
+    delimiter,
+  )),
 ));
 
 module.exports = grammar({
@@ -57,14 +60,34 @@ module.exports = grammar({
       $.math_delimited_fence_unclosed,
     ],
     [
+      $.embedded_code_expr,
+      $._code_expr_or_stmt,
+    ],
+    [
       $.code_parenthesized,
       'array',
       'dict',
     ],
     [
       $.named_value,
-      $._code_primary,
-    ]
+      $._code_expr,
+    ],
+    [
+      $.pattern_closure,
+      $.pattern,
+    ],
+    [
+      $.pattern_parenthesized,
+      $.pattern_destructuring,
+    ],
+    [
+      $.pattern_named,
+      'pattern_destructuring',
+    ],
+    [
+      $.params_named,
+      'params',
+    ],
   ],
 
   rules: {
@@ -311,7 +334,7 @@ module.exports = grammar({
     math_field_access: $ => choice(
       field('value', $.math_ident),
       seq(
-        field('value', $.math_field_access),
+        field('object', $.math_field_access),
         seq(
           '.',
           field('field', $._math_text_ident),
@@ -319,7 +342,7 @@ module.exports = grammar({
       ),
     ),
     math_function_call: $ => seq(
-      $.math_field_access,
+      field('function', $.math_field_access),
       '(',
       field('args', optional($.math_args)),
       ')',
@@ -381,15 +404,34 @@ module.exports = grammar({
     // Code
 
     // TODO: check if src/lexer/parser.rs:576 matters
-    embedded_code_expr: $ => seq('#', $._code_expr),
+    embedded_code_expr: $ => prec.left(seq(
+      '#',
+      choice(
+        seq(
+          $._code_expr_or_stmt,
+          optional(';'),
+        ),
+        seq(
+          $._code_expr,
+          choice(
+            ';',
+            $._token_eof,
+            LEAF.newline,
+          ),
+        ),
+      ),
+    )),
 
-    code: $ => repeat1($._code_expr),
+    code: $ => repeat1($._code_expr_or_stmt),
 
-    _code_expr_atomic: $ => $._code_primary,
-    // FIXME: non-atomic and pattern parts are missing
-    _code_expr: $ => $._code_expr_atomic,
-    _code_expr_or_pattern: $ => $._code_expr,
-    _code_primary: $ => choice(
+    _code_expr_or_stmt: $ => choice(
+      $._code_expr,
+      $._code_stmt,
+    ),
+    _code_stmt: $ => choice(
+      $.let_binding,
+    ),
+    _code_expr: $ => choice(
       $.code_ident,
       $.code_block,
       $.content_block,
@@ -422,7 +464,7 @@ module.exports = grammar({
     ),
     code_parenthesized: $ => seq(
       '(',
-      field('inner', $._code_expr),
+      field('inner', $._code_expr_or_stmt),
       ')',
     ),
 
@@ -432,7 +474,7 @@ module.exports = grammar({
       delimitedTrivia($,
         ',',
         prec('array', choice(
-          $._code_expr,
+          $._code_expr_or_stmt,
           $.spread,
         )),
       ),
@@ -464,13 +506,96 @@ module.exports = grammar({
       trivia($),
       ':',
       trivia($),
-      field('value', $._code_expr),
+      field('value', $._code_expr_or_stmt),
     ),
     spread: $ => prec.right(seq(
       '..',
       trivia($),
-      optional($._code_expr),
+      optional($._code_expr_or_stmt),
     )),
+
+    let_binding: $ => prec.right(seq(
+      'let',
+      trivia($),
+      choice(
+        field('pattern', $.pattern),
+        seq(
+          field('pattern', choice(
+            $.pattern_destructuring,
+            $.pattern_closure,
+            $.pattern,
+          )),
+          trivia($),
+          '=',
+          trivia($),
+          field('expr', $._code_expr_or_stmt),
+        ),
+      ),
+    )),
+    pattern: $ => choice(
+      $.pattern_parenthesized,
+      '_',
+      $.code_ident,
+    ),
+    pattern_parenthesized: $ => seq(
+      '(',
+      trivia($),
+      $.code_ident,
+      trivia($),
+      ')',
+    ),
+    pattern_destructuring: $ => seq(
+      '(',
+      trivia($),
+      delimitedTrivia($,
+        ',',
+        prec('pattern_destructuring', choice(
+          $.code_ident,
+          $.pattern_spread,
+          $.pattern_named,
+        )),
+      ),
+      trivia($),
+      ')',
+    ),
+    pattern_spread: $ => seq(
+      '..',
+      trivia($),
+      $.code_ident,
+    ),
+    pattern_named: $ => seq(
+      field('field', $.code_ident),
+      trivia($),
+      ':',
+      trivia($),
+      field('binding', choice('_', $.code_ident)),
+    ),
+    pattern_closure: $ => seq(
+      field('name', $.code_ident),
+      field('params', $.params),
+    ),
+    params: $ => seq(
+      '(',
+      trivia($),
+      delimitedTrivia($,
+        ',',
+        prec('params', choice(
+          $.code_ident,
+          $.pattern_spread,
+          $.params_named,
+          $.pattern_destructuring,
+        )),
+      ),
+      trivia($),
+      ')',
+    ),
+    params_named: $ => seq(
+      field('key', $.code_ident),
+      trivia($),
+      ':',
+      trivia($),
+      field('value', $._code_expr_or_stmt),
+    ),
 
     code_ident: $ => /[_\p{XID_Start}][\-_\p{XID_Continue}]*/,
     code_number: $ => choice($.code_int, $.code_float),
