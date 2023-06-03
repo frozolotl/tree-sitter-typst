@@ -519,6 +519,48 @@ Let binding, with value set
           (code_int))))))
 
 ================================================================================
+Let binding, heading on next line
+================================================================================
+#let test
+= 5
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (embedded_code_expr_newline
+      (let_binding
+        (space)
+        pattern: (pattern
+          (code_ident))))
+    (heading
+      (heading_start)
+      (space)
+      inner: (markup
+        (text)))))
+
+================================================================================
+Let binding, after text, heading on next line
+================================================================================
+test
+#let test
+= 5
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (text)
+    (embedded_code_expr_newline
+      (let_binding
+        (space)
+        pattern: (pattern
+          (code_ident))))
+    (heading
+      (heading_start)
+      (space)
+      inner: (markup
+        (text)))))
+
+================================================================================
 Let binding, name parenthesized
 ================================================================================
 #let (test) = none

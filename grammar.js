@@ -4,6 +4,7 @@ const LEAF = {
 };
 
 let trivia = $ => optional($._trivia);
+let trivia_same_line = $ => optional($._trivia_same_line);
 let delimitedTrivia = ($, delimiter, item) => optional(seq(
   item,
   repeat(seq(
@@ -40,6 +41,11 @@ module.exports = grammar({
 
   precedences: $ => [
     [
+      $._markup_expr_line_start,
+      $.space,
+      'markup',
+    ],
+    [
       $.math_args,
       $.math_arg_named,
       $._math_arg,
@@ -58,6 +64,10 @@ module.exports = grammar({
     [
       $.math_delimited_fence,
       $.math_delimited_fence_unclosed,
+    ],
+    [
+      $.embedded_code_expr_newline,
+      $._code_expr_or_stmt,
     ],
     [
       $.embedded_code_expr,
@@ -102,16 +112,18 @@ module.exports = grammar({
         $.parbreak,
         $.strong,
         $.emph,
+        $.embedded_code_expr,
         $._markup_expr_line_start_sof,
       ),
-      repeat(choice(
+      repeat(prec('markup', choice(
         $._markup_expr_base,
         $.space,
         $.parbreak,
         $.strong,
         $.emph,
+        $.embedded_code_expr,
         $._markup_expr_line_start,
-      )),
+      ))),
     ),
     _markup_expr_base: $ => choice(
       $.line_comment,
@@ -129,7 +141,6 @@ module.exports = grammar({
       $.reference,
 
       $.equation,
-      $.embedded_code_expr,
 
       // TODO: SyntaxKind::ListMarker
       // TODO: SyntaxKind::EnumMarker
@@ -141,11 +152,19 @@ module.exports = grammar({
         $.parbreak,
         $.block_comment,
         $.line_comment,
+        $.embedded_code_expr_newline,
       ))),
       $._markup_expr_line_start_content,
     ),
     _markup_expr_line_start: $ => seq(
-      $._whitespace_line,
+      seq(
+        choice($._newline, $.parbreak),
+        repeat(choice(
+          $._space_same_line,
+          $.block_comment,
+          $.embedded_code_expr_newline,
+        )),
+      ),
       $._markup_expr_line_start_content,
     ),
     _markup_expr_line_start_content: $ => repeat1(seq(
@@ -403,7 +422,7 @@ module.exports = grammar({
 
     // Code
 
-    embedded_code_expr: $ => prec.left(seq(
+    embedded_code_expr: $ => seq(
       '#',
       choice(
         $._code_expr,
@@ -416,7 +435,12 @@ module.exports = grammar({
           ),
         ),
       ),
-    )),
+    ),
+    embedded_code_expr_newline: $ => seq(
+      '#',
+      $._code_stmt,
+      LEAF.newline,
+    ),
 
     _code_expr_or_stmt: $ => choice(
       $._code_expr,
@@ -523,9 +547,9 @@ module.exports = grammar({
             $.pattern_closure,
             $.pattern,
           )),
-          trivia($),
+          trivia_same_line($),
           '=',
-          trivia($),
+          trivia_same_line($),
           field('expr', $._code_expr_or_stmt),
         ),
       ),
@@ -632,6 +656,10 @@ module.exports = grammar({
       $.line_comment,
       $.block_comment,
     ),
+    _trivia_same_line: $ => choice(
+      $._space_same_line,
+      $.block_comment,
+    ),
     line_comment: $ => token(seq('//', /.*/)),
     block_comment: $ => seq(
       '/*',
@@ -650,13 +678,6 @@ module.exports = grammar({
       $._space,
       $._newline,
     ),
-    _whitespace_line: $ => prec(1, seq(
-      choice($._newline, $.parbreak),
-      repeat(choice(
-        $._space_same_line,
-        $.block_comment,
-      )),
-    )),
     _space_same_line: $ => alias(/[ \t]+/, $.space),
   }
 });

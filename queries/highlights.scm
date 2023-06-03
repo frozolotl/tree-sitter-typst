@@ -60,6 +60,8 @@
 
 (embedded_code_expr
   "#" @punctuation.special)
+(embedded_code_expr_newline
+  "#" @punctuation.special)
 
 (dict
   ":" @operator)
@@ -69,8 +71,10 @@
   ".." @operator)
 
 (let_binding
-  "let" @keyword.storage
-  "=" @operator)
+  [
+    "let" @keyword.storage
+    "=" @operator
+  ])
 (pattern
   [
     "_" @variable
