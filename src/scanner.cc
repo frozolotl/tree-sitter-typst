@@ -7,6 +7,7 @@
 
 namespace {
 enum TokenType {
+  ERROR_SENTINEL,
   TOKEN_EOF,
   SPACE,
   PARBREAK,
@@ -14,6 +15,8 @@ enum TokenType {
   HEADING_START,
   INDENT,
   DEDENT,
+  /// Commands the next use of `Scanner::is_new_line` to be true.
+  START_LINE,
   RAW,
   LINK_END,
   TEXT,
@@ -160,6 +163,7 @@ class Scanner {
 
     buffer[cursor++] = this->ends_with_word ? 1 : 0;
     buffer[cursor++] = this->is_new_line ? 1 : 0;
+    buffer[cursor++] = this->start_line ? 1 : 0;
 
     assert(cursor + this->indent_length_stack.size() * 2 <
            TREE_SITTER_SERIALIZATION_BUFFER_SIZE);
@@ -175,6 +179,7 @@ class Scanner {
     this->indent_length_stack.clear();
     this->ends_with_word = false;
     this->is_new_line = true;
+    this->start_line = false;
     if (length == 0) {
       return;
     }
@@ -182,6 +187,7 @@ class Scanner {
     size_t cursor = 0;
     this->ends_with_word = buffer[cursor++] != 0;
     this->is_new_line = buffer[cursor++] != 0;
+    this->start_line = buffer[cursor++] != 0;
     for (; cursor < length; cursor += 2) {
       uint16_t indent_length = static_cast<uint16_t>(buffer[cursor]) |
                                (static_cast<uint16_t>(buffer[cursor + 1]) << 8);
@@ -200,6 +206,11 @@ class Scanner {
       } else {
         return false;
       }
+    }
+    if (!valid_symbols[ERROR_SENTINEL] && valid_symbols[START_LINE]) {
+      this->start_line = true;
+      lexer.recognized(START_LINE);
+      return true;
     }
 
     ScanResult scan_space_result = this->scan_space(lexer, valid_symbols);
@@ -250,6 +261,7 @@ class Scanner {
   std::vector<uint16_t> indent_length_stack;
   bool ends_with_word;
   bool is_new_line;
+  bool start_line;
 
   ScanResult scan_space(Lexer &lexer, const bool *valid_symbols) {
     bool started_at_line_start = lexer.at_line_start();
@@ -293,7 +305,8 @@ class Scanner {
           break;
         }
         default: {
-          this->is_new_line = newline_count > 0 || started_at_line_start;
+          this->is_new_line = this->start_line || newline_count > 0 || started_at_line_start;
+          this->start_line = false;
           if (valid_symbols[PARBREAK] && newline_count >= 2) {
             return lexer.recognized(PARBREAK);
           } else if (valid_symbols[NEWLINE] && is_space && newline_count == 1) {

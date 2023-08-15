@@ -1513,6 +1513,10 @@
           "value": "["
         },
         {
+          "type": "SYMBOL",
+          "name": "_start_line"
+        },
+        {
           "type": "CHOICE",
           "members": [
             {
@@ -3033,6 +3037,10 @@
   "externals": [
     {
       "type": "SYMBOL",
+      "name": "_error_sentinel"
+    },
+    {
+      "type": "SYMBOL",
       "name": "_token_eof"
     },
     {
@@ -3058,6 +3066,10 @@
     {
       "type": "SYMBOL",
       "name": "_dedent"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_start_line"
     },
     {
       "type": "SYMBOL",

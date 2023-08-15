@@ -26,6 +26,7 @@ module.exports = grammar({
   extras: $ => [],
 
   externals: $ => [
+    $._error_sentinel,
     $._token_eof,
     $._space,
     $.parbreak,
@@ -33,6 +34,7 @@ module.exports = grammar({
     $.heading_start,
     $._indent,
     $._dedent,
+    $._start_line,
     $.raw,
     $._link_end,
     $.text,
@@ -413,6 +415,7 @@ module.exports = grammar({
     ),
     content_block: $ => seq(
       '[',
+      $._start_line,
       optional(field('inner', $.markup)),
       ']',
     ),
