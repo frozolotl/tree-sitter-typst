@@ -11,6 +11,7 @@ enum TokenType {
   SPACE,
   PARBREAK,
   NEWLINE,
+  HEADING_START,
   INDENT,
   DEDENT,
   RAW,
@@ -39,12 +40,12 @@ enum ScanResult {
 class Lexer {
  private:
   TSLexer *lexer;
-  bool not_empty;
+  bool empty;
 
  public:
   Lexer(TSLexer *lexer) {
     this->lexer = lexer;
-    this->not_empty = false;
+    this->empty = true;
   }
 
   /// Returns the current lookahead.
@@ -62,7 +63,7 @@ class Lexer {
   /// I'm sorry for taking the `eat' analogy so far.
   void swallow() {
     this->lexer->mark_end(lexer);
-    this->not_empty = true;
+    this->empty = false;
   }
 
   /// Return the lookahead and advance.
@@ -119,22 +120,30 @@ class Lexer {
 
   /// Skip whitespace.
   void skip() {
-    this->lexer->advance(lexer, false);
+    this->lexer->advance(lexer, true);
     this->swallow();
+  }
+
+  /// Skip whitespace.
+  bool skip_if(char32_t ch) {
+    if (this->peek() == ch) {
+      this->skip();
+      return true;
+    } else {
+      return false;
+    }
   }
 
   /// Specifies the recognized symbol, returns true for convenience.
   ScanResult recognized(TSSymbol symbol) {
     this->lexer->result_symbol = symbol;
-    return this->not_empty ? MATCH : BREAK;
+    return this->empty ? BREAK : MATCH;
   }
 
   bool at_line_start() { return this->lexer->get_column(lexer) == 0; }
 
   /// Whether anything was swallowed yet.
-  bool is_empty() {
-    return !this->not_empty;
-  }
+  bool is_empty() { return this->empty; }
 
   /// Whether the end of the input was reached.
   bool eof() {
@@ -150,6 +159,7 @@ class Scanner {
     unsigned cursor = 0;
 
     buffer[cursor++] = this->ends_with_word ? 1 : 0;
+    buffer[cursor++] = this->is_new_line ? 1 : 0;
 
     assert(cursor + this->indent_length_stack.size() * 2 <
            TREE_SITTER_SERIALIZATION_BUFFER_SIZE);
@@ -164,12 +174,14 @@ class Scanner {
     // Default values.
     this->indent_length_stack.clear();
     this->ends_with_word = false;
+    this->is_new_line = true;
     if (length == 0) {
       return;
     }
 
     size_t cursor = 0;
     this->ends_with_word = buffer[cursor++] != 0;
+    this->is_new_line = buffer[cursor++] != 0;
     for (; cursor < length; cursor += 2) {
       uint16_t indent_length = static_cast<uint16_t>(buffer[cursor]) |
                                (static_cast<uint16_t>(buffer[cursor + 1]) << 8);
@@ -190,7 +202,15 @@ class Scanner {
       }
     }
 
-    HANDLE_SCAN_RESULT(this->scan_space(lexer, valid_symbols));
+    ScanResult scan_space_result = this->scan_space(lexer, valid_symbols);
+
+    if (valid_symbols[HEADING_START] && this->is_new_line && lexer.eat_if('=')) {
+      while (lexer.eat_if('='));
+      this->is_new_line = false;
+      HANDLE_SCAN_RESULT(lexer.recognized(HEADING_START));
+    }
+
+    HANDLE_SCAN_RESULT(scan_space_result);
 
     if (valid_symbols[DELIM_STRONG] && lexer.eat_if('*')) {
       bool word_before = ends_with_word;
@@ -229,7 +249,7 @@ class Scanner {
  private:
   std::vector<uint16_t> indent_length_stack;
   bool ends_with_word;
-  bool newline;
+  bool is_new_line;
 
   ScanResult scan_space(Lexer &lexer, const bool *valid_symbols) {
     bool started_at_line_start = lexer.at_line_start();
@@ -239,21 +259,21 @@ class Scanner {
     for (;;) {
       switch (lexer.peek()) {
         case ' ': {
-          lexer.eat();
+          lexer.skip();
           is_space = true;
           indent_length++;
           break;
         }
         case '\t': {
-          lexer.eat();
+          lexer.skip();
           is_space = true;
           indent_length += 8;
           break;
         }
         case '\r': {
           // CRLF should be considered as one newline, not two.
-          lexer.eat();
-          lexer.eat_if('\n');
+          lexer.skip();
+          lexer.skip_if('\n');
           is_space = true;
           newline_count++;
           indent_length = 0;
@@ -266,18 +286,19 @@ class Scanner {
         case 0x2028:
         case 0x2029: {
           // Newline
-          lexer.eat();
+          lexer.skip();
           is_space = true;
           newline_count++;
           indent_length = 0;
           break;
         }
         default: {
+          this->is_new_line = newline_count > 0 || started_at_line_start;
           if (valid_symbols[PARBREAK] && newline_count >= 2) {
             return lexer.recognized(PARBREAK);
           } else if (valid_symbols[NEWLINE] && is_space && newline_count == 1) {
             return lexer.recognized(NEWLINE);
-          } else if (valid_symbols[SPACE] && is_space && newline_count < 2) {
+          } else if (valid_symbols[SPACE] && is_space && newline_count == 0) {
             return lexer.recognized(SPACE);
           } else if (is_space) {
             return BREAK;

@@ -30,6 +30,7 @@ module.exports = grammar({
     $._space,
     $.parbreak,
     $._newline,
+    $.heading_start,
     $._indent,
     $._dedent,
     $.raw,
@@ -40,11 +41,6 @@ module.exports = grammar({
   ],
 
   precedences: $ => [
-    [
-      $._markup_expr_line_start,
-      $.space,
-      'markup',
-    ],
     [
       $.math_args,
       $.math_arg_named,
@@ -64,10 +60,6 @@ module.exports = grammar({
     [
       $.math_delimited_fence,
       $.math_delimited_fence_unclosed,
-    ],
-    [
-      $.embedded_code_expr_newline,
-      $._code_expr_or_stmt,
     ],
     [
       $.embedded_code_expr,
@@ -105,26 +97,12 @@ module.exports = grammar({
 
     // Markup
 
-    markup: $ => seq(
-      choice(
-        $._markup_expr_base,
-        $.space,
-        $.parbreak,
-        $.strong,
-        $.emph,
-        $.embedded_code_expr,
-        $._markup_expr_line_start_sof,
-      ),
-      repeat(prec('markup', choice(
-        $._markup_expr_base,
-        $.space,
-        $.parbreak,
-        $.strong,
-        $.emph,
-        $.embedded_code_expr,
-        $._markup_expr_line_start,
-      ))),
-    ),
+    markup: $ => prec.left(repeat1(choice(
+      $._markup_expr_base,
+      $.space,
+      $.parbreak,
+      $.heading,
+    ))),
     _markup_expr_base: $ => choice(
       $.line_comment,
       $.block_comment,
@@ -140,41 +118,15 @@ module.exports = grammar({
       $.label,
       $.reference,
 
-      $.equation,
-
+      $.strong,
+      $.emph,
       // TODO: SyntaxKind::ListMarker
       // TODO: SyntaxKind::EnumMarker
       // TODO: SyntaxKind::TermMarker
+
+      $.equation,
+      $.embedded_code_expr,
     ),
-    _markup_expr_line_start_sof: $ => seq(
-      repeat(prec.left(1, choice(
-        $.space,
-        $.parbreak,
-        $.block_comment,
-        $.line_comment,
-        $.embedded_code_expr_newline,
-      ))),
-      $._markup_expr_line_start_content,
-    ),
-    _markup_expr_line_start: $ => seq(
-      seq(
-        choice($._newline, $.parbreak),
-        repeat(choice(
-          $._space_same_line,
-          $.block_comment,
-          $.embedded_code_expr_newline,
-        )),
-      ),
-      $._markup_expr_line_start_content,
-    ),
-    _markup_expr_line_start_content: $ => repeat1(seq(
-      $.heading,
-      choice(
-        $._token_eof,
-        alias($._newline, $.space),
-        $.parbreak,
-      )
-    )),
 
     _markup_expr_text: $ => alias(
       token(prec(-1, choice(
@@ -221,37 +173,26 @@ module.exports = grammar({
       optional(field('content', $.content_block)),
     ),
 
-    strong: $ => seq(
+    strong: $ => prec.right(seq(
       $._delim_strong,
-      field('inner', $._markup_strong),
+      field('inner', optional($._markup_no_parbreak)),
       $._delim_strong,
-    ),
-    _markup_strong: $ => alias(
+    )),
+    emph: $ => prec.right(seq(
+      $._delim_emph,
+      field('inner', optional($._markup_no_parbreak)),
+      $._delim_emph,
+    )),
+    _markup_no_parbreak: $ => prec.left(alias(
       repeat1(choice(
         $._markup_expr_base,
         $.space,
-        $.emph,
-        $._markup_expr_line_start,
+        $.heading,
       )),
       $.markup,
-    ),
-    emph: $ => seq(
-      $._delim_emph,
-      field('inner', $._markup_emph),
-      $._delim_emph,
-    ),
-    _markup_emph: $ => alias(
-      repeat1(choice(
-        $._markup_expr_base,
-        $.space,
-        $.strong,
-        $._markup_expr_line_start,
-      )),
-      $.markup,
-    ),
+    )),
 
-    heading_start: $ => /=+/,
-    heading: $ => seq(
+    heading: $ => prec.right(seq(
       $.heading_start,
       choice(
         $._token_eof,
@@ -259,20 +200,18 @@ module.exports = grammar({
           $._space_same_line,
           choice(
             $._token_eof,
-            field('inner', $._markup_same_line),
+            field('inner', optional($._markup_heading)),
           ),
         ),
       ),
-    ),
-    _markup_same_line: $ => alias(
-      prec.left(repeat1(choice(
+    )),
+    _markup_heading: $ => prec.right(alias(
+      repeat1(choice(
         $._markup_expr_base,
         $._space_same_line,
-        $.strong,
-        $.emph,
-      ))),
+      )),
       $.markup,
-    ),
+    )),
 
     // Math
 
@@ -431,15 +370,10 @@ module.exports = grammar({
           choice(
             ';',
             $._token_eof,
-            LEAF.newline,
+            $._newline,
           ),
         ),
       ),
-    ),
-    embedded_code_expr_newline: $ => seq(
-      '#',
-      $._code_stmt,
-      LEAF.newline,
     ),
 
     _code_expr_or_stmt: $ => choice(
@@ -678,6 +612,6 @@ module.exports = grammar({
       $._space,
       $._newline,
     ),
-    _space_same_line: $ => alias(/[ \t]+/, $.space),
+    _space_same_line: $ => alias($._space, $.space),
   }
 });

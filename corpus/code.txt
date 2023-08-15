@@ -527,7 +527,7 @@ Let binding, heading on next line
 
 (source_file
   (markup
-    (embedded_code_expr_newline
+    (embedded_code_expr
       (let_binding
         (space)
         pattern: (pattern
@@ -549,7 +549,8 @@ test
 (source_file
   (markup
     (text)
-    (embedded_code_expr_newline
+    (space)
+    (embedded_code_expr
       (let_binding
         (space)
         pattern: (pattern

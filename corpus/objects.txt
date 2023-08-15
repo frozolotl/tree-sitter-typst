@@ -135,7 +135,6 @@ Indented heading
 
 (source_file
   (markup
-    (space)
     (heading
       (heading_start)
       (space)
@@ -151,11 +150,9 @@ Comment before heading
 (source_file
   (markup
     (block_comment)
-    (heading
-      (heading_start)
-      (space)
-      (markup
-        (text)))))
+    (text)
+    (space)
+    (text)))
 
 ================================================================================
 Comment plus space before heading
@@ -167,11 +164,9 @@ Comment plus space before heading
   (markup
     (block_comment)
     (space)
-    (heading
-      (heading_start)
-      (space)
-      (markup
-        (text)))))
+    (text)
+    (space)
+    (text)))
 
 ================================================================================
 Not a heading
@@ -251,7 +246,6 @@ Consecutive headings
       (space)
       (markup
         (text)))
-    (space)
     (heading
       (heading_start)
       (space)

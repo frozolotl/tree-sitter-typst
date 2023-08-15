@@ -60,8 +60,6 @@
 
 (embedded_code_expr
   "#" @punctuation.special)
-(embedded_code_expr_newline
-  "#" @punctuation.special)
 
 (dict
   ":" @operator)

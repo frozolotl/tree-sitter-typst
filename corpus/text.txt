@@ -505,7 +505,8 @@ Y*
 (source_file
   (ERROR
     (text)
-    (parbreak)))
+    (parbreak)
+    (text)))
 
 ================================================================================
 Strong with linebreak
@@ -533,7 +534,8 @@ Y_
 (source_file
   (ERROR
     (text)
-    (parbreak)))
+    (parbreak)
+    (text)))
 
 ================================================================================
 Emphasis with linebreak
