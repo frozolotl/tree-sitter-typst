@@ -1437,6 +1437,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "for_loop"
+        },
+        {
+          "type": "SYMBOL",
           "name": "variable"
         },
         {
@@ -3290,6 +3294,91 @@
         {
           "type": "FIELD",
           "name": "condition",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_code_expr_or_stmt"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_trivia_same_line"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "FIELD",
+          "name": "body",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_block"
+          }
+        }
+      ]
+    },
+    "for_loop": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "for"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_trivia_same_line"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "FIELD",
+          "name": "pattern",
+          "content": {
+            "type": "SYMBOL",
+            "name": "pattern"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_trivia_same_line"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "in"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_trivia_same_line"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "FIELD",
+          "name": "iter",
           "content": {
             "type": "SYMBOL",
             "name": "_code_expr_or_stmt"

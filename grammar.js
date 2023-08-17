@@ -408,6 +408,7 @@ module.exports = grammar({
 
       $.conditional,
       $.while_loop,
+      $.for_loop,
 
       $.variable,
       $.code_number,
@@ -667,6 +668,17 @@ module.exports = grammar({
       'while',
       trivia_same_line($),
       field('condition', $._code_expr_or_stmt),
+      trivia_same_line($),
+      field('body', $._block),
+    ),
+    for_loop: $ => seq(
+      'for',
+      trivia_same_line($),
+      field('pattern', $.pattern),
+      trivia_same_line($),
+      'in',
+      trivia_same_line($),
+      field('iter', $._code_expr_or_stmt),
       trivia_same_line($),
       field('body', $._block),
     ),

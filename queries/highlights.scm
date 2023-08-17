@@ -55,13 +55,9 @@
 
 ;; Code
 
-(embedded_code_expr
-  "#" @punctuation.special)
+"#" @punctuation.special
 
-(dict
-  ":" @operator)
-(spread
-  ".." @operator)
+".." @operator
 
 (let_binding
   [
@@ -77,8 +73,6 @@
   (code_ident) @variable)
 (pattern_destructuring
   (code_ident) @variable)
-(pattern_spread
-  ".." @operator)
 (pattern_closure
   name: (_) @function)
 (params
@@ -115,7 +109,10 @@
 
 "if" @keyword.control.conditional
 "else" @keyword.control.conditional
-"while" @keyword.control.repeat
+"while" @keyword.control.repeat.while
+"for" @keyword.control.repeat.for
+(for_loop
+  "in" @keyword.control.repeat.in)
 
 (variable) @variable
 (code_ident) @identifier

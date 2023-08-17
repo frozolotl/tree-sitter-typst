@@ -44,6 +44,10 @@
           "named": true
         },
         {
+          "type": "for_loop",
+          "named": true
+        },
+        {
           "type": "label",
           "named": true
         },
@@ -162,6 +166,10 @@
           "named": true
         },
         {
+          "type": "for_loop",
+          "named": true
+        },
+        {
           "type": "label",
           "named": true
         },
@@ -271,6 +279,10 @@
             "named": false
           },
           {
+            "type": "for_loop",
+            "named": true
+          },
+          {
             "type": "label",
             "named": true
           },
@@ -378,6 +390,10 @@
         },
         {
           "type": "equation",
+          "named": true
+        },
+        {
+          "type": "for_loop",
           "named": true
         },
         {
@@ -495,6 +511,10 @@
             "named": false
           },
           {
+            "type": "for_loop",
+            "named": true
+          },
+          {
             "type": "label",
             "named": true
           },
@@ -607,6 +627,10 @@
           {
             "type": "false",
             "named": false
+          },
+          {
+            "type": "for_loop",
+            "named": true
           },
           {
             "type": "label",
@@ -790,6 +814,10 @@
           "named": true
         },
         {
+          "type": "for_loop",
+          "named": true
+        },
+        {
           "type": "label",
           "named": true
         },
@@ -854,6 +882,140 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "for_loop",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "code_block",
+            "named": true
+          },
+          {
+            "type": "content_block",
+            "named": true
+          }
+        ]
+      },
+      "iter": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "array",
+            "named": true
+          },
+          {
+            "type": "auto",
+            "named": false
+          },
+          {
+            "type": "code_block",
+            "named": true
+          },
+          {
+            "type": "code_number",
+            "named": true
+          },
+          {
+            "type": "code_parenthesized",
+            "named": true
+          },
+          {
+            "type": "conditional",
+            "named": true
+          },
+          {
+            "type": "content_block",
+            "named": true
+          },
+          {
+            "type": "dict",
+            "named": true
+          },
+          {
+            "type": "equation",
+            "named": true
+          },
+          {
+            "type": "false",
+            "named": false
+          },
+          {
+            "type": "for_loop",
+            "named": true
+          },
+          {
+            "type": "label",
+            "named": true
+          },
+          {
+            "type": "let_binding",
+            "named": true
+          },
+          {
+            "type": "none",
+            "named": false
+          },
+          {
+            "type": "raw",
+            "named": true
+          },
+          {
+            "type": "set_rule",
+            "named": true
+          },
+          {
+            "type": "show_rule",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          },
+          {
+            "type": "true",
+            "named": false
+          },
+          {
+            "type": "variable",
+            "named": true
+          },
+          {
+            "type": "while_loop",
+            "named": true
+          }
+        ]
+      },
+      "pattern": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "pattern",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "block_comment",
+          "named": true
+        },
+        {
+          "type": "space",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -938,6 +1100,10 @@
           {
             "type": "false",
             "named": false
+          },
+          {
+            "type": "for_loop",
+            "named": true
           },
           {
             "type": "label",
@@ -2242,6 +2408,10 @@
             "named": false
           },
           {
+            "type": "for_loop",
+            "named": true
+          },
+          {
             "type": "label",
             "named": true
           },
@@ -2364,6 +2534,10 @@
           {
             "type": "false",
             "named": false
+          },
+          {
+            "type": "for_loop",
+            "named": true
           },
           {
             "type": "label",
@@ -2747,6 +2921,10 @@
             "named": false
           },
           {
+            "type": "for_loop",
+            "named": true
+          },
+          {
             "type": "label",
             "named": true
           },
@@ -2921,6 +3099,10 @@
             "named": false
           },
           {
+            "type": "for_loop",
+            "named": true
+          },
+          {
             "type": "label",
             "named": true
           },
@@ -3005,6 +3187,10 @@
           {
             "type": "false",
             "named": false
+          },
+          {
+            "type": "for_loop",
+            "named": true
           },
           {
             "type": "label",
@@ -3126,6 +3312,10 @@
         },
         {
           "type": "equation",
+          "named": true
+        },
+        {
+          "type": "for_loop",
           "named": true
         },
         {
@@ -3267,6 +3457,10 @@
           {
             "type": "false",
             "named": false
+          },
+          {
+            "type": "for_loop",
+            "named": true
           },
           {
             "type": "label",
@@ -3559,11 +3753,19 @@
     "named": false
   },
   {
+    "type": "for",
+    "named": false
+  },
+  {
     "type": "heading_start",
     "named": true
   },
   {
     "type": "if",
+    "named": false
+  },
+  {
+    "type": "in",
     "named": false
   },
   {
