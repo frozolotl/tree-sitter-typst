@@ -421,7 +421,13 @@ module.exports = grammar({
     code_block: $ => seq(
       '{',
       trivia($),
-      repeat($._code_expr_or_stmt),
+      repeat(seq(
+        $._code_expr_or_stmt,
+        choice(
+          ";",
+          $._newline,
+        ),
+      )),
       trivia($),
       '}',
     ),

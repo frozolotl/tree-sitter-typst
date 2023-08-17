@@ -97,7 +97,7 @@ Empty code block
       (code_block))))
 
 ================================================================================
-Code block with content
+Code block, one line
 ================================================================================
 #{
   10
@@ -110,8 +110,34 @@ Code block with content
       (code_block
         (space)
         (code_number
+          (code_int))))))
+
+================================================================================
+Code block, multiple lines
+================================================================================
+#{
+  let test = "5"
+  10
+  test
+}
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (embedded_code_expr
+      (code_block
+        (space)
+        (let_binding
+          (space)
+          (pattern
+            (code_ident))
+          (space)
+          (space)
+          (string))
+        (code_number
           (code_int))
-        (space)))))
+        (variable
+          (code_ident))))))
 
 ================================================================================
 Empty array
