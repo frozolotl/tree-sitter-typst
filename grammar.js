@@ -395,6 +395,7 @@ module.exports = grammar({
     _code_stmt: $ => choice(
       $.let_binding,
       $.set_rule,
+      $.show_rule,
     ),
     _code_expr: $ => (choice(
       $.code_block,
@@ -618,6 +619,18 @@ module.exports = grammar({
       ':',
       trivia($),
       field('value', $._code_expr_or_stmt),
+    ),
+
+    show_rule: $ => seq(
+      'show',
+      optional(seq(
+        trivia_same_line($),
+        field('selector', $._code_expr_or_stmt),
+      )),
+      trivia_same_line($),
+      ':',
+      trivia_same_line($),
+      field('transform', $._code_expr_or_stmt),
     ),
 
     variable: $ => $.code_ident,

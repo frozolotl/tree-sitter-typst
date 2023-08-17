@@ -64,6 +64,10 @@
           "named": true
         },
         {
+          "type": "show_rule",
+          "named": true
+        },
+        {
           "type": "space",
           "named": true
         },
@@ -170,6 +174,10 @@
           "named": true
         },
         {
+          "type": "show_rule",
+          "named": true
+        },
+        {
           "type": "space",
           "named": true
         },
@@ -260,6 +268,10 @@
           },
           {
             "type": "set_rule",
+            "named": true
+          },
+          {
+            "type": "show_rule",
             "named": true
           },
           {
@@ -365,6 +377,10 @@
           "named": true
         },
         {
+          "type": "show_rule",
+          "named": true
+        },
+        {
           "type": "space",
           "named": true
         },
@@ -460,6 +476,10 @@
           },
           {
             "type": "set_rule",
+            "named": true
+          },
+          {
+            "type": "show_rule",
             "named": true
           },
           {
@@ -604,6 +624,10 @@
           "named": true
         },
         {
+          "type": "show_rule",
+          "named": true
+        },
+        {
           "type": "string",
           "named": true
         },
@@ -743,6 +767,10 @@
           },
           {
             "type": "set_rule",
+            "named": true
+          },
+          {
+            "type": "show_rule",
             "named": true
           },
           {
@@ -2036,6 +2064,10 @@
             "named": true
           },
           {
+            "type": "show_rule",
+            "named": true
+          },
+          {
             "type": "string",
             "named": true
           },
@@ -2145,6 +2177,10 @@
           },
           {
             "type": "set_rule",
+            "named": true
+          },
+          {
+            "type": "show_rule",
             "named": true
           },
           {
@@ -2517,6 +2553,10 @@
             "named": true
           },
           {
+            "type": "show_rule",
+            "named": true
+          },
+          {
             "type": "string",
             "named": true
           },
@@ -2615,6 +2655,182 @@
     }
   },
   {
+    "type": "show_rule",
+    "named": true,
+    "fields": {
+      "selector": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "array",
+            "named": true
+          },
+          {
+            "type": "auto",
+            "named": false
+          },
+          {
+            "type": "code_block",
+            "named": true
+          },
+          {
+            "type": "code_number",
+            "named": true
+          },
+          {
+            "type": "code_parenthesized",
+            "named": true
+          },
+          {
+            "type": "content_block",
+            "named": true
+          },
+          {
+            "type": "dict",
+            "named": true
+          },
+          {
+            "type": "equation",
+            "named": true
+          },
+          {
+            "type": "false",
+            "named": false
+          },
+          {
+            "type": "label",
+            "named": true
+          },
+          {
+            "type": "let_binding",
+            "named": true
+          },
+          {
+            "type": "none",
+            "named": false
+          },
+          {
+            "type": "raw",
+            "named": true
+          },
+          {
+            "type": "set_rule",
+            "named": true
+          },
+          {
+            "type": "show_rule",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          },
+          {
+            "type": "true",
+            "named": false
+          },
+          {
+            "type": "variable",
+            "named": true
+          }
+        ]
+      },
+      "transform": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "array",
+            "named": true
+          },
+          {
+            "type": "auto",
+            "named": false
+          },
+          {
+            "type": "code_block",
+            "named": true
+          },
+          {
+            "type": "code_number",
+            "named": true
+          },
+          {
+            "type": "code_parenthesized",
+            "named": true
+          },
+          {
+            "type": "content_block",
+            "named": true
+          },
+          {
+            "type": "dict",
+            "named": true
+          },
+          {
+            "type": "equation",
+            "named": true
+          },
+          {
+            "type": "false",
+            "named": false
+          },
+          {
+            "type": "label",
+            "named": true
+          },
+          {
+            "type": "let_binding",
+            "named": true
+          },
+          {
+            "type": "none",
+            "named": false
+          },
+          {
+            "type": "raw",
+            "named": true
+          },
+          {
+            "type": "set_rule",
+            "named": true
+          },
+          {
+            "type": "show_rule",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          },
+          {
+            "type": "true",
+            "named": false
+          },
+          {
+            "type": "variable",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "block_comment",
+          "named": true
+        },
+        {
+          "type": "space",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "source_file",
     "named": true,
     "fields": {},
@@ -2696,6 +2912,10 @@
         },
         {
           "type": "set_rule",
+          "named": true
+        },
+        {
+          "type": "show_rule",
           "named": true
         },
         {
@@ -3018,6 +3238,10 @@
   },
   {
     "type": "set",
+    "named": false
+  },
+  {
+    "type": "show",
     "named": false
   },
   {

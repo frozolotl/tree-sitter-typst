@@ -111,7 +111,7 @@
 
 (set_rule
   [
-    "set" @keyword
+    "set" @keyword.operator.assignment
     "if" @keyword.conditional  
   ])
 (set_rule_field_access
@@ -124,6 +124,12 @@
 
 (code_args_named
   ":" @punctuation.delimiter)
+
+(show_rule
+  [
+    "show" @keyword.control
+    ":" @punctuation.delimiter
+  ])
 
 (variable) @variable
 (code_ident) @identifier
