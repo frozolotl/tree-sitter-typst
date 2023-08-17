@@ -33,13 +33,10 @@
   ])
 (math_field_access
   [
-    "." @punctuation.delimiter
     name: (_) @variable
     object: (_) @variable
     field: (_) @variable.other.member  
   ])
-(math_arg_named
-  ":" @punctuation.delimiter)
 
 (math_root
   ["√" "∛" "∜"] @operator)
@@ -63,8 +60,6 @@
 
 (dict
   ":" @operator)
-(named_value
-  ":" @punctuation.delimiter)
 (spread
   ".." @operator)
 
@@ -105,37 +100,21 @@
 (pattern_named
   [
     field: (_) @variable.other.member
-    ":" @punctuation.delimiter
     binding: (_) @variable 
   ])
 
-(set_rule
-  [
-    "set" @keyword.operator.assignment
-    "if" @keyword.conditional  
-  ])
+"set" @keyword.operator.assignment
 (set_rule_field_access
   [
-    "." @punctuation.delimiter
     name: (_) @variable
     object: (_) @variable
     field: (_) @variable.other.member  
   ])
 
-(code_args_named
-  ":" @punctuation.delimiter)
+"show" @keyword.control.show
 
-(show_rule
-  [
-    "show" @keyword.control
-    ":" @punctuation.delimiter
-  ])
-
-(conditional
-  [
-    "if" @keyword.control.conditional
-    "else" @keyword.control.conditional
-  ])
+"if" @keyword.control.conditional
+"else" @keyword.control.conditional
 "while" @keyword.control.repeat
 
 (variable) @variable
@@ -162,8 +141,10 @@
   ")"
 ] @punctuation.bracket
 [
+  "."
   ","
   ";"
+  ":"
 ] @punctuation.delimiter
 
 (line_comment) @comment.line
