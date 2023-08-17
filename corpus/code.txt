@@ -9,7 +9,8 @@ foo #bar baz
     (text)
     (space)
     (embedded_code_expr
-      (code_ident))
+      (variable
+        (code_ident)))
     (space)
     (text)))
 
@@ -26,7 +27,8 @@ baz
     (text)
     (space)
     (embedded_code_expr
-      (code_ident))
+      (variable
+        (code_ident)))
     (space)
     (text)))
 
@@ -39,7 +41,8 @@ Identifier
 (source_file
   (markup
     (embedded_code_expr
-      (code_ident))))
+      (variable
+        (code_ident)))))
 
 ================================================================================
 Empty content block
@@ -202,7 +205,8 @@ Array, one spread
     (embedded_code_expr
       (array
         (spread
-          (code_ident))))))
+          (variable
+            (code_ident)))))))
 
 ================================================================================
 Array, multiple spreads, spacing everywhere
@@ -217,11 +221,13 @@ Array, multiple spreads, spacing everywhere
         (space)
         (spread
           (space)
-          (code_ident))
+          (variable
+            (code_ident)))
         (space)
         (spread
           (space)
-          (code_ident))
+          (variable
+            (code_ident)))
         (space)))))
 
 ================================================================================
@@ -273,7 +279,8 @@ Prefixed dictionary, spread from variable
       (dict
         (space)
         (spread
-          (code_ident))))))
+          (variable
+            (code_ident)))))))
 
 ================================================================================
 Prefixed dictionary, multiple spreads
@@ -287,10 +294,12 @@ Prefixed dictionary, multiple spreads
       (dict
         (space)
         (spread
-          (code_ident))
+          (variable
+            (code_ident)))
         (space)
         (spread
-          (code_ident))))))
+          (variable
+            (code_ident)))))))
 
 ================================================================================
 Prefixed dictionary, spread with space
@@ -305,7 +314,8 @@ Prefixed dictionary, spread with space
         (space)
         (spread
           (space)
-          (code_ident))))))
+          (variable
+            (code_ident)))))))
 
 ================================================================================
 Prefixed dictionary, with values
@@ -997,13 +1007,16 @@ Set rule, multiple arguments
           name: (code_ident))
         arguments: (code_args
           (space)
-          (code_ident)
+          (variable
+            (code_ident))
           (space)
           (space)
-          (code_ident)
+          (variable
+            (code_ident))
           (space)
           (space)
-          (code_ident)
+          (variable
+            (code_ident))
           (space)
           (space))))))
 
@@ -1059,7 +1072,8 @@ Set rule, spread value
           name: (code_ident))
         arguments: (code_args
           (spread
-            (code_ident)))))))
+            (variable
+              (code_ident))))))))
 
 ================================================================================
 Set rule, mixed
@@ -1084,7 +1098,8 @@ Set rule, mixed
             value: (string))
           (space)
           (spread
-            (code_ident)))))))
+            (variable
+              (code_ident))))))))
 
 ================================================================================
 Set rule, b
@@ -1109,7 +1124,8 @@ Set rule, b
             value: (string))
           (space)
           (spread
-            (code_ident)))))))
+            (variable
+              (code_ident))))))))
 
 ================================================================================
 Set-if rule
@@ -1127,7 +1143,8 @@ Set-if rule
         arguments: (code_args)
         (space)
         (space)
-        condition: (code_ident)))))
+        condition: (variable
+          (code_ident))))))
 
 ================================================================================
 Set, next line if
@@ -1145,4 +1162,3 @@ if bar
           name: (code_ident))
         arguments: (code_args)))
     (text)))
-

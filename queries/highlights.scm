@@ -125,6 +125,7 @@
 (code_args_named
   ":" @punctuation.delimiter)
 
+(variable) @variable
 (code_ident) @identifier
 (code_number) @constant.numeric
 (code_int) @constant.numeric.integer

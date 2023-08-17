@@ -78,6 +78,10 @@ module.exports = grammar({
       $._code_expr,
     ],
     [
+      $.named_value,
+      $.variable,
+    ],
+    [
       $.pattern_closure,
       $.pattern,
     ],
@@ -97,7 +101,7 @@ module.exports = grammar({
 
   conflicts: $ => [
     [
-      $._code_expr,
+      $.variable,
       $.code_args_named,
     ],
   ],
@@ -401,7 +405,7 @@ module.exports = grammar({
       $.array,
       $.dict,
 
-      $.code_ident,
+      $.variable,
       $.code_number,
       $.string,
       $.label,
@@ -616,6 +620,7 @@ module.exports = grammar({
       field('value', $._code_expr_or_stmt),
     ),
 
+    variable: $ => $.code_ident,
     code_ident: $ => /[_\p{XID_Start}][\-_\p{XID_Continue}]*/,
     code_number: $ => choice($.code_int, $.code_float),
     code_int: $ => token(seq(

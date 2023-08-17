@@ -1425,7 +1425,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "code_ident"
+          "name": "variable"
         },
         {
           "type": "SYMBOL",
@@ -3036,6 +3036,10 @@
         }
       ]
     },
+    "variable": {
+      "type": "SYMBOL",
+      "name": "code_ident"
+    },
     "code_ident": {
       "type": "PATTERN",
       "value": "[_\\p{XID_Start}][\\-_\\p{XID_Continue}]*"
@@ -3293,7 +3297,7 @@
   "extras": [],
   "conflicts": [
     [
-      "_code_expr",
+      "variable",
       "code_args_named"
     ]
   ],
@@ -3386,6 +3390,16 @@
       {
         "type": "SYMBOL",
         "name": "_code_expr"
+      }
+    ],
+    [
+      {
+        "type": "SYMBOL",
+        "name": "named_value"
+      },
+      {
+        "type": "SYMBOL",
+        "name": "variable"
       }
     ],
     [
