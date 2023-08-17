@@ -27,14 +27,14 @@
 (math_function_call
   [
     (math_field_access
-      value: (_) @function)
+      name: (_) @function)
     (math_field_access
       field: (_) @function.method)
   ])
 (math_field_access
   [
     "." @punctuation.delimiter
-    value: (_) @variable
+    name: (_) @variable
     object: (_) @variable
     field: (_) @variable.other.member  
   ])
@@ -108,6 +108,22 @@
     ":" @punctuation.delimiter
     binding: (_) @variable 
   ])
+
+(set_rule
+  [
+    "set" @keyword
+    "if" @keyword.conditional  
+  ])
+(set_rule_field_access
+  [
+    "." @punctuation.delimiter
+    name: (_) @variable
+    object: (_) @variable
+    field: (_) @variable.other.member  
+  ])
+
+(code_args_named
+  ":" @punctuation.delimiter)
 
 (code_ident) @identifier
 (code_number) @constant.numeric

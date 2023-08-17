@@ -13,7 +13,6 @@ let delimitedTrivia = ($, delimiter, item) => optional(seq(
     trivia($),
     item,
   )),
-
   optional(seq(
     trivia($),
     delimiter,
@@ -24,6 +23,8 @@ module.exports = grammar({
   name: 'typst',
 
   extras: $ => [],
+
+  word: $ => $.code_ident,
 
   externals: $ => [
     $._error_sentinel,
@@ -91,6 +92,13 @@ module.exports = grammar({
     [
       $.param_named,
       'params',
+    ],
+  ],
+
+  conflicts: $ => [
+    [
+      $._code_expr,
+      $.code_args_named,
     ],
   ],
 
@@ -292,13 +300,11 @@ module.exports = grammar({
     math_align_point: $ => '&',
 
     math_field_access: $ => choice(
-      field('value', $.math_ident),
+      field('name', $.math_ident),
       seq(
         field('object', $.math_field_access),
-        seq(
-          '.',
-          field('field', $._math_text_ident),
-        ),
+        '.',
+        field('field', $._math_text_ident),
       ),
     ),
     math_function_call: $ => seq(
@@ -384,9 +390,9 @@ module.exports = grammar({
     ),
     _code_stmt: $ => choice(
       $.let_binding,
+      $.set_rule,
     ),
-    _code_expr: $ => choice(
-      $.code_ident,
+    _code_expr: $ => (choice(
       $.code_block,
       $.content_block,
       $.code_parenthesized,
@@ -395,6 +401,7 @@ module.exports = grammar({
       $.array,
       $.dict,
 
+      $.code_ident,
       $.code_number,
       $.string,
       $.label,
@@ -404,7 +411,7 @@ module.exports = grammar({
       'auto',
       'true',
       'false',
-    ),
+    )),
 
     code_block: $ => seq(
       '{',
@@ -469,8 +476,10 @@ module.exports = grammar({
     ),
     spread: $ => prec.right(seq(
       '..',
-      trivia($),
-      optional($._code_expr_or_stmt),
+      optional(seq(
+        trivia($),
+        $._code_expr_or_stmt
+      )),
     )),
 
     let_binding: $ => prec.right(seq(
@@ -549,6 +558,57 @@ module.exports = grammar({
       ')',
     ),
     param_named: $ => seq(
+      field('name', $.code_ident),
+      trivia($),
+      ':',
+      trivia($),
+      field('value', $._code_expr_or_stmt),
+    ),
+
+    set_rule: $ => prec.left(seq(
+      'set',
+      trivia_same_line($),
+      field('target', $.set_rule_field_access),
+      trivia_same_line($),
+      field('arguments', $.code_args),
+      optional(seq(
+        trivia_same_line($),
+        'if',
+        trivia_same_line($),
+        field('condition', $._code_expr_or_stmt),
+      ))
+    )),
+    set_rule_field_access: $ => choice(
+      field('name', $.code_ident),
+      seq(
+        field('object', $.set_rule_field_access),
+        trivia($),
+        '.',
+        trivia_same_line($),
+        field('field', $.code_ident),
+      ),
+    ),
+
+    code_args: $ => prec.left(choice(
+      seq(
+        '(',
+        trivia($),
+        delimitedTrivia($,
+          ',',
+          choice(
+            $._code_expr_or_stmt,
+            $.code_args_named,
+            $.spread,
+          ),
+        ),
+        trivia($),
+        ')',
+
+        repeat($.content_block),
+      ),
+      repeat1($.content_block),
+    )),
+    code_args_named: $ => seq(
       field('name', $.code_ident),
       trivia($),
       ':',

@@ -417,7 +417,7 @@ $foo(bar:5)$
       inner: (math
         (math_function_call
           function: (math_field_access
-            value: (math_ident))
+            name: (math_ident))
           args: (math_args
             (math_arg_named
               name: (math_ident)
@@ -436,7 +436,7 @@ $foo(bar:)$
       inner: (math
         (math_function_call
           function: (math_field_access
-            value: (math_ident))
+            name: (math_ident))
           args: (math_args
             (math_arg_named
               name: (math_ident))))))))
@@ -453,7 +453,7 @@ $foo(0, bar: 1)$
       inner: (math
         (math_function_call
           function: (math_field_access
-            value: (math_ident))
+            name: (math_ident))
           args: (math_args
             (math
               (math_text))
@@ -565,7 +565,7 @@ $√sin(x)$
         (math_root
           expr: (math_function_call
             function: (math_field_access
-              value: (math_ident))
+              name: (math_ident))
             args: (math_args
               (math
                 (math_text)))))))))

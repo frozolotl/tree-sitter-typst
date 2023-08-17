@@ -866,3 +866,283 @@ Function definition, destructuring
         (space)
         (space)))))
 
+================================================================================
+Set rule, no arguments
+================================================================================
+#set text()
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (embedded_code_expr
+      (set_rule
+        (space)
+        target: (set_rule_field_access
+          name: (code_ident))
+        arguments: (code_args)))))
+
+================================================================================
+Set rule, field access, no arguments
+================================================================================
+#set enum.item()
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (embedded_code_expr
+      (set_rule
+        (space)
+        target: (set_rule_field_access
+          object: (set_rule_field_access
+            name: (code_ident))
+          field: (code_ident))
+        arguments: (code_args)))))
+
+================================================================================
+Set rule, field access, no arguments, spacing everywhere
+================================================================================
+#set enum
+  . item (
+  )
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (embedded_code_expr
+      (set_rule
+        (space)
+        target: (set_rule_field_access
+          object: (set_rule_field_access
+            name: (code_ident))
+          (space)
+          (space)
+          field: (code_ident))
+        (space)
+        arguments: (code_args
+          (space))))))
+
+================================================================================
+Set rule, field access with newline after dot
+================================================================================
+#set enum
+  .
+  item (
+  )
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (embedded_code_expr
+      (set_rule
+        (space)
+        target: (set_rule_field_access
+          object: (set_rule_field_access
+            name: (code_ident))
+          (space)
+          (ERROR)
+          (space)
+          field: (MISSING code_ident))
+        arguments: (code_args
+          (space))))))
+
+================================================================================
+Set rule, newline pefore open parenthesis
+================================================================================
+#set enum
+  (
+  )
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (embedded_code_expr
+      (set_rule
+        (space)
+        target: (set_rule_field_access
+          name: (code_ident))
+        (ERROR
+          (space))
+        arguments: (code_args
+          (space))))))
+
+================================================================================
+Set rule, one argument
+================================================================================
+#set text(5pt)
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (embedded_code_expr
+      (set_rule
+        (space)
+        target: (set_rule_field_access
+          name: (code_ident))
+        arguments: (code_args
+          (code_number
+            (code_int)))))))
+
+================================================================================
+Set rule, multiple arguments
+================================================================================
+#set foo( a , b , c , )
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (embedded_code_expr
+      (set_rule
+        (space)
+        target: (set_rule_field_access
+          name: (code_ident))
+        arguments: (code_args
+          (space)
+          (code_ident)
+          (space)
+          (space)
+          (code_ident)
+          (space)
+          (space)
+          (code_ident)
+          (space)
+          (space))))))
+
+================================================================================
+Set rule, named argument
+================================================================================
+#set text(size : 10pt)
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (embedded_code_expr
+      (set_rule
+        (space)
+        target: (set_rule_field_access
+          name: (code_ident))
+        arguments: (code_args
+          (code_args_named
+            name: (code_ident)
+            (space)
+            (space)
+            value: (code_number
+              (code_int))))))))
+
+================================================================================
+Set rule, spread
+================================================================================
+#set text(..)
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (embedded_code_expr
+      (set_rule
+        (space)
+        target: (set_rule_field_access
+          name: (code_ident))
+        arguments: (code_args
+          (spread))))))
+
+================================================================================
+Set rule, spread value
+================================================================================
+#set text(..rest)
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (embedded_code_expr
+      (set_rule
+        (space)
+        target: (set_rule_field_access
+          name: (code_ident))
+        arguments: (code_args
+          (spread
+            (code_ident)))))))
+
+================================================================================
+Set rule, mixed
+================================================================================
+#set text(5pt, font: "Inter", ..rest)
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (embedded_code_expr
+      (set_rule
+        (space)
+        target: (set_rule_field_access
+          name: (code_ident))
+        arguments: (code_args
+          (code_number
+            (code_int))
+          (space)
+          (code_args_named
+            name: (code_ident)
+            (space)
+            value: (string))
+          (space)
+          (spread
+            (code_ident)))))))
+
+================================================================================
+Set rule, b
+================================================================================
+#set text(5pt, font: "Inter", ..rest)
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (embedded_code_expr
+      (set_rule
+        (space)
+        target: (set_rule_field_access
+          name: (code_ident))
+        arguments: (code_args
+          (code_number
+            (code_int))
+          (space)
+          (code_args_named
+            name: (code_ident)
+            (space)
+            value: (string))
+          (space)
+          (spread
+            (code_ident)))))))
+
+================================================================================
+Set-if rule
+================================================================================
+#set foo() if bar
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (embedded_code_expr
+      (set_rule
+        (space)
+        target: (set_rule_field_access
+          name: (code_ident))
+        arguments: (code_args)
+        (space)
+        (space)
+        condition: (code_ident)))))
+
+================================================================================
+Set, next line if
+================================================================================
+#set foo()
+if bar
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (embedded_code_expr
+      (set_rule
+        (space)
+        target: (set_rule_field_access
+          name: (code_ident))
+        arguments: (code_args)))
+    (text)))
+
