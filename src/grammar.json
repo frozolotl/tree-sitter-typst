@@ -1433,6 +1433,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "while_loop"
+        },
+        {
+          "type": "SYMBOL",
           "name": "variable"
         },
         {
@@ -3176,8 +3180,12 @@
             ]
           },
           {
-            "type": "SYMBOL",
-            "name": "_code_expr_or_stmt"
+            "type": "FIELD",
+            "name": "condition",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_code_expr_or_stmt"
+            }
           },
           {
             "type": "CHOICE",
@@ -3192,8 +3200,12 @@
             ]
           },
           {
-            "type": "SYMBOL",
-            "name": "_block"
+            "type": "FIELD",
+            "name": "if_body",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_block"
+            }
           },
           {
             "type": "CHOICE",
@@ -3230,17 +3242,21 @@
                     ]
                   },
                   {
-                    "type": "CHOICE",
-                    "members": [
-                      {
-                        "type": "SYMBOL",
-                        "name": "conditional"
-                      },
-                      {
-                        "type": "SYMBOL",
-                        "name": "_block"
-                      }
-                    ]
+                    "type": "FIELD",
+                    "name": "else_body",
+                    "content": {
+                      "type": "CHOICE",
+                      "members": [
+                        {
+                          "type": "SYMBOL",
+                          "name": "conditional"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "_block"
+                        }
+                      ]
+                    }
                   }
                 ]
               },
@@ -3251,6 +3267,55 @@
           }
         ]
       }
+    },
+    "while_loop": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "while"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_trivia_same_line"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "FIELD",
+          "name": "condition",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_code_expr_or_stmt"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_trivia_same_line"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "FIELD",
+          "name": "body",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_block"
+          }
+        }
+      ]
     },
     "variable": {
       "type": "SYMBOL",

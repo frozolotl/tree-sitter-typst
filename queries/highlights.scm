@@ -136,6 +136,7 @@
     "if" @keyword.control.conditional
     "else" @keyword.control.conditional
   ])
+"while" @keyword.control.repeat
 
 (variable) @variable
 (code_ident) @identifier

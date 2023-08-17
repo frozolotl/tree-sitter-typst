@@ -407,6 +407,7 @@ module.exports = grammar({
       $.dict,
 
       $.conditional,
+      $.while_loop,
 
       $.variable,
       $.code_number,
@@ -648,19 +649,27 @@ module.exports = grammar({
     conditional: $ => prec.right(seq(
       'if',
       trivia_same_line($),
-      $._code_expr_or_stmt,
+      field('condition', $._code_expr_or_stmt),
       trivia_same_line($),
-      $._block,
+      field('if_body', $._block),
       optional(seq(
         trivia_same_line($),
         'else',
         trivia_same_line($),
-        choice(
+        field('else_body', choice(
           $.conditional,
           $._block,
-        ),
+        )),
       )),
     )),
+
+    while_loop: $ => seq(
+      'while',
+      trivia_same_line($),
+      field('condition', $._code_expr_or_stmt),
+      trivia_same_line($),
+      field('body', $._block),
+    ),
 
     variable: $ => $.code_ident,
     code_ident: $ => /[_\p{XID_Start}][\-_\p{XID_Continue}]*/,
