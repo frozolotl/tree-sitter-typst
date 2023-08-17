@@ -60,6 +60,10 @@
           "named": true
         },
         {
+          "type": "module_import",
+          "named": true
+        },
+        {
           "type": "parbreak",
           "named": true
         },
@@ -182,6 +186,10 @@
           "named": true
         },
         {
+          "type": "module_import",
+          "named": true
+        },
+        {
           "type": "parbreak",
           "named": true
         },
@@ -288,6 +296,10 @@
           },
           {
             "type": "let_binding",
+            "named": true
+          },
+          {
+            "type": "module_import",
             "named": true
           },
           {
@@ -409,6 +421,10 @@
           "named": true
         },
         {
+          "type": "module_import",
+          "named": true
+        },
+        {
           "type": "parbreak",
           "named": true
         },
@@ -520,6 +536,10 @@
           },
           {
             "type": "let_binding",
+            "named": true
+          },
+          {
+            "type": "module_import",
             "named": true
           },
           {
@@ -638,6 +658,10 @@
           },
           {
             "type": "let_binding",
+            "named": true
+          },
+          {
+            "type": "module_import",
             "named": true
           },
           {
@@ -826,6 +850,10 @@
           "named": true
         },
         {
+          "type": "module_import",
+          "named": true
+        },
+        {
           "type": "raw",
           "named": true
         },
@@ -956,6 +984,10 @@
           },
           {
             "type": "let_binding",
+            "named": true
+          },
+          {
+            "type": "module_import",
             "named": true
           },
           {
@@ -1111,6 +1143,10 @@
           },
           {
             "type": "let_binding",
+            "named": true
+          },
+          {
+            "type": "module_import",
             "named": true
           },
           {
@@ -2346,6 +2382,138 @@
     "fields": {}
   },
   {
+    "type": "module_import",
+    "named": true,
+    "fields": {
+      "item": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "code_ident",
+            "named": true
+          }
+        ]
+      },
+      "source": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "array",
+            "named": true
+          },
+          {
+            "type": "auto",
+            "named": false
+          },
+          {
+            "type": "code_block",
+            "named": true
+          },
+          {
+            "type": "code_number",
+            "named": true
+          },
+          {
+            "type": "code_parenthesized",
+            "named": true
+          },
+          {
+            "type": "conditional",
+            "named": true
+          },
+          {
+            "type": "content_block",
+            "named": true
+          },
+          {
+            "type": "dict",
+            "named": true
+          },
+          {
+            "type": "equation",
+            "named": true
+          },
+          {
+            "type": "false",
+            "named": false
+          },
+          {
+            "type": "for_loop",
+            "named": true
+          },
+          {
+            "type": "label",
+            "named": true
+          },
+          {
+            "type": "let_binding",
+            "named": true
+          },
+          {
+            "type": "module_import",
+            "named": true
+          },
+          {
+            "type": "none",
+            "named": false
+          },
+          {
+            "type": "raw",
+            "named": true
+          },
+          {
+            "type": "set_rule",
+            "named": true
+          },
+          {
+            "type": "show_rule",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          },
+          {
+            "type": "true",
+            "named": false
+          },
+          {
+            "type": "variable",
+            "named": true
+          },
+          {
+            "type": "while_loop",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "block_comment",
+          "named": true
+        },
+        {
+          "type": "line_comment",
+          "named": true
+        },
+        {
+          "type": "parbreak",
+          "named": true
+        },
+        {
+          "type": "space",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "named_value",
     "named": true,
     "fields": {
@@ -2417,6 +2585,10 @@
           },
           {
             "type": "let_binding",
+            "named": true
+          },
+          {
+            "type": "module_import",
             "named": true
           },
           {
@@ -2545,6 +2717,10 @@
           },
           {
             "type": "let_binding",
+            "named": true
+          },
+          {
+            "type": "module_import",
             "named": true
           },
           {
@@ -2933,6 +3109,10 @@
             "named": true
           },
           {
+            "type": "module_import",
+            "named": true
+          },
+          {
             "type": "none",
             "named": false
           },
@@ -3111,6 +3291,10 @@
             "named": true
           },
           {
+            "type": "module_import",
+            "named": true
+          },
+          {
             "type": "none",
             "named": false
           },
@@ -3198,6 +3382,10 @@
           },
           {
             "type": "let_binding",
+            "named": true
+          },
+          {
+            "type": "module_import",
             "named": true
           },
           {
@@ -3328,6 +3516,10 @@
         },
         {
           "type": "line_comment",
+          "named": true
+        },
+        {
+          "type": "module_import",
           "named": true
         },
         {
@@ -3468,6 +3660,10 @@
           },
           {
             "type": "let_binding",
+            "named": true
+          },
+          {
+            "type": "module_import",
             "named": true
           },
           {
@@ -3762,6 +3958,10 @@
   },
   {
     "type": "if",
+    "named": false
+  },
+  {
+    "type": "import",
     "named": false
   },
   {

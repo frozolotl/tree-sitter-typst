@@ -396,6 +396,7 @@ module.exports = grammar({
       $.let_binding,
       $.set_rule,
       $.show_rule,
+      $.module_import,
     ),
     _code_expr: $ => (choice(
       $.code_block,
@@ -682,6 +683,24 @@ module.exports = grammar({
       trivia_same_line($),
       field('body', $._block),
     ),
+
+    module_import: $ => prec.right(seq(
+      'import',
+      trivia_same_line($),
+      field('source', $._code_expr_or_stmt),
+      optional(seq(
+        trivia_same_line($),
+        ':',
+        trivia_same_line($),
+        choice(
+          '*',
+          delimitedTrivia($,
+            ',',
+            field('item', $.code_ident),
+          ),
+        ),
+      )),
+    )),
 
     variable: $ => $.code_ident,
     code_ident: $ => /[_\p{XID_Start}][\-_\p{XID_Continue}]*/,
