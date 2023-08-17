@@ -28,6 +28,10 @@
           "named": true
         },
         {
+          "type": "conditional",
+          "named": true
+        },
+        {
           "type": "content_block",
           "named": true
         },
@@ -138,6 +142,10 @@
           "named": true
         },
         {
+          "type": "conditional",
+          "named": true
+        },
+        {
           "type": "content_block",
           "named": true
         },
@@ -232,6 +240,10 @@
           },
           {
             "type": "code_parenthesized",
+            "named": true
+          },
+          {
+            "type": "conditional",
             "named": true
           },
           {
@@ -341,6 +353,10 @@
           "named": true
         },
         {
+          "type": "conditional",
+          "named": true
+        },
+        {
           "type": "content_block",
           "named": true
         },
@@ -443,6 +459,10 @@
             "named": true
           },
           {
+            "type": "conditional",
+            "named": true
+          },
+          {
             "type": "content_block",
             "named": true
           },
@@ -521,6 +541,85 @@
     }
   },
   {
+    "type": "conditional",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "array",
+          "named": true
+        },
+        {
+          "type": "block_comment",
+          "named": true
+        },
+        {
+          "type": "code_block",
+          "named": true
+        },
+        {
+          "type": "code_number",
+          "named": true
+        },
+        {
+          "type": "code_parenthesized",
+          "named": true
+        },
+        {
+          "type": "conditional",
+          "named": true
+        },
+        {
+          "type": "content_block",
+          "named": true
+        },
+        {
+          "type": "dict",
+          "named": true
+        },
+        {
+          "type": "equation",
+          "named": true
+        },
+        {
+          "type": "label",
+          "named": true
+        },
+        {
+          "type": "let_binding",
+          "named": true
+        },
+        {
+          "type": "raw",
+          "named": true
+        },
+        {
+          "type": "set_rule",
+          "named": true
+        },
+        {
+          "type": "show_rule",
+          "named": true
+        },
+        {
+          "type": "space",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "variable",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "content_block",
     "named": true,
     "fields": {
@@ -593,6 +692,10 @@
         },
         {
           "type": "code_parenthesized",
+          "named": true
+        },
+        {
+          "type": "conditional",
           "named": true
         },
         {
@@ -731,6 +834,10 @@
           },
           {
             "type": "code_parenthesized",
+            "named": true
+          },
+          {
+            "type": "conditional",
             "named": true
           },
           {
@@ -2028,6 +2135,10 @@
             "named": true
           },
           {
+            "type": "conditional",
+            "named": true
+          },
+          {
             "type": "content_block",
             "named": true
           },
@@ -2141,6 +2252,10 @@
           },
           {
             "type": "code_parenthesized",
+            "named": true
+          },
+          {
+            "type": "conditional",
             "named": true
           },
           {
@@ -2517,6 +2632,10 @@
             "named": true
           },
           {
+            "type": "conditional",
+            "named": true
+          },
+          {
             "type": "content_block",
             "named": true
           },
@@ -2683,6 +2802,10 @@
             "named": true
           },
           {
+            "type": "conditional",
+            "named": true
+          },
+          {
             "type": "content_block",
             "named": true
           },
@@ -2758,6 +2881,10 @@
           },
           {
             "type": "code_parenthesized",
+            "named": true
+          },
+          {
+            "type": "conditional",
             "named": true
           },
           {
@@ -2876,6 +3003,10 @@
         },
         {
           "type": "code_parenthesized",
+          "named": true
+        },
+        {
+          "type": "conditional",
           "named": true
         },
         {
@@ -3183,6 +3314,10 @@
   {
     "type": "code_int",
     "named": true
+  },
+  {
+    "type": "else",
+    "named": false
   },
   {
     "type": "escape",

@@ -406,6 +406,8 @@ module.exports = grammar({
       $.array,
       $.dict,
 
+      $.conditional,
+
       $.variable,
       $.code_number,
       $.string,
@@ -418,6 +420,10 @@ module.exports = grammar({
       'false',
     )),
 
+    _block: $ => choice(
+      $.code_block,
+      $.content_block,
+    ),
     code_block: $ => seq(
       '{',
       trivia($),
@@ -638,6 +644,23 @@ module.exports = grammar({
       trivia_same_line($),
       field('transform', $._code_expr_or_stmt),
     ),
+
+    conditional: $ => prec.right(seq(
+      'if',
+      trivia_same_line($),
+      $._code_expr_or_stmt,
+      trivia_same_line($),
+      $._block,
+      optional(seq(
+        trivia_same_line($),
+        'else',
+        trivia_same_line($),
+        choice(
+          $.conditional,
+          $._block,
+        ),
+      )),
+    )),
 
     variable: $ => $.code_ident,
     code_ident: $ => /[_\p{XID_Start}][\-_\p{XID_Continue}]*/,

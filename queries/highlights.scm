@@ -131,6 +131,12 @@
     ":" @punctuation.delimiter
   ])
 
+(conditional
+  [
+    "if" @keyword.control.conditional
+    "else" @keyword.control.conditional
+  ])
+
 (variable) @variable
 (code_ident) @identifier
 (code_number) @constant.numeric
