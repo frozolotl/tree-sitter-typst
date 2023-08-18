@@ -33,6 +33,34 @@ baz
     (text)))
 
 ================================================================================
+Inline code expression with semicolon
+================================================================================
+#bar;baz
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (embedded_code_expr
+      (variable
+        (code_ident)))
+    (text)))
+
+================================================================================
+Inline code expression with semicolon and newline
+================================================================================
+#bar;
+baz
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (embedded_code_expr
+      (variable
+        (code_ident)))
+    (space)
+    (text)))
+
+================================================================================
 Identifier
 ================================================================================
 #foo
@@ -571,6 +599,35 @@ Let binding, just declaration
           (code_ident))))))
 
 ================================================================================
+Let binding, trailing semicolon
+================================================================================
+#let test;
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (embedded_code_expr
+      (let_binding
+        (space)
+        pattern: (pattern
+          (code_ident))))))
+
+================================================================================
+Let binding, trailing semicolon with spacing
+================================================================================
+#let test ;
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (embedded_code_expr
+      (let_binding
+        (space)
+        pattern: (pattern
+          (code_ident)))
+      (space))))
+
+================================================================================
 Let binding, with value set
 ================================================================================
 #let test = 5
@@ -914,7 +971,7 @@ Set rule, no arguments
       (set_rule
         (space)
         target: (set_rule_field_access
-          name: (code_ident))
+          target: (code_ident))
         arguments: (code_args)))))
 
 ================================================================================
@@ -929,8 +986,7 @@ Set rule, field access, no arguments
       (set_rule
         (space)
         target: (set_rule_field_access
-          object: (set_rule_field_access
-            name: (code_ident))
+          target: (code_ident)
           field: (code_ident))
         arguments: (code_args)))))
 
@@ -948,8 +1004,7 @@ Set rule, field access, no arguments, spacing everywhere
       (set_rule
         (space)
         target: (set_rule_field_access
-          object: (set_rule_field_access
-            name: (code_ident))
+          target: (code_ident)
           (space)
           (space)
           field: (code_ident))
@@ -972,8 +1027,7 @@ Set rule, field access, newline after dot
       (set_rule
         (space)
         target: (set_rule_field_access
-          object: (set_rule_field_access
-            name: (code_ident))
+          target: (code_ident)
           (space)
           (ERROR)
           (space)
@@ -995,7 +1049,7 @@ Set rule, newline pefore open parenthesis
       (set_rule
         (space)
         target: (set_rule_field_access
-          name: (code_ident))
+          target: (code_ident))
         (ERROR
           (space))
         arguments: (code_args
@@ -1013,7 +1067,7 @@ Set rule, one argument
       (set_rule
         (space)
         target: (set_rule_field_access
-          name: (code_ident))
+          target: (code_ident))
         arguments: (code_args
           (code_number
             (code_int)))))))
@@ -1030,7 +1084,7 @@ Set rule, multiple arguments
       (set_rule
         (space)
         target: (set_rule_field_access
-          name: (code_ident))
+          target: (code_ident))
         arguments: (code_args
           (space)
           (variable
@@ -1058,7 +1112,7 @@ Set rule, named argument
       (set_rule
         (space)
         target: (set_rule_field_access
-          name: (code_ident))
+          target: (code_ident))
         arguments: (code_args
           (code_args_named
             name: (code_ident)
@@ -1079,7 +1133,7 @@ Set rule, spread
       (set_rule
         (space)
         target: (set_rule_field_access
-          name: (code_ident))
+          target: (code_ident))
         arguments: (code_args
           (spread))))))
 
@@ -1095,7 +1149,7 @@ Set rule, spread value
       (set_rule
         (space)
         target: (set_rule_field_access
-          name: (code_ident))
+          target: (code_ident))
         arguments: (code_args
           (spread
             (variable
@@ -1113,7 +1167,7 @@ Set rule, mixed
       (set_rule
         (space)
         target: (set_rule_field_access
-          name: (code_ident))
+          target: (code_ident))
         arguments: (code_args
           (code_number
             (code_int))
@@ -1139,7 +1193,7 @@ Set rule, b
       (set_rule
         (space)
         target: (set_rule_field_access
-          name: (code_ident))
+          target: (code_ident))
         arguments: (code_args
           (code_number
             (code_int))
@@ -1165,7 +1219,7 @@ Set-if rule
       (set_rule
         (space)
         target: (set_rule_field_access
-          name: (code_ident))
+          target: (code_ident))
         arguments: (code_args)
         (space)
         (space)
@@ -1185,7 +1239,7 @@ if bar
       (set_rule
         (space)
         target: (set_rule_field_access
-          name: (code_ident))
+          target: (code_ident))
         arguments: (code_args)))
     (text)))
 
@@ -1358,7 +1412,7 @@ Conditional, with else
         (code_block)))))
 
 ================================================================================
-Conditional, with else, newline before else
+Conditional, newline before else
 ================================================================================
 #if true {}
 else {}
@@ -1370,14 +1424,13 @@ else {}
       (conditional
         (space)
         (space)
-        (code_block)))
-    (space)
-    (text)
-    (space))
-  (ERROR))
+        (code_block)
+        (space)
+        (space)
+        (code_block)))))
 
 ================================================================================
-Conditional, with else, newline after else
+Conditional, newline after else
 ================================================================================
 #if true {} else
 {}
@@ -1389,11 +1442,12 @@ Conditional, with else, newline after else
       (conditional
         (space)
         (space)
-        (code_block)))
-    (ERROR
-      (space))
-    (space))
-  (ERROR))
+        (ERROR
+          (code_block)
+          (space)
+          (ERROR)
+          (space))
+        (code_block)))))
   
 ================================================================================
 Conditional, else if

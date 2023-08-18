@@ -3,9 +3,10 @@ const LEAF = {
   number_unit: /pt|em|mm|cm|in|deg|rad|em|fr|%/,
 };
 
-let trivia = $ => optional($._trivia);
-let trivia_same_line = $ => optional($._trivia_same_line);
-let delimitedTrivia = ($, delimiter, item) => optional(seq(
+let trivia = $ => repeat($._trivia);
+let trivia_same_line = $ => repeat($._trivia_same_line);
+let delimitedTrivia = ($, delimiter, item) => optional(delimitedTrivia1($, delimiter, item));
+let delimitedTrivia1 = ($, delimiter, item) => seq(
   item,
   repeat(seq(
     trivia($),
@@ -17,7 +18,7 @@ let delimitedTrivia = ($, delimiter, item) => optional(seq(
     trivia($),
     delimiter,
   )),
-));
+);
 
 module.exports = grammar({
   name: 'typst',
@@ -45,9 +46,7 @@ module.exports = grammar({
 
   precedences: $ => [
     [
-      $.math_args,
-      $.math_arg_named,
-      $._math_arg,
+      'math_args',
       $._math_expr,
     ],
     [
@@ -63,10 +62,6 @@ module.exports = grammar({
     [
       $.math_delimited_fence,
       $.math_delimited_fence_unclosed,
-    ],
-    [
-      $.embedded_code_expr,
-      $._code_expr_or_stmt,
     ],
     [
       $.code_parenthesized,
@@ -100,6 +95,11 @@ module.exports = grammar({
   ],
 
   conflicts: $ => [
+    [$._math_expr],
+    [
+      $.math_args,
+      $._math_expr,
+    ],
     [
       $.variable,
       $.code_args_named,
@@ -303,37 +303,41 @@ module.exports = grammar({
     ),
     math_align_point: $ => '&',
 
-    math_field_access: $ => choice(
-      field('name', $.math_ident),
-      seq(
-        field('object', $.math_field_access),
+    math_field_access: $ => seq(
+      field('target', $.math_ident),
+      repeat(seq(
         '.',
         field('field', $._math_text_ident),
-      ),
+      )),
     ),
     math_function_call: $ => seq(
       field('function', $.math_field_access),
+      field('args', $.math_args),
+    ),
+    math_args: $ => seq(
       '(',
-      field('args', optional($.math_args)),
+      repeat(seq(
+        optional(choice(
+          $.math,
+          seq(
+            trivia($),
+            $.math_arg_named,
+          ),
+        )),
+        choice(',', ';'),
+      )),
+      optional(choice(
+        $.math,
+        seq(
+          trivia($),
+          $.math_arg_named,
+        ),
+      )),
       ')',
-    ),
-    math_args: $ => choice(
-      repeat1($._math_arg),
-      seq(
-        trivia($),
-        choice($.math_arg_named, $.math),
-        repeat($._math_arg),
-      ),
-    ),
-    _math_arg: $ => seq(
-      choice(',', ';'),
-      trivia($),
-      optional(choice($.math_arg_named, $.math)),
     ),
     math_arg_named: $ => seq(
       field('name', $._math_text_ident),
       ':',
-      trivia($),
       optional(field('arg', $.math)),
     ),
 
@@ -373,12 +377,16 @@ module.exports = grammar({
 
     // Code
 
-    embedded_code_expr: $ => seq(
+    embedded_code_expr: $ => prec.right(seq(
       '#',
       choice(
-        $._code_expr,
         seq(
-          $._code_expr_or_stmt,
+          $._code_expr,
+          optional(';'),
+        ),
+        seq(
+          $._code_stmt,
+          trivia_same_line($),
           choice(
             ';',
             $._token_eof,
@@ -386,7 +394,7 @@ module.exports = grammar({
           ),
         ),
       ),
-    ),
+    )),
 
     _code_expr_or_stmt: $ => choice(
       $._code_expr,
@@ -398,7 +406,7 @@ module.exports = grammar({
       $.show_rule,
       $.module_import,
     ),
-    _code_expr: $ => (choice(
+    _code_expr: $ => choice(
       $.code_block,
       $.content_block,
       $.code_parenthesized,
@@ -421,7 +429,7 @@ module.exports = grammar({
       'auto',
       'true',
       'false',
-    )),
+    ),
 
     _block: $ => choice(
       $.code_block,
@@ -436,8 +444,8 @@ module.exports = grammar({
           ";",
           $._newline,
         ),
+        trivia($),
       )),
-      trivia($),
       '}',
     ),
     content_block: $ => seq(
@@ -456,31 +464,35 @@ module.exports = grammar({
 
     array: $ => prec('array', seq(
       '(',
-      trivia($),
-      delimitedTrivia($,
-        ',',
-        prec('array', choice(
-          $._code_expr_or_stmt,
-          $.spread,
-        )),
-      ),
+      optional(seq(
+        trivia($),
+        delimitedTrivia1($,
+          ',',
+          prec('array', choice(
+            $._code_expr_or_stmt,
+            $.spread,
+          )),
+        ),
+      )),
       trivia($),
       ')',
     )),
     dict: $ => prec('dict', seq(
       '(',
-      trivia($),
       optional(seq(
-        ':',
         trivia($),
+        ':',
       )),
-      delimitedTrivia($,
-        ',',
-        prec('dict', choice(
-          $.named_value,
-          $.spread,
-        )),
-      ),
+      optional(seq(
+        trivia($),
+        delimitedTrivia1($,
+          ',',
+          prec('dict', choice(
+            $.named_value,
+            $.spread,
+          )),
+        ),
+      )),
       trivia($),
       ')',
     )),
@@ -535,15 +547,17 @@ module.exports = grammar({
     pattern_destructuring: $ => seq(
       '(',
       trivia($),
-      delimitedTrivia($,
-        ',',
-        prec('pattern_destructuring', choice(
-          $.code_ident,
-          $.pattern_spread,
-          $.pattern_named,
-        )),
-      ),
-      trivia($),
+      optional(seq(
+        delimitedTrivia1($,
+          ',',
+          prec('pattern_destructuring', choice(
+            $.code_ident,
+            $.pattern_spread,
+            $.pattern_named,
+          )),
+        ),
+        trivia($),
+      )),
       ')',
     ),
     pattern_spread: $ => seq(
@@ -565,16 +579,18 @@ module.exports = grammar({
     params: $ => seq(
       '(',
       trivia($),
-      delimitedTrivia($,
-        ',',
-        prec('params', choice(
-          $.code_ident,
-          $.pattern_spread,
-          $.param_named,
-          $.pattern_destructuring,
-        )),
-      ),
-      trivia($),
+      optional(seq(
+        delimitedTrivia1($,
+          ',',
+          prec('params', choice(
+            $.code_ident,
+            $.pattern_spread,
+            $.param_named,
+            $.pattern_destructuring,
+          )),
+        ),
+        trivia($),
+      )),
       ')',
     ),
     param_named: $ => seq(
@@ -585,7 +601,7 @@ module.exports = grammar({
       field('value', $._code_expr_or_stmt),
     ),
 
-    set_rule: $ => prec.left(seq(
+    set_rule: $ => prec.right(seq(
       'set',
       trivia_same_line($),
       field('target', $.set_rule_field_access),
@@ -596,32 +612,33 @@ module.exports = grammar({
         'if',
         trivia_same_line($),
         field('condition', $._code_expr_or_stmt),
-      ))
+      )),
     )),
-    set_rule_field_access: $ => choice(
-      field('name', $.code_ident),
-      seq(
-        field('object', $.set_rule_field_access),
+    set_rule_field_access: $ => prec.left(seq(
+      field('target', $.code_ident),
+      repeat(seq(
         trivia($),
         '.',
         trivia_same_line($),
         field('field', $.code_ident),
-      ),
-    ),
+      ))
+    )),
 
     code_args: $ => prec.left(choice(
       seq(
         '(',
         trivia($),
-        delimitedTrivia($,
-          ',',
-          choice(
-            $._code_expr_or_stmt,
-            $.code_args_named,
-            $.spread,
+        optional(seq(
+          delimitedTrivia1($,
+            ',',
+            choice(
+              $._code_expr_or_stmt,
+              $.code_args_named,
+              $.spread,
+            ),
           ),
-        ),
-        trivia($),
+          trivia($),
+        )),
         ')',
 
         repeat($.content_block),
@@ -655,7 +672,7 @@ module.exports = grammar({
       trivia_same_line($),
       field('if_body', $._block),
       optional(seq(
-        trivia_same_line($),
+        trivia($),
         'else',
         trivia_same_line($),
         field('else_body', choice(

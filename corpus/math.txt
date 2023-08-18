@@ -249,11 +249,10 @@ $dot.c$
 (source_file
   (markup
     (equation
-      (math
+      inner: (math
         (math_field_access
-          (math_field_access
-            (math_ident))
-          (math_ident))))))
+          target: (math_ident)
+          field: (math_ident))))))
 
 ================================================================================
 Field access, multiple
@@ -264,13 +263,11 @@ $dot.h.c$
 (source_file
   (markup
     (equation
-      (math
+      inner: (math
         (math_field_access
-          (math_field_access
-            (math_field_access
-              (math_ident))
-            (math_ident))
-          (math_ident))))))
+          target: (math_ident)
+          field: (math_ident)
+          field: (math_ident))))))
 
 ================================================================================
 Field access, trailing number
@@ -281,11 +278,10 @@ $foo.5.5$
 (source_file
   (markup
     (equation
-      (math
+      inner: (math
         (math_field_access
-          (math_field_access
-            (math_ident))
-          (math_ident))))))
+          target: (math_ident)
+          field: (math_ident))))))
 
 ================================================================================
 Field access, trailing grapheme
@@ -296,11 +292,10 @@ $foo.♥$
 (source_file
   (markup
     (equation
-      (math
+      inner: (math
         (math_field_access
-          (math_field_access
-            (math_ident))
-          (math_ident))))))
+          target: (math_ident)
+          field: (math_ident))))))
 
 ================================================================================
 Function call, no arguments
@@ -314,7 +309,8 @@ $sqrt()$
       (math
         (math_function_call
           (math_field_access
-            (math_ident)))))))
+            (math_ident))
+          (math_args))))))
 
 ================================================================================
 Function call, empty argument
@@ -381,8 +377,8 @@ $foo(1, 2)$
           (math_args
             (math
               (math_text))
-            (space)
             (math
+              (space)
               (math_text))))))))
 
 ================================================================================
@@ -401,8 +397,8 @@ $foo(1, 2,)$
           (math_args
             (math
               (math_text))
-            (space)
             (math
+              (space)
               (math_text))))))))
 
 ================================================================================
@@ -417,7 +413,7 @@ $foo(bar:5)$
       inner: (math
         (math_function_call
           function: (math_field_access
-            name: (math_ident))
+            target: (math_ident))
           args: (math_args
             (math_arg_named
               name: (math_ident)
@@ -436,7 +432,7 @@ $foo(bar:)$
       inner: (math
         (math_function_call
           function: (math_field_access
-            name: (math_ident))
+            target: (math_ident))
           args: (math_args
             (math_arg_named
               name: (math_ident))))))))
@@ -453,15 +449,15 @@ $foo(0, bar: 1)$
       inner: (math
         (math_function_call
           function: (math_field_access
-            name: (math_ident))
+            target: (math_ident))
           args: (math_args
             (math
               (math_text))
             (space)
             (math_arg_named
               name: (math_ident)
-              (space)
               arg: (math
+                (space)
                 (math_text)))))))))
 
 ================================================================================
@@ -512,14 +508,14 @@ $mat(1, 2; 3, 4)$
           (math_args
             (math
               (math_text))
-            (space)
             (math
+              (space)
               (math_text))
-            (space)
             (math
+              (space)
               (math_text))
-            (space)
             (math
+              (space)
               (math_text))))))))
 
 ================================================================================
@@ -565,7 +561,7 @@ $√sin(x)$
         (math_root
           expr: (math_function_call
             function: (math_field_access
-              name: (math_ident))
+              target: (math_ident))
             args: (math_args
               (math
                 (math_text)))))))))

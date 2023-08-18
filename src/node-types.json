@@ -740,6 +740,14 @@
           "named": true
         },
         {
+          "type": "line_comment",
+          "named": true
+        },
+        {
+          "type": "parbreak",
+          "named": true
+        },
+        {
           "type": "space",
           "named": true
         }
@@ -802,11 +810,15 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": false,
       "types": [
         {
           "type": "array",
+          "named": true
+        },
+        {
+          "type": "block_comment",
           "named": true
         },
         {
@@ -863,6 +875,10 @@
         },
         {
           "type": "show_rule",
+          "named": true
+        },
+        {
+          "type": "space",
           "named": true
         },
         {
@@ -1432,28 +1448,6 @@
           }
         ]
       }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "block_comment",
-          "named": true
-        },
-        {
-          "type": "line_comment",
-          "named": true
-        },
-        {
-          "type": "parbreak",
-          "named": true
-        },
-        {
-          "type": "space",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -2037,7 +2031,7 @@
     "named": true,
     "fields": {
       "field": {
-        "multiple": false,
+        "multiple": true,
         "required": false,
         "types": [
           {
@@ -2046,22 +2040,12 @@
           }
         ]
       },
-      "name": {
+      "target": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
             "type": "math_ident",
-            "named": true
-          }
-        ]
-      },
-      "object": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "math_field_access",
             "named": true
           }
         ]
@@ -2260,7 +2244,7 @@
     "fields": {
       "args": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
             "type": "math_args",
@@ -3177,7 +3161,7 @@
     "named": true,
     "fields": {
       "field": {
-        "multiple": false,
+        "multiple": true,
         "required": false,
         "types": [
           {
@@ -3186,22 +3170,12 @@
           }
         ]
       },
-      "name": {
+      "target": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
             "type": "code_ident",
-            "named": true
-          }
-        ]
-      },
-      "object": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "set_rule_field_access",
             "named": true
           }
         ]
