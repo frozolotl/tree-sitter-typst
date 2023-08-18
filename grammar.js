@@ -419,6 +419,9 @@ module.exports = grammar({
       $.conditional,
       $.while_loop,
       $.for_loop,
+      'break',
+      'continue',
+      $.return_stmt,
 
       $.variable,
       $.code_number,
@@ -724,6 +727,14 @@ module.exports = grammar({
       trivia_same_line($),
       $._code_expr_or_stmt,
     ),
+
+    return_stmt: $ => prec.right(seq(
+      'return',
+      optional(seq(
+        trivia_same_line($),
+        $._code_expr_or_stmt,
+      ))
+    )),
 
     variable: $ => $.code_ident,
     code_ident: $ => /[_\p{XID_Start}][\-_\p{XID_Continue}]*/,

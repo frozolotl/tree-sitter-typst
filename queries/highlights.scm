@@ -115,6 +115,12 @@
 "import" @keyword.control.import
 "include" @keyword.control.import
 
+[
+  "break"
+  "continue"
+  "return"
+] @keyword.control.return
+
 (variable) @variable
 (code_ident) @identifier
 (code_number) @constant.numeric

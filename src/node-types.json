@@ -76,6 +76,10 @@
           "named": true
         },
         {
+          "type": "return_stmt",
+          "named": true
+        },
+        {
           "type": "set_rule",
           "named": true
         },
@@ -206,6 +210,10 @@
           "named": true
         },
         {
+          "type": "return_stmt",
+          "named": true
+        },
+        {
           "type": "set_rule",
           "named": true
         },
@@ -263,6 +271,10 @@
             "named": false
           },
           {
+            "type": "break",
+            "named": false
+          },
+          {
             "type": "code_block",
             "named": true
           },
@@ -281,6 +293,10 @@
           {
             "type": "content_block",
             "named": true
+          },
+          {
+            "type": "continue",
+            "named": false
           },
           {
             "type": "dict",
@@ -320,6 +336,10 @@
           },
           {
             "type": "raw",
+            "named": true
+          },
+          {
+            "type": "return_stmt",
             "named": true
           },
           {
@@ -449,6 +469,10 @@
           "named": true
         },
         {
+          "type": "return_stmt",
+          "named": true
+        },
+        {
           "type": "set_rule",
           "named": true
         },
@@ -511,6 +535,10 @@
             "named": false
           },
           {
+            "type": "break",
+            "named": false
+          },
+          {
             "type": "code_block",
             "named": true
           },
@@ -529,6 +557,10 @@
           {
             "type": "content_block",
             "named": true
+          },
+          {
+            "type": "continue",
+            "named": false
           },
           {
             "type": "dict",
@@ -568,6 +600,10 @@
           },
           {
             "type": "raw",
+            "named": true
+          },
+          {
+            "type": "return_stmt",
             "named": true
           },
           {
@@ -637,6 +673,10 @@
             "named": false
           },
           {
+            "type": "break",
+            "named": false
+          },
+          {
             "type": "code_block",
             "named": true
           },
@@ -655,6 +695,10 @@
           {
             "type": "content_block",
             "named": true
+          },
+          {
+            "type": "continue",
+            "named": false
           },
           {
             "type": "dict",
@@ -694,6 +738,10 @@
           },
           {
             "type": "raw",
+            "named": true
+          },
+          {
+            "type": "return_stmt",
             "named": true
           },
           {
@@ -898,6 +946,10 @@
           "named": true
         },
         {
+          "type": "return_stmt",
+          "named": true
+        },
+        {
           "type": "set_rule",
           "named": true
         },
@@ -987,6 +1039,10 @@
             "named": false
           },
           {
+            "type": "break",
+            "named": false
+          },
+          {
             "type": "code_block",
             "named": true
           },
@@ -1005,6 +1061,10 @@
           {
             "type": "content_block",
             "named": true
+          },
+          {
+            "type": "continue",
+            "named": false
           },
           {
             "type": "dict",
@@ -1044,6 +1104,10 @@
           },
           {
             "type": "raw",
+            "named": true
+          },
+          {
+            "type": "return_stmt",
             "named": true
           },
           {
@@ -1150,6 +1214,10 @@
             "named": false
           },
           {
+            "type": "break",
+            "named": false
+          },
+          {
             "type": "code_block",
             "named": true
           },
@@ -1168,6 +1236,10 @@
           {
             "type": "content_block",
             "named": true
+          },
+          {
+            "type": "continue",
+            "named": false
           },
           {
             "type": "dict",
@@ -1207,6 +1279,10 @@
           },
           {
             "type": "raw",
+            "named": true
+          },
+          {
+            "type": "return_stmt",
             "named": true
           },
           {
@@ -2428,6 +2504,10 @@
             "named": false
           },
           {
+            "type": "break",
+            "named": false
+          },
+          {
             "type": "code_block",
             "named": true
           },
@@ -2446,6 +2526,10 @@
           {
             "type": "content_block",
             "named": true
+          },
+          {
+            "type": "continue",
+            "named": false
           },
           {
             "type": "dict",
@@ -2485,6 +2569,10 @@
           },
           {
             "type": "raw",
+            "named": true
+          },
+          {
+            "type": "return_stmt",
             "named": true
           },
           {
@@ -2606,6 +2694,10 @@
           "named": true
         },
         {
+          "type": "return_stmt",
+          "named": true
+        },
+        {
           "type": "set_rule",
           "named": true
         },
@@ -2663,6 +2755,10 @@
             "named": false
           },
           {
+            "type": "break",
+            "named": false
+          },
+          {
             "type": "code_block",
             "named": true
           },
@@ -2681,6 +2777,10 @@
           {
             "type": "content_block",
             "named": true
+          },
+          {
+            "type": "continue",
+            "named": false
           },
           {
             "type": "dict",
@@ -2720,6 +2820,10 @@
           },
           {
             "type": "raw",
+            "named": true
+          },
+          {
+            "type": "return_stmt",
             "named": true
           },
           {
@@ -2799,6 +2903,10 @@
             "named": false
           },
           {
+            "type": "break",
+            "named": false
+          },
+          {
             "type": "code_block",
             "named": true
           },
@@ -2817,6 +2925,10 @@
           {
             "type": "content_block",
             "named": true
+          },
+          {
+            "type": "continue",
+            "named": false
           },
           {
             "type": "dict",
@@ -2856,6 +2968,10 @@
           },
           {
             "type": "raw",
+            "named": true
+          },
+          {
+            "type": "return_stmt",
             "named": true
           },
           {
@@ -3166,6 +3282,105 @@
     }
   },
   {
+    "type": "return_stmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "array",
+          "named": true
+        },
+        {
+          "type": "block_comment",
+          "named": true
+        },
+        {
+          "type": "code_block",
+          "named": true
+        },
+        {
+          "type": "code_number",
+          "named": true
+        },
+        {
+          "type": "code_parenthesized",
+          "named": true
+        },
+        {
+          "type": "conditional",
+          "named": true
+        },
+        {
+          "type": "content_block",
+          "named": true
+        },
+        {
+          "type": "dict",
+          "named": true
+        },
+        {
+          "type": "equation",
+          "named": true
+        },
+        {
+          "type": "for_loop",
+          "named": true
+        },
+        {
+          "type": "label",
+          "named": true
+        },
+        {
+          "type": "let_binding",
+          "named": true
+        },
+        {
+          "type": "module_import",
+          "named": true
+        },
+        {
+          "type": "module_include",
+          "named": true
+        },
+        {
+          "type": "raw",
+          "named": true
+        },
+        {
+          "type": "return_stmt",
+          "named": true
+        },
+        {
+          "type": "set_rule",
+          "named": true
+        },
+        {
+          "type": "show_rule",
+          "named": true
+        },
+        {
+          "type": "space",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "variable",
+          "named": true
+        },
+        {
+          "type": "while_loop",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "set_rule",
     "named": true,
     "fields": {
@@ -3192,6 +3407,10 @@
             "named": false
           },
           {
+            "type": "break",
+            "named": false
+          },
+          {
             "type": "code_block",
             "named": true
           },
@@ -3210,6 +3429,10 @@
           {
             "type": "content_block",
             "named": true
+          },
+          {
+            "type": "continue",
+            "named": false
           },
           {
             "type": "dict",
@@ -3249,6 +3472,10 @@
           },
           {
             "type": "raw",
+            "named": true
+          },
+          {
+            "type": "return_stmt",
             "named": true
           },
           {
@@ -3368,6 +3595,10 @@
             "named": false
           },
           {
+            "type": "break",
+            "named": false
+          },
+          {
             "type": "code_block",
             "named": true
           },
@@ -3386,6 +3617,10 @@
           {
             "type": "content_block",
             "named": true
+          },
+          {
+            "type": "continue",
+            "named": false
           },
           {
             "type": "dict",
@@ -3425,6 +3660,10 @@
           },
           {
             "type": "raw",
+            "named": true
+          },
+          {
+            "type": "return_stmt",
             "named": true
           },
           {
@@ -3466,6 +3705,10 @@
             "named": false
           },
           {
+            "type": "break",
+            "named": false
+          },
+          {
             "type": "code_block",
             "named": true
           },
@@ -3484,6 +3727,10 @@
           {
             "type": "content_block",
             "named": true
+          },
+          {
+            "type": "continue",
+            "named": false
           },
           {
             "type": "dict",
@@ -3523,6 +3770,10 @@
           },
           {
             "type": "raw",
+            "named": true
+          },
+          {
+            "type": "return_stmt",
             "named": true
           },
           {
@@ -3664,6 +3915,10 @@
           "named": true
         },
         {
+          "type": "return_stmt",
+          "named": true
+        },
+        {
           "type": "set_rule",
           "named": true
         },
@@ -3752,6 +4007,10 @@
             "named": false
           },
           {
+            "type": "break",
+            "named": false
+          },
+          {
             "type": "code_block",
             "named": true
           },
@@ -3770,6 +4029,10 @@
           {
             "type": "content_block",
             "named": true
+          },
+          {
+            "type": "continue",
+            "named": false
           },
           {
             "type": "dict",
@@ -3809,6 +4072,10 @@
           },
           {
             "type": "raw",
+            "named": true
+          },
+          {
+            "type": "return_stmt",
             "named": true
           },
           {
@@ -4062,6 +4329,10 @@
     "named": false
   },
   {
+    "type": "break",
+    "named": false
+  },
+  {
     "type": "code_float",
     "named": true
   },
@@ -4072,6 +4343,10 @@
   {
     "type": "code_int",
     "named": true
+  },
+  {
+    "type": "continue",
+    "named": false
   },
   {
     "type": "else",
@@ -4144,6 +4419,10 @@
   {
     "type": "raw",
     "named": true
+  },
+  {
+    "type": "return",
+    "named": false
   },
   {
     "type": "set",
