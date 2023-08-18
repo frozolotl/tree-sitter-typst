@@ -725,14 +725,14 @@ module.exports = grammar({
     module_include: $ => seq(
       'include',
       trivia_same_line($),
-      $._code_expr_or_stmt,
+      field('source', $._code_expr_or_stmt),
     ),
 
     return_stmt: $ => prec.right(seq(
       'return',
       optional(seq(
         trivia_same_line($),
-        $._code_expr_or_stmt,
+        field('argument', $._code_expr_or_stmt),
       ))
     )),
 

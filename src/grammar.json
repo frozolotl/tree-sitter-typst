@@ -3287,8 +3287,12 @@
           }
         },
         {
-          "type": "SYMBOL",
-          "name": "_code_expr_or_stmt"
+          "type": "FIELD",
+          "name": "source",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_code_expr_or_stmt"
+          }
         }
       ]
     },
@@ -3316,8 +3320,12 @@
                     }
                   },
                   {
-                    "type": "SYMBOL",
-                    "name": "_code_expr_or_stmt"
+                    "type": "FIELD",
+                    "name": "argument",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "_code_expr_or_stmt"
+                    }
                   }
                 ]
               },
