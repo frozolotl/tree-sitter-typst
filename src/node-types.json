@@ -64,6 +64,10 @@
           "named": true
         },
         {
+          "type": "module_include",
+          "named": true
+        },
+        {
           "type": "parbreak",
           "named": true
         },
@@ -190,6 +194,10 @@
           "named": true
         },
         {
+          "type": "module_include",
+          "named": true
+        },
+        {
           "type": "parbreak",
           "named": true
         },
@@ -300,6 +308,10 @@
           },
           {
             "type": "module_import",
+            "named": true
+          },
+          {
+            "type": "module_include",
             "named": true
           },
           {
@@ -425,6 +437,10 @@
           "named": true
         },
         {
+          "type": "module_include",
+          "named": true
+        },
+        {
           "type": "parbreak",
           "named": true
         },
@@ -540,6 +556,10 @@
           },
           {
             "type": "module_import",
+            "named": true
+          },
+          {
+            "type": "module_include",
             "named": true
           },
           {
@@ -662,6 +682,10 @@
           },
           {
             "type": "module_import",
+            "named": true
+          },
+          {
+            "type": "module_include",
             "named": true
           },
           {
@@ -866,6 +890,10 @@
           "named": true
         },
         {
+          "type": "module_include",
+          "named": true
+        },
+        {
           "type": "raw",
           "named": true
         },
@@ -1004,6 +1032,10 @@
           },
           {
             "type": "module_import",
+            "named": true
+          },
+          {
+            "type": "module_include",
             "named": true
           },
           {
@@ -1163,6 +1195,10 @@
           },
           {
             "type": "module_import",
+            "named": true
+          },
+          {
+            "type": "module_include",
             "named": true
           },
           {
@@ -2440,6 +2476,10 @@
             "named": true
           },
           {
+            "type": "module_include",
+            "named": true
+          },
+          {
             "type": "none",
             "named": false
           },
@@ -2492,6 +2532,101 @@
         },
         {
           "type": "space",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "module_include",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "array",
+          "named": true
+        },
+        {
+          "type": "block_comment",
+          "named": true
+        },
+        {
+          "type": "code_block",
+          "named": true
+        },
+        {
+          "type": "code_number",
+          "named": true
+        },
+        {
+          "type": "code_parenthesized",
+          "named": true
+        },
+        {
+          "type": "conditional",
+          "named": true
+        },
+        {
+          "type": "content_block",
+          "named": true
+        },
+        {
+          "type": "dict",
+          "named": true
+        },
+        {
+          "type": "equation",
+          "named": true
+        },
+        {
+          "type": "for_loop",
+          "named": true
+        },
+        {
+          "type": "label",
+          "named": true
+        },
+        {
+          "type": "let_binding",
+          "named": true
+        },
+        {
+          "type": "module_import",
+          "named": true
+        },
+        {
+          "type": "module_include",
+          "named": true
+        },
+        {
+          "type": "raw",
+          "named": true
+        },
+        {
+          "type": "set_rule",
+          "named": true
+        },
+        {
+          "type": "show_rule",
+          "named": true
+        },
+        {
+          "type": "space",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "variable",
+          "named": true
+        },
+        {
+          "type": "while_loop",
           "named": true
         }
       ]
@@ -2573,6 +2708,10 @@
           },
           {
             "type": "module_import",
+            "named": true
+          },
+          {
+            "type": "module_include",
             "named": true
           },
           {
@@ -2705,6 +2844,10 @@
           },
           {
             "type": "module_import",
+            "named": true
+          },
+          {
+            "type": "module_include",
             "named": true
           },
           {
@@ -3097,6 +3240,10 @@
             "named": true
           },
           {
+            "type": "module_include",
+            "named": true
+          },
+          {
             "type": "none",
             "named": false
           },
@@ -3269,6 +3416,10 @@
             "named": true
           },
           {
+            "type": "module_include",
+            "named": true
+          },
+          {
             "type": "none",
             "named": false
           },
@@ -3360,6 +3511,10 @@
           },
           {
             "type": "module_import",
+            "named": true
+          },
+          {
+            "type": "module_include",
             "named": true
           },
           {
@@ -3494,6 +3649,10 @@
         },
         {
           "type": "module_import",
+          "named": true
+        },
+        {
+          "type": "module_include",
           "named": true
         },
         {
@@ -3638,6 +3797,10 @@
           },
           {
             "type": "module_import",
+            "named": true
+          },
+          {
+            "type": "module_include",
             "named": true
           },
           {
@@ -3940,6 +4103,10 @@
   },
   {
     "type": "in",
+    "named": false
+  },
+  {
+    "type": "include",
     "named": false
   },
   {

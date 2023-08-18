@@ -1396,6 +1396,10 @@
         {
           "type": "SYMBOL",
           "name": "module_import"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "module_include"
         }
       ]
     },
@@ -3255,6 +3259,26 @@
           }
         ]
       }
+    },
+    "module_include": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "include"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_trivia_same_line"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_code_expr_or_stmt"
+        }
+      ]
     },
     "variable": {
       "type": "SYMBOL",

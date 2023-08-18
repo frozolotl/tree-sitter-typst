@@ -405,6 +405,7 @@ module.exports = grammar({
       $.set_rule,
       $.show_rule,
       $.module_import,
+      $.module_include,
     ),
     _code_expr: $ => choice(
       $.code_block,
@@ -718,6 +719,11 @@ module.exports = grammar({
         ),
       )),
     )),
+    module_include: $ => seq(
+      'include',
+      trivia_same_line($),
+      $._code_expr_or_stmt,
+    ),
 
     variable: $ => $.code_ident,
     code_ident: $ => /[_\p{XID_Start}][\-_\p{XID_Continue}]*/,

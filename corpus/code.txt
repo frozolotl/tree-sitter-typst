@@ -1684,3 +1684,33 @@ Import items from module, trailing comma, spacing everywhere
         (code_ident)
         (space)))))
 
+================================================================================
+Include
+================================================================================
+#include "test.typ"
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (embedded_code_expr
+      (module_include
+        (space)
+        (string)))))
+
+================================================================================
+Include, next line expression
+================================================================================
+#include
+"test.typ"
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (embedded_code_expr
+      (module_include
+        (variable
+          (MISSING code_ident))))
+    (smart_quote)
+    (text)
+    (smart_quote)))
+

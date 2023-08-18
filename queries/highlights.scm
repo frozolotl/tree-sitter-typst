@@ -114,6 +114,9 @@
 (for_loop
   "in" @keyword.control.repeat.in)
 
+"import" @keyword.control.import
+"include" @keyword.control.import
+
 (variable) @variable
 (code_ident) @identifier
 (code_number) @constant.numeric
