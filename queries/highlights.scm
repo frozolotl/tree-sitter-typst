@@ -27,14 +27,13 @@
 (math_function_call
   [
     (math_field_access
-      name: (_) @function)
+      target: (_) @function)
     (math_field_access
       field: (_) @function.method)
   ])
 (math_field_access
   [
-    name: (_) @variable
-    object: (_) @variable
+    target: (_) @variable
     field: (_) @variable.other.member  
   ])
 
@@ -100,8 +99,7 @@
 "set" @keyword.operator.assignment
 (set_rule_field_access
   [
-    name: (_) @variable
-    object: (_) @variable
+    target: (_) @variable
     field: (_) @variable.other.member  
   ])
 
