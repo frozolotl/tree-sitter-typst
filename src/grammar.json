@@ -15,31 +15,27 @@
       ]
     },
     "markup": {
-      "type": "PREC_LEFT",
-      "value": 0,
+      "type": "REPEAT1",
       "content": {
-        "type": "REPEAT1",
-        "content": {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "_markup_expr_base"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "space"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "parbreak"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "heading"
-            }
-          ]
-        }
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "_markup_expr_base"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "space"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "parbreak"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "heading"
+          }
+        ]
       }
     },
     "_markup_expr_base": {
@@ -116,52 +112,45 @@
       "content": {
         "type": "TOKEN",
         "content": {
-          "type": "PREC",
-          "value": -1,
-          "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "STRING",
-                "value": "["
-              },
-              {
-                "type": "STRING",
-                "value": "]"
-              },
-              {
-                "type": "REPEAT1",
-                "content": {
-                  "type": "STRING",
-                  "value": "="
-                }
-              },
-              {
-                "type": "STRING",
-                "value": "-"
-              },
-              {
-                "type": "STRING",
-                "value": "+"
-              },
-              {
-                "type": "STRING",
-                "value": "/"
-              },
-              {
-                "type": "STRING",
-                "value": "*"
-              },
-              {
-                "type": "STRING",
-                "value": "_"
-              },
-              {
-                "type": "STRING",
-                "value": ":"
-              }
-            ]
-          }
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "["
+            },
+            {
+              "type": "STRING",
+              "value": "]"
+            },
+            {
+              "type": "STRING",
+              "value": "="
+            },
+            {
+              "type": "STRING",
+              "value": "-"
+            },
+            {
+              "type": "STRING",
+              "value": "+"
+            },
+            {
+              "type": "STRING",
+              "value": "/"
+            },
+            {
+              "type": "STRING",
+              "value": "*"
+            },
+            {
+              "type": "STRING",
+              "value": "_"
+            },
+            {
+              "type": "STRING",
+              "value": ":"
+            }
+          ]
         }
       },
       "named": true,
@@ -1294,76 +1283,84 @@
       ]
     },
     "embedded_code_expr": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "#"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_embedded_code_expr"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_embedded_code_stmt"
+            }
+          ]
+        }
+      ]
+    },
+    "_embedded_code_expr": {
       "type": "PREC_RIGHT",
       "value": 0,
       "content": {
         "type": "SEQ",
         "members": [
           {
-            "type": "STRING",
-            "value": "#"
+            "type": "SYMBOL",
+            "name": "_code_expr"
           },
           {
             "type": "CHOICE",
             "members": [
               {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "SYMBOL",
-                    "name": "_code_expr"
-                  },
-                  {
-                    "type": "CHOICE",
-                    "members": [
-                      {
-                        "type": "STRING",
-                        "value": ";"
-                      },
-                      {
-                        "type": "BLANK"
-                      }
-                    ]
-                  }
-                ]
+                "type": "STRING",
+                "value": ";"
               },
               {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "SYMBOL",
-                    "name": "_code_stmt"
-                  },
-                  {
-                    "type": "REPEAT",
-                    "content": {
-                      "type": "SYMBOL",
-                      "name": "_trivia_same_line"
-                    }
-                  },
-                  {
-                    "type": "CHOICE",
-                    "members": [
-                      {
-                        "type": "STRING",
-                        "value": ";"
-                      },
-                      {
-                        "type": "SYMBOL",
-                        "name": "_token_eof"
-                      },
-                      {
-                        "type": "SYMBOL",
-                        "name": "_newline"
-                      }
-                    ]
-                  }
-                ]
+                "type": "BLANK"
               }
             ]
           }
         ]
       }
+    },
+    "_embedded_code_stmt": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_code_stmt"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_trivia_same_line"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": ";"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_token_eof"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_newline"
+            }
+          ]
+        }
+      ]
     },
     "_code_expr_or_stmt": {
       "type": "CHOICE",
@@ -1460,7 +1457,11 @@
         },
         {
           "type": "SYMBOL",
-          "name": "code_number"
+          "name": "code_int"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "code_float"
         },
         {
           "type": "SYMBOL",
@@ -3344,19 +3345,6 @@
     "code_ident": {
       "type": "PATTERN",
       "value": "[_\\p{XID_Start}][\\-_\\p{XID_Continue}]*"
-    },
-    "code_number": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "code_int"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "code_float"
-        }
-      ]
     },
     "code_int": {
       "type": "TOKEN",

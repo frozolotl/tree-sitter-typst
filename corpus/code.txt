@@ -137,8 +137,7 @@ Code block, one line
     (embedded_code_expr
       (code_block
         (space)
-        (code_number
-          (code_int))))))
+        (code_int)))))
 
 ================================================================================
 Code block, multiple lines
@@ -162,8 +161,7 @@ Code block, multiple lines
           (space)
           (space)
           (string))
-        (code_number
-          (code_int))
+        (code_int)
         (variable
           (code_ident))))))
 
@@ -475,8 +473,7 @@ Integer
 (source_file
   (markup
     (embedded_code_expr
-      (code_number
-        (code_int)))))
+      (code_int))))
 
 ================================================================================
 Float
@@ -487,8 +484,7 @@ Float
 (source_file
   (markup
     (embedded_code_expr
-      (code_number
-        (code_float)))))
+      (code_float))))
 
 ================================================================================
 Float, trailing comma
@@ -499,8 +495,7 @@ Float, trailing comma
 (source_file
   (markup
     (embedded_code_expr
-      (code_number
-        (code_float)))))
+      (code_float))))
 
 ================================================================================
 Float, leading comma
@@ -511,8 +506,7 @@ Float, leading comma
 (source_file
   (markup
     (embedded_code_expr
-      (code_number
-        (code_float)))))
+      (code_float))))
 
 ================================================================================
 Float, exponent
@@ -523,8 +517,7 @@ Float, exponent
 (source_file
   (markup
     (embedded_code_expr
-      (code_number
-        (code_float)))))
+      (code_float))))
 
 ================================================================================
 Float, exponent with plus
@@ -535,8 +528,7 @@ Float, exponent with plus
 (source_file
   (markup
     (embedded_code_expr
-      (code_number
-        (code_float)))))
+      (code_float))))
 
 ================================================================================
 Float, exponent with minus
@@ -547,8 +539,7 @@ Float, exponent with minus
 (source_file
   (markup
     (embedded_code_expr
-      (code_number
-        (code_float)))))
+      (code_float))))
 
 ================================================================================
 Numeric
@@ -559,8 +550,7 @@ Numeric
 (source_file
   (markup
     (embedded_code_expr
-      (code_number
-        (code_float)))))
+      (code_float))))
 
 ================================================================================
 Label
@@ -642,8 +632,7 @@ Let binding, with value set
           (code_ident))
         (space)
         (space)
-        expr: (code_number
-          (code_int))))))
+        expr: (code_int)))))
 
 ================================================================================
 Let binding, heading on next line
@@ -1069,8 +1058,7 @@ Set rule, one argument
         target: (set_rule_field_access
           target: (code_ident))
         arguments: (code_args
-          (code_number
-            (code_int)))))))
+          (code_int))))))
 
 ================================================================================
 Set rule, multiple arguments
@@ -1118,8 +1106,7 @@ Set rule, named argument
             name: (code_ident)
             (space)
             (space)
-            value: (code_number
-              (code_int))))))))
+            value: (code_int)))))))
 
 ================================================================================
 Set rule, spread
@@ -1169,8 +1156,7 @@ Set rule, mixed
         target: (set_rule_field_access
           target: (code_ident))
         arguments: (code_args
-          (code_number
-            (code_int))
+          (code_int)
           (space)
           (code_args_named
             name: (code_ident)
@@ -1195,8 +1181,7 @@ Set rule, b
         target: (set_rule_field_access
           target: (code_ident))
         arguments: (code_args
-          (code_number
-            (code_int))
+          (code_int)
           (space)
           (code_args_named
             name: (code_ident)

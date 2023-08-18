@@ -123,7 +123,6 @@
 
 (variable) @variable
 (code_ident) @identifier
-(code_number) @constant.numeric
 (code_int) @constant.numeric.integer
 (code_float) @constant.numeric.float
 (string) @string

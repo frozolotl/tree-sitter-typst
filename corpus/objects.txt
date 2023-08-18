@@ -179,6 +179,7 @@ Text == Not a heading
     (text)
     (space)
     (text)
+    (text)
     (space)
     (text)))
 

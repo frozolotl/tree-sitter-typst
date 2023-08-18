@@ -51,6 +51,7 @@ foo[] == - + / bar
     (text)
     (space)
     (text)
+    (text)
     (space)
     (text)
     (space)

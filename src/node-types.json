@@ -20,7 +20,11 @@
           "named": true
         },
         {
-          "type": "code_number",
+          "type": "code_float",
+          "named": true
+        },
+        {
+          "type": "code_int",
           "named": true
         },
         {
@@ -154,7 +158,11 @@
           "named": true
         },
         {
-          "type": "code_number",
+          "type": "code_float",
+          "named": true
+        },
+        {
+          "type": "code_int",
           "named": true
         },
         {
@@ -279,7 +287,11 @@
             "named": true
           },
           {
-            "type": "code_number",
+            "type": "code_float",
+            "named": true
+          },
+          {
+            "type": "code_int",
             "named": true
           },
           {
@@ -413,7 +425,11 @@
           "named": true
         },
         {
-          "type": "code_number",
+          "type": "code_float",
+          "named": true
+        },
+        {
+          "type": "code_int",
           "named": true
         },
         {
@@ -500,25 +516,6 @@
     }
   },
   {
-    "type": "code_number",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "code_float",
-          "named": true
-        },
-        {
-          "type": "code_int",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "code_parenthesized",
     "named": true,
     "fields": {
@@ -543,7 +540,11 @@
             "named": true
           },
           {
-            "type": "code_number",
+            "type": "code_float",
+            "named": true
+          },
+          {
+            "type": "code_int",
             "named": true
           },
           {
@@ -681,7 +682,11 @@
             "named": true
           },
           {
-            "type": "code_number",
+            "type": "code_float",
+            "named": true
+          },
+          {
+            "type": "code_int",
             "named": true
           },
           {
@@ -898,7 +903,11 @@
           "named": true
         },
         {
-          "type": "code_number",
+          "type": "code_float",
+          "named": true
+        },
+        {
+          "type": "code_int",
           "named": true
         },
         {
@@ -1047,7 +1056,11 @@
             "named": true
           },
           {
-            "type": "code_number",
+            "type": "code_float",
+            "named": true
+          },
+          {
+            "type": "code_int",
             "named": true
           },
           {
@@ -1222,7 +1235,11 @@
             "named": true
           },
           {
-            "type": "code_number",
+            "type": "code_float",
+            "named": true
+          },
+          {
+            "type": "code_int",
             "named": true
           },
           {
@@ -2512,7 +2529,11 @@
             "named": true
           },
           {
-            "type": "code_number",
+            "type": "code_float",
+            "named": true
+          },
+          {
+            "type": "code_int",
             "named": true
           },
           {
@@ -2650,7 +2671,11 @@
             "named": true
           },
           {
-            "type": "code_number",
+            "type": "code_float",
+            "named": true
+          },
+          {
+            "type": "code_int",
             "named": true
           },
           {
@@ -2794,7 +2819,11 @@
             "named": true
           },
           {
-            "type": "code_number",
+            "type": "code_float",
+            "named": true
+          },
+          {
+            "type": "code_int",
             "named": true
           },
           {
@@ -2942,7 +2971,11 @@
             "named": true
           },
           {
-            "type": "code_number",
+            "type": "code_float",
+            "named": true
+          },
+          {
+            "type": "code_int",
             "named": true
           },
           {
@@ -3337,7 +3370,11 @@
             "named": true
           },
           {
-            "type": "code_number",
+            "type": "code_float",
+            "named": true
+          },
+          {
+            "type": "code_int",
             "named": true
           },
           {
@@ -3477,7 +3514,11 @@
             "named": true
           },
           {
-            "type": "code_number",
+            "type": "code_float",
+            "named": true
+          },
+          {
+            "type": "code_int",
             "named": true
           },
           {
@@ -3665,7 +3706,11 @@
             "named": true
           },
           {
-            "type": "code_number",
+            "type": "code_float",
+            "named": true
+          },
+          {
+            "type": "code_int",
             "named": true
           },
           {
@@ -3775,7 +3820,11 @@
             "named": true
           },
           {
-            "type": "code_number",
+            "type": "code_float",
+            "named": true
+          },
+          {
+            "type": "code_int",
             "named": true
           },
           {
@@ -3921,7 +3970,11 @@
           "named": true
         },
         {
-          "type": "code_number",
+          "type": "code_float",
+          "named": true
+        },
+        {
+          "type": "code_int",
           "named": true
         },
         {
@@ -4077,7 +4130,11 @@
             "named": true
           },
           {
-            "type": "code_number",
+            "type": "code_float",
+            "named": true
+          },
+          {
+            "type": "code_int",
             "named": true
           },
           {

@@ -111,12 +111,12 @@ module.exports = grammar({
 
     // Markup
 
-    markup: $ => prec.left(repeat1(choice(
+    markup: $ => repeat1(choice(
       $._markup_expr_base,
       $.space,
       $.parbreak,
       $.heading,
-    ))),
+    )),
     _markup_expr_base: $ => choice(
       $.line_comment,
       $.block_comment,
@@ -143,17 +143,17 @@ module.exports = grammar({
     ),
 
     _markup_expr_text: $ => alias(
-      token(prec(-1, choice(
+      token(choice(
         '[',
         ']',
-        repeat1('='),
+        '=',
         '-',
         '+',
         '/',
         '*',
         '_',
         ':',
-      ))),
+      )),
       $.text,
     ),
     linebreak: $ => token(seq(
@@ -377,24 +377,26 @@ module.exports = grammar({
 
     // Code
 
-    embedded_code_expr: $ => prec.right(seq(
+    embedded_code_expr: $ => seq(
       '#',
       choice(
-        seq(
-          $._code_expr,
-          optional(';'),
-        ),
-        seq(
-          $._code_stmt,
-          trivia_same_line($),
-          choice(
-            ';',
-            $._token_eof,
-            $._newline,
-          ),
-        ),
+        $._embedded_code_expr,
+        $._embedded_code_stmt,
       ),
+    ),
+    _embedded_code_expr: $ => prec.right(seq(
+      $._code_expr,
+      optional(';'),
     )),
+    _embedded_code_stmt: $ => seq(
+      $._code_stmt,
+      trivia_same_line($),
+      choice(
+        ';',
+        $._token_eof,
+        $._newline,
+      ),
+    ),
 
     _code_expr_or_stmt: $ => choice(
       $._code_expr,
@@ -424,7 +426,8 @@ module.exports = grammar({
       $.return_stmt,
 
       $.variable,
-      $.code_number,
+      $.code_int,
+      $.code_float,
       $.string,
       $.label,
       $.raw,
@@ -738,7 +741,6 @@ module.exports = grammar({
 
     variable: $ => $.code_ident,
     code_ident: $ => /[_\p{XID_Start}][\-_\p{XID_Continue}]*/,
-    code_number: $ => choice($.code_int, $.code_float),
     code_int: $ => token(seq(
       choice(
         /0b[01]+/,
