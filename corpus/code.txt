@@ -7,11 +7,9 @@ foo #bar baz
 (source_file
   (markup
     (text)
-    (space)
     (embedded_code_expr
       (variable
         (code_ident)))
-    (space)
     (text)))
 
 ================================================================================
@@ -25,11 +23,9 @@ baz
 (source_file
   (markup
     (text)
-    (space)
     (embedded_code_expr
       (variable
         (code_ident)))
-    (space)
     (text)))
 
 ================================================================================
@@ -57,7 +53,6 @@ baz
     (embedded_code_expr
       (variable
         (code_ident)))
-    (space)
     (text)))
 
 ================================================================================
@@ -109,7 +104,6 @@ Content block with content with heading
         (markup
           (heading
             (heading_start)
-            (space)
             (markup
               (text))))))))
 
@@ -136,7 +130,6 @@ Code block, one line
   (markup
     (embedded_code_expr
       (code_block
-        (space)
         (code_int)))))
 
 ================================================================================
@@ -153,13 +146,9 @@ Code block, multiple lines
   (markup
     (embedded_code_expr
       (code_block
-        (space)
         (let_binding
-          (space)
           (pattern
             (code_ident))
-          (space)
-          (space)
           (string))
         (code_int)
         (variable
@@ -196,9 +185,7 @@ Parenthesized, with spaces
 (source_file
   (markup
     (embedded_code_expr
-      (code_parenthesized
-        (space)
-        (space)))))
+      (code_parenthesized))))
 
 ================================================================================
 Array, one element
@@ -220,9 +207,7 @@ Array, multiple elements
 (source_file
   (markup
     (embedded_code_expr
-      (array
-        (space)
-        (space)))))
+      (array))))
 
 ================================================================================
 Array, multiple elements, spacing everywhere, trailing comma
@@ -237,14 +222,7 @@ Array, multiple elements, spacing everywhere, trailing comma
 (source_file
   (markup
     (embedded_code_expr
-      (array
-        (space)
-        (space)
-        (space)
-        (space)
-        (space)
-        (space)
-        (space)))))
+      (array))))
 
 ================================================================================
 Array, one spread
@@ -270,17 +248,12 @@ Array, multiple spreads, spacing everywhere
   (markup
     (embedded_code_expr
       (array
-        (space)
         (spread
-          (space)
           (variable
             (code_ident)))
-        (space)
         (spread
-          (space)
           (variable
-            (code_ident)))
-        (space)))))
+            (code_ident)))))))
 
 ================================================================================
 Empty dictionary
@@ -302,9 +275,7 @@ Empty dictionary with extra spacing
 (source_file
   (markup
     (embedded_code_expr
-      (dict
-        (space)
-        (space)))))
+      (dict))))
 
 ================================================================================
 Empty dictionary, empty spread
@@ -316,7 +287,6 @@ Empty dictionary, empty spread
   (markup
     (embedded_code_expr
       (dict
-        (space)
         (spread)))))
 
 ================================================================================
@@ -329,7 +299,6 @@ Prefixed dictionary, spread from variable
   (markup
     (embedded_code_expr
       (dict
-        (space)
         (spread
           (variable
             (code_ident)))))))
@@ -344,11 +313,9 @@ Prefixed dictionary, multiple spreads
   (markup
     (embedded_code_expr
       (dict
-        (space)
         (spread
           (variable
             (code_ident)))
-        (space)
         (spread
           (variable
             (code_ident)))))))
@@ -363,9 +330,7 @@ Prefixed dictionary, spread with space
   (markup
     (embedded_code_expr
       (dict
-        (space)
         (spread
-          (space)
           (variable
             (code_ident)))))))
 
@@ -379,14 +344,10 @@ Prefixed dictionary, with values
   (markup
     (embedded_code_expr
       (dict
-        (space)
         (named_value
-          (code_ident)
-          (space))
-        (space)
+          (code_ident))
         (named_value
-          (string)
-          (space))))))
+          (string))))))
 
 ================================================================================
 Prefixed dictionary, with values, trailing comma
@@ -401,15 +362,10 @@ Prefixed dictionary, with values, trailing comma
   (markup
     (embedded_code_expr
       (dict
-        (space)
         (named_value
-          (code_ident)
-          (space))
-        (space)
+          (code_ident))
         (named_value
-          (string)
-          (space))
-        (space)))))
+          (string))))))
 
 ================================================================================
 Unprefixed dictionary, with values, spaces everywhere
@@ -424,18 +380,10 @@ Unprefixed dictionary, with values, spaces everywhere
   (markup
     (embedded_code_expr
       (dict
-        (space)
         (named_value
-          (code_ident)
-          (space)
-          (space))
-        (space)
-        (space)
+          (code_ident))
         (named_value
-          (string)
-          (space)
-          (space))
-        (space)))))
+          (string))))))
 
 ================================================================================
 Unprefixed dictionary, with values, spaces everywhere, trailing comma
@@ -450,19 +398,10 @@ Unprefixed dictionary, with values, spaces everywhere, trailing comma
   (markup
     (embedded_code_expr
       (dict
-        (space)
         (named_value
-          (code_ident)
-          (space)
-          (space))
-        (space)
-        (space)
+          (code_ident))
         (named_value
-          (string)
-          (space)
-          (space))
-        (space)
-        (space)))))
+          (string))))))
 
 ================================================================================
 Integer
@@ -584,7 +523,6 @@ Let binding, just declaration
   (markup
     (embedded_code_expr
       (let_binding
-        (space)
         pattern: (pattern
           (code_ident))))))
 
@@ -598,7 +536,6 @@ Let binding, trailing semicolon
   (markup
     (embedded_code_expr
       (let_binding
-        (space)
         pattern: (pattern
           (code_ident))))))
 
@@ -612,10 +549,8 @@ Let binding, trailing semicolon with spacing
   (markup
     (embedded_code_expr
       (let_binding
-        (space)
         pattern: (pattern
-          (code_ident)))
-      (space))))
+          (code_ident))))))
 
 ================================================================================
 Let binding, with value set
@@ -627,11 +562,8 @@ Let binding, with value set
   (markup
     (embedded_code_expr
       (let_binding
-        (space)
         pattern: (pattern
           (code_ident))
-        (space)
-        (space)
         expr: (code_int)))))
 
 ================================================================================
@@ -645,12 +577,10 @@ Let binding, heading on next line
   (markup
     (embedded_code_expr
       (let_binding
-        (space)
         pattern: (pattern
           (code_ident))))
     (heading
       (heading_start)
-      (space)
       inner: (markup
         (text)))))
 
@@ -665,15 +595,12 @@ test
 (source_file
   (markup
     (text)
-    (space)
     (embedded_code_expr
       (let_binding
-        (space)
         pattern: (pattern
           (code_ident))))
     (heading
       (heading_start)
-      (space)
       inner: (markup
         (text)))))
 
@@ -687,12 +614,9 @@ Let binding, name parenthesized
   (markup
     (embedded_code_expr
       (let_binding
-        (space)
         pattern: (pattern
           (pattern_parenthesized
-            (code_ident)))
-        (space)
-        (space)))))
+            (code_ident)))))))
 
 ================================================================================
 Let binding, underscore as name
@@ -704,10 +628,7 @@ Let binding, underscore as name
   (markup
     (embedded_code_expr
       (let_binding
-        (space)
-        pattern: (pattern)
-        (space)
-        (space)))))
+        pattern: (pattern)))))
 
 ================================================================================
 Let binding, empty array destructuring
@@ -719,10 +640,7 @@ Let binding, empty array destructuring
   (markup
     (embedded_code_expr
       (let_binding
-        (space)
         pattern: (pattern_destructuring)
-        (space)
-        (space)
         expr: (array)))))
 
 ================================================================================
@@ -735,13 +653,9 @@ Let binding, non-empty array destructuring
   (markup
     (embedded_code_expr
       (let_binding
-        (space)
         pattern: (pattern_destructuring
           (code_ident)
-          (space)
-          (code_ident))
-        (space)
-        (space)))))
+          (code_ident))))))
 
 ================================================================================
 Let binding, array destructuring, trailing comma
@@ -753,14 +667,8 @@ Let binding, array destructuring, trailing comma
   (markup
     (embedded_code_expr
       (let_binding
-        (space)
         pattern: (pattern_destructuring
-          (space)
-          (code_ident)
-          (space)
-          (space))
-        (space)
-        (space)))))
+          (code_ident))))))
 
 ================================================================================
 Let binding, dictionary destructuring
@@ -772,17 +680,10 @@ Let binding, dictionary destructuring
   (markup
     (embedded_code_expr
       (let_binding
-        (space)
         pattern: (pattern_destructuring
-          (space)
           (pattern_named
             field: (code_ident)
-            (space)
-            (space)
-            binding: (code_ident))
-          (space))
-        (space)
-        (space)))))
+            binding: (code_ident)))))))
 
 ================================================================================
 Function definition
@@ -794,12 +695,9 @@ Function definition
   (markup
     (embedded_code_expr
       (let_binding
-        (space)
         pattern: (pattern_closure
           name: (code_ident)
-          params: (params))
-        (space)
-        (space)))))
+          params: (params))))))
 
 ================================================================================
 Function definition, space in parentheses
@@ -811,13 +709,9 @@ Function definition, space in parentheses
   (markup
     (embedded_code_expr
       (let_binding
-        (space)
         pattern: (pattern_closure
           name: (code_ident)
-          params: (params
-            (space)))
-        (space)
-        (space)))))
+          params: (params))))))
 
 ================================================================================
 Function definition, one argument
@@ -829,13 +723,10 @@ Function definition, one argument
   (markup
     (embedded_code_expr
       (let_binding
-        (space)
         pattern: (pattern_closure
           name: (code_ident)
           params: (params
-            (code_ident)))
-        (space)
-        (space)))))
+            (code_ident)))))))
 
 ================================================================================
 Function definition, one argument, spacing everywhere, trailing comma
@@ -847,16 +738,10 @@ Function definition, one argument, spacing everywhere, trailing comma
   (markup
     (embedded_code_expr
       (let_binding
-        (space)
         pattern: (pattern_closure
           name: (code_ident)
           params: (params
-            (space)
-            (code_ident)
-            (space)
-            (space)))
-        (space)
-        (space)))))
+            (code_ident)))))))
 
 ================================================================================
 Function definition, multiple arguments
@@ -868,17 +753,12 @@ Function definition, multiple arguments
   (markup
     (embedded_code_expr
       (let_binding
-        (space)
         pattern: (pattern_closure
           name: (code_ident)
           params: (params
             (code_ident)
-            (space)
             (code_ident)
-            (space)
-            (code_ident)))
-        (space)
-        (space)))))
+            (code_ident)))))))
 
 ================================================================================
 Function definition, named arguments
@@ -890,22 +770,15 @@ Function definition, named arguments
   (markup
     (embedded_code_expr
       (let_binding
-        (space)
         pattern: (pattern_closure
           name: (code_ident)
           params: (params
             (param_named
               name: (code_ident)
-              (space)
               value: (array))
-            (space)
             (param_named
               name: (code_ident)
-              (space)
-              (space)
-              value: (string))))
-        (space)
-        (space)))))
+              value: (string))))))))
 
 ================================================================================
 Function definition, spread
@@ -917,14 +790,11 @@ Function definition, spread
   (markup
     (embedded_code_expr
       (let_binding
-        (space)
         pattern: (pattern_closure
           name: (code_ident)
           params: (params
             (pattern_spread
-              (code_ident))))
-        (space)
-        (space)))))
+              (code_ident))))))))
 
 ================================================================================
 Function definition, destructuring
@@ -936,17 +806,13 @@ Function definition, destructuring
   (markup
     (embedded_code_expr
       (let_binding
-        (space)
         pattern: (pattern_closure
           name: (code_ident)
           params: (params
             (pattern_destructuring
               (pattern_named
                 field: (code_ident)
-                (space)
-                binding: (code_ident)))))
-        (space)
-        (space)))))
+                binding: (code_ident)))))))))
 
 ================================================================================
 Set rule, no arguments
@@ -958,7 +824,6 @@ Set rule, no arguments
   (markup
     (embedded_code_expr
       (set_rule
-        (space)
         target: (set_rule_field_access
           target: (code_ident))
         arguments: (code_args)))))
@@ -973,7 +838,6 @@ Set rule, field access, no arguments
   (markup
     (embedded_code_expr
       (set_rule
-        (space)
         target: (set_rule_field_access
           target: (code_ident)
           field: (code_ident))
@@ -991,15 +855,10 @@ Set rule, field access, no arguments, spacing everywhere
   (markup
     (embedded_code_expr
       (set_rule
-        (space)
         target: (set_rule_field_access
           target: (code_ident)
-          (space)
-          (space)
           field: (code_ident))
-        (space)
-        arguments: (code_args
-          (space))))))
+        arguments: (code_args)))))
 
 ================================================================================
 Set rule, field access, newline after dot
@@ -1014,15 +873,11 @@ Set rule, field access, newline after dot
   (markup
     (embedded_code_expr
       (set_rule
-        (space)
         target: (set_rule_field_access
           target: (code_ident)
-          (space)
           (ERROR)
-          (space)
           field: (MISSING code_ident))
-        arguments: (code_args
-          (space))))))
+        arguments: (code_args)))))
 
 ================================================================================
 Set rule, newline pefore open parenthesis
@@ -1036,13 +891,10 @@ Set rule, newline pefore open parenthesis
   (markup
     (embedded_code_expr
       (set_rule
-        (space)
         target: (set_rule_field_access
           target: (code_ident))
-        (ERROR
-          (space))
-        arguments: (code_args
-          (space))))))
+        (ERROR)
+        arguments: (code_args)))))
 
 ================================================================================
 Set rule, one argument
@@ -1054,7 +906,6 @@ Set rule, one argument
   (markup
     (embedded_code_expr
       (set_rule
-        (space)
         target: (set_rule_field_access
           target: (code_ident))
         arguments: (code_args
@@ -1070,23 +921,15 @@ Set rule, multiple arguments
   (markup
     (embedded_code_expr
       (set_rule
-        (space)
         target: (set_rule_field_access
           target: (code_ident))
         arguments: (code_args
-          (space)
           (variable
             (code_ident))
-          (space)
-          (space)
           (variable
             (code_ident))
-          (space)
-          (space)
           (variable
-            (code_ident))
-          (space)
-          (space))))))
+            (code_ident)))))))
 
 ================================================================================
 Set rule, named argument
@@ -1098,14 +941,11 @@ Set rule, named argument
   (markup
     (embedded_code_expr
       (set_rule
-        (space)
         target: (set_rule_field_access
           target: (code_ident))
         arguments: (code_args
           (code_args_named
             name: (code_ident)
-            (space)
-            (space)
             value: (code_int)))))))
 
 ================================================================================
@@ -1118,7 +958,6 @@ Set rule, spread
   (markup
     (embedded_code_expr
       (set_rule
-        (space)
         target: (set_rule_field_access
           target: (code_ident))
         arguments: (code_args
@@ -1134,7 +973,6 @@ Set rule, spread value
   (markup
     (embedded_code_expr
       (set_rule
-        (space)
         target: (set_rule_field_access
           target: (code_ident))
         arguments: (code_args
@@ -1152,17 +990,13 @@ Set rule, mixed
   (markup
     (embedded_code_expr
       (set_rule
-        (space)
         target: (set_rule_field_access
           target: (code_ident))
         arguments: (code_args
           (code_int)
-          (space)
           (code_args_named
             name: (code_ident)
-            (space)
             value: (string))
-          (space)
           (spread
             (variable
               (code_ident))))))))
@@ -1177,17 +1011,13 @@ Set rule, b
   (markup
     (embedded_code_expr
       (set_rule
-        (space)
         target: (set_rule_field_access
           target: (code_ident))
         arguments: (code_args
           (code_int)
-          (space)
           (code_args_named
             name: (code_ident)
-            (space)
             value: (string))
-          (space)
           (spread
             (variable
               (code_ident))))))))
@@ -1202,12 +1032,9 @@ Set-if rule
   (markup
     (embedded_code_expr
       (set_rule
-        (space)
         target: (set_rule_field_access
           target: (code_ident))
         arguments: (code_args)
-        (space)
-        (space)
         condition: (variable
           (code_ident))))))
 
@@ -1222,7 +1049,6 @@ if bar
   (markup
     (embedded_code_expr
       (set_rule
-        (space)
         target: (set_rule_field_access
           target: (code_ident))
         arguments: (code_args)))
@@ -1238,7 +1064,6 @@ Show, no selector
   (markup
     (embedded_code_expr
       (show_rule
-        (space)
         transform: (string)))))
 
 ================================================================================
@@ -1251,8 +1076,6 @@ Show, no selector, spacing everywhere
   (markup
     (embedded_code_expr
       (show_rule
-        (space)
-        (space)
         transform: (string)))))
 
 ================================================================================
@@ -1265,10 +1088,8 @@ Show, with selector
   (markup
     (embedded_code_expr
       (show_rule
-        (space)
         selector: (variable
           (code_ident))
-        (space)
         transform: (string)))))
 
 ================================================================================
@@ -1281,11 +1102,8 @@ Show, with selector, spacing everywhere
   (markup
     (embedded_code_expr
       (show_rule
-        (space)
         selector: (variable
           (code_ident))
-        (space)
-        (space)
         transform: (string)))))
 
 ================================================================================
@@ -1298,10 +1116,8 @@ heading: none
 (source_file
   (ERROR)
   (markup
-    (space)
     (text)
     (text)
-    (space)
     (text)))
 
 ================================================================================
@@ -1313,13 +1129,10 @@ Show, next line transform
 
 (source_file
   (ERROR
-    (space)
     (variable
       (code_ident)))
   (markup
-    (space)
     (text)
-    (space)
     (text)))
 
 ================================================================================
@@ -1332,8 +1145,6 @@ Conditional, no else, code block
   (markup
     (embedded_code_expr
       (conditional
-        (space)
-        (space)
         (code_block)))))
 
 ================================================================================
@@ -1346,8 +1157,6 @@ Conditional, no else, content block
   (markup
     (embedded_code_expr
       (conditional
-        (space)
-        (space)
         (content_block)))))
 
 ================================================================================
@@ -1360,9 +1169,7 @@ true {}
 (source_file
   (ERROR)
   (markup
-    (space)
-    (text)
-    (space))
+    (text))
   (ERROR))
 
 ================================================================================
@@ -1373,10 +1180,8 @@ Conditional, no else, newline after expression
 --------------------------------------------------------------------------------
 
 (source_file
-  (ERROR
-    (space))
-  (markup
-    (space))
+  (ERROR)
+  (markup)
   (ERROR))
 
 ================================================================================
@@ -1389,11 +1194,7 @@ Conditional, with else
   (markup
     (embedded_code_expr
       (conditional
-        (space)
-        (space)
         (code_block)
-        (space)
-        (space)
         (code_block)))))
 
 ================================================================================
@@ -1407,11 +1208,7 @@ else {}
   (markup
     (embedded_code_expr
       (conditional
-        (space)
-        (space)
         (code_block)
-        (space)
-        (space)
         (code_block)))))
 
 ================================================================================
@@ -1425,15 +1222,11 @@ Conditional, newline after else
   (markup
     (embedded_code_expr
       (conditional
-        (space)
-        (space)
         (ERROR
           (code_block)
-          (space)
-          (ERROR)
-          (space))
+          (ERROR))
         (code_block)))))
-  
+
 ================================================================================
 Conditional, else if
 ================================================================================
@@ -1444,14 +1237,8 @@ Conditional, else if
   (markup
     (embedded_code_expr
       (conditional
-        (space)
-        (space)
         (code_block)
-        (space)
-        (space)
         (conditional
-          (space)
-          (space)
           (code_block))))))
 
 ================================================================================
@@ -1464,20 +1251,10 @@ Conditional, multiple else if
   (markup
     (embedded_code_expr
       (conditional
-        (space)
-        (space)
         (code_block)
-        (space)
-        (space)
         (conditional
-          (space)
-          (space)
           (code_block)
-          (space)
-          (space)
           (conditional
-            (space)
-            (space)
             (code_block)))))))
 
 ================================================================================
@@ -1490,8 +1267,6 @@ While loop, code block
   (markup
     (embedded_code_expr
       (while_loop
-        (space)
-        (space)
         (code_block)))))
 
 ================================================================================
@@ -1504,8 +1279,6 @@ While loop, content block
   (markup
     (embedded_code_expr
       (while_loop
-        (space)
-        (space)
         (content_block)))))
 
 ================================================================================
@@ -1518,9 +1291,7 @@ true {}
 (source_file
   (ERROR)
   (markup
-    (space)
-    (text)
-    (space))
+    (text))
   (ERROR))
 
 ================================================================================
@@ -1531,10 +1302,8 @@ While loop, newline after condition
 --------------------------------------------------------------------------------
 
 (source_file
-  (ERROR
-    (space))
-  (markup
-    (space))
+  (ERROR)
+  (markup)
   (ERROR))
 
 ================================================================================
@@ -1547,13 +1316,9 @@ For loop
   (markup
     (embedded_code_expr
       (for_loop
-        (space)
         (pattern
           (code_ident))
-        (space)
-        (space)
         (array)
-        (space)
         (code_block)))))
 
 ================================================================================
@@ -1565,14 +1330,10 @@ For loop, newline before body
 
 (source_file
   (ERROR
-    (space)
     (pattern
       (code_ident))
-    (space)
-    (space)
     (array))
-  (markup
-    (space))
+  (markup)
   (ERROR))
 
 ================================================================================
@@ -1585,7 +1346,6 @@ Import module
   (markup
     (embedded_code_expr
       (module_import
-        (space)
         (string)))))
 
 ================================================================================
@@ -1598,9 +1358,7 @@ Import everything from module
   (markup
     (embedded_code_expr
       (module_import
-        (space)
-        (string)
-        (space)))))
+        (string)))))
 
 ================================================================================
 Import nothing from module
@@ -1612,7 +1370,6 @@ Import nothing from module
   (markup
     (embedded_code_expr
       (module_import
-        (space)
         (string)))))
 
 ================================================================================
@@ -1625,11 +1382,8 @@ Import items from module
   (markup
     (embedded_code_expr
       (module_import
-        (space)
         (string)
-        (space)
         (code_ident)
-        (space)
         (code_ident)))))
 
 ================================================================================
@@ -1642,11 +1396,8 @@ Import items from module, trailing comma
   (markup
     (embedded_code_expr
       (module_import
-        (space)
         (string)
-        (space)
         (code_ident)
-        (space)
         (code_ident)))))
 
 ================================================================================
@@ -1659,15 +1410,9 @@ Import items from module, trailing comma, spacing everywhere
   (markup
     (embedded_code_expr
       (module_import
-        (space)
         (string)
-        (space)
-        (space)
         (code_ident)
-        (space)
-        (space)
-        (code_ident)
-        (space)))))
+        (code_ident)))))
 
 ================================================================================
 Include
@@ -1679,7 +1424,6 @@ Include
   (markup
     (embedded_code_expr
       (module_include
-        (space)
         (string)))))
 
 ================================================================================
@@ -1740,7 +1484,5 @@ Return, with argument
   (markup
     (embedded_code_expr
       (return_stmt
-        (space)
         (variable
           (code_ident))))))
-

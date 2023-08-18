@@ -113,7 +113,8 @@ module.exports = grammar({
 
     markup: $ => repeat1(choice(
       $._markup_expr_base,
-      $.space,
+      $._space,
+      $._newline,
       $.parbreak,
       $.heading,
     )),
@@ -200,7 +201,8 @@ module.exports = grammar({
     _markup_no_parbreak: $ => prec.left(alias(
       repeat1(choice(
         $._markup_expr_base,
-        $.space,
+        $._space,
+        $._newline,
         $.heading,
       )),
       $.markup,
@@ -211,7 +213,7 @@ module.exports = grammar({
       choice(
         $._token_eof,
         seq(
-          $._space_same_line,
+          $._space,
           choice(
             $._token_eof,
             field('inner', optional($._markup_heading)),
@@ -222,7 +224,7 @@ module.exports = grammar({
     _markup_heading: $ => prec.right(alias(
       repeat1(choice(
         $._markup_expr_base,
-        $._space_same_line,
+        $._space,
       )),
       $.markup,
     )),
@@ -771,13 +773,14 @@ module.exports = grammar({
     // Whitespace and Comments
 
     _trivia: $ => choice(
-      $.space,
+      $._space,
+      $._newline,
       $.parbreak,
       $.line_comment,
       $.block_comment,
     ),
     _trivia_same_line: $ => choice(
-      $._space_same_line,
+      $._space,
       $.block_comment,
     ),
     line_comment: $ => token(seq('//', /.*/)),
@@ -793,11 +796,5 @@ module.exports = grammar({
       )),
       choice('*/', $._token_eof),
     ),
-
-    space: $ => choice(
-      $._space,
-      $._newline,
-    ),
-    _space_same_line: $ => alias($._space, $.space),
   }
 });

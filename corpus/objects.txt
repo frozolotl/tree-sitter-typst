@@ -81,7 +81,6 @@ Heading
   (markup
     (heading
       (heading_start)
-      (space)
       (markup
         (text)))))
 
@@ -105,8 +104,7 @@ Heading without text, but a space
 (source_file
   (markup
     (heading
-      (heading_start)
-      (space))))
+      (heading_start))))
 
 ================================================================================
 Heading with text around it
@@ -121,10 +119,8 @@ Bar Baz
     (text)
     (heading
       (heading_start)
-      (space)
       (markup
         (text)))
-    (space)
     (text)))
 
 ================================================================================
@@ -137,7 +133,6 @@ Indented heading
   (markup
     (heading
       (heading_start)
-      (space)
       (markup
         (text)))))
 
@@ -151,7 +146,6 @@ Comment before heading
   (markup
     (block_comment)
     (text)
-    (space)
     (text)))
 
 ================================================================================
@@ -163,9 +157,7 @@ Comment plus space before heading
 (source_file
   (markup
     (block_comment)
-    (space)
     (text)
-    (space)
     (text)))
 
 ================================================================================
@@ -177,10 +169,8 @@ Text == Not a heading
 (source_file
   (markup
     (text)
-    (space)
     (text)
     (text)
-    (space)
     (text)))
 
 ================================================================================
@@ -192,9 +182,7 @@ Non-text character before heading
 (source_file
   (markup
     (text)
-    (space)
     (text)
-    (space)
     (text)))
 
 ================================================================================
@@ -207,11 +195,8 @@ test /*
 (source_file
   (markup
     (text)
-    (space)
     (block_comment)
-    (space)
     (text)
-    (space)
     (text)))
 
 ================================================================================
@@ -228,10 +213,8 @@ Strong heading
       (markup
         (heading
           (heading_start)
-          (space)
           (markup
-            (text)))
-        (space)))))
+            (text)))))))
 
 ================================================================================
 Consecutive headings
@@ -244,12 +227,10 @@ Consecutive headings
   (markup
     (heading
       (heading_start)
-      (space)
       (markup
         (text)))
     (heading
       (heading_start)
-      (space)
       (markup
         (text)))))
 
@@ -264,14 +245,10 @@ New line
   (markup
     (heading
       (heading_start)
-      (space)
       (markup
         (text)
-        (space)
         (strong
           (markup
             (text)))
-        (space)
         (link)))
-    (space)
     (text)))

@@ -25,7 +25,11 @@
           },
           {
             "type": "SYMBOL",
-            "name": "space"
+            "name": "_space"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_newline"
           },
           {
             "type": "SYMBOL",
@@ -390,7 +394,11 @@
               },
               {
                 "type": "SYMBOL",
-                "name": "space"
+                "name": "_space"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_newline"
               },
               {
                 "type": "SYMBOL",
@@ -425,7 +433,7 @@
                 "members": [
                   {
                     "type": "SYMBOL",
-                    "name": "_space_same_line"
+                    "name": "_space"
                   },
                   {
                     "type": "CHOICE",
@@ -475,7 +483,7 @@
               },
               {
                 "type": "SYMBOL",
-                "name": "_space_same_line"
+                "name": "_space"
               }
             ]
           }
@@ -3464,7 +3472,11 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "space"
+          "name": "_space"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
         },
         {
           "type": "SYMBOL",
@@ -3485,7 +3497,7 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "_space_same_line"
+          "name": "_space"
         },
         {
           "type": "SYMBOL",
@@ -3559,28 +3571,6 @@
           ]
         }
       ]
-    },
-    "space": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_space"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_newline"
-        }
-      ]
-    },
-    "_space_same_line": {
-      "type": "ALIAS",
-      "content": {
-        "type": "SYMBOL",
-        "name": "_space"
-      },
-      "named": true,
-      "value": "space"
     }
   },
   "extras": [],

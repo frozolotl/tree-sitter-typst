@@ -92,10 +92,6 @@
           "named": true
         },
         {
-          "type": "space",
-          "named": true
-        },
-        {
           "type": "spread",
           "named": true
         },
@@ -227,10 +223,6 @@
         },
         {
           "type": "show_rule",
-          "named": true
-        },
-        {
-          "type": "space",
           "named": true
         },
         {
@@ -396,10 +388,6 @@
         {
           "type": "parbreak",
           "named": true
-        },
-        {
-          "type": "space",
-          "named": true
         }
       ]
     }
@@ -494,10 +482,6 @@
         },
         {
           "type": "show_rule",
-          "named": true
-        },
-        {
-          "type": "space",
           "named": true
         },
         {
@@ -648,10 +632,6 @@
         },
         {
           "type": "parbreak",
-          "named": true
-        },
-        {
-          "type": "space",
           "named": true
         }
       ]
@@ -823,10 +803,6 @@
         {
           "type": "parbreak",
           "named": true
-        },
-        {
-          "type": "space",
-          "named": true
         }
       ]
     }
@@ -869,10 +845,6 @@
         },
         {
           "type": "parbreak",
-          "named": true
-        },
-        {
-          "type": "space",
           "named": true
         },
         {
@@ -964,10 +936,6 @@
         },
         {
           "type": "show_rule",
-          "named": true
-        },
-        {
-          "type": "space",
           "named": true
         },
         {
@@ -1167,10 +1135,6 @@
         {
           "type": "block_comment",
           "named": true
-        },
-        {
-          "type": "space",
-          "named": true
         }
       ]
     }
@@ -1191,15 +1155,11 @@
       }
     },
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
           "type": "heading_start",
-          "named": true
-        },
-        {
-          "type": "space",
           "named": true
         }
       ]
@@ -1362,10 +1322,6 @@
         {
           "type": "parbreak",
           "named": true
-        },
-        {
-          "type": "space",
-          "named": true
         }
       ]
     }
@@ -1381,7 +1337,7 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "block_comment",
@@ -1440,10 +1396,6 @@
           "named": true
         },
         {
-          "type": "space",
-          "named": true
-        },
-        {
           "type": "strong",
           "named": true
         },
@@ -1464,7 +1416,7 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "block_comment",
@@ -1543,10 +1495,6 @@
           "named": true
         },
         {
-          "type": "space",
-          "named": true
-        },
-        {
           "type": "string",
           "named": true
         }
@@ -1606,10 +1554,6 @@
         {
           "type": "parbreak",
           "named": true
-        },
-        {
-          "type": "space",
-          "named": true
         }
       ]
     }
@@ -1620,7 +1564,7 @@
     "fields": {
       "above": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "block_comment",
@@ -1696,10 +1640,6 @@
           },
           {
             "type": "parbreak",
-            "named": true
-          },
-          {
-            "type": "space",
             "named": true
           },
           {
@@ -1710,7 +1650,7 @@
       },
       "expr": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "block_comment",
@@ -1786,10 +1726,6 @@
           },
           {
             "type": "parbreak",
-            "named": true
-          },
-          {
-            "type": "space",
             "named": true
           },
           {
@@ -1806,7 +1742,7 @@
     "fields": {
       "below": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "block_comment",
@@ -1882,10 +1818,6 @@
           },
           {
             "type": "parbreak",
-            "named": true
-          },
-          {
-            "type": "space",
             "named": true
           },
           {
@@ -1896,7 +1828,7 @@
       },
       "expr": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "block_comment",
@@ -1972,10 +1904,6 @@
           },
           {
             "type": "parbreak",
-            "named": true
-          },
-          {
-            "type": "space",
             "named": true
           },
           {
@@ -2187,7 +2115,7 @@
     "fields": {
       "denominator": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "block_comment",
@@ -2263,10 +2191,6 @@
           },
           {
             "type": "parbreak",
-            "named": true
-          },
-          {
-            "type": "space",
             "named": true
           },
           {
@@ -2277,7 +2201,7 @@
       },
       "numerator": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "block_comment",
@@ -2353,10 +2277,6 @@
           },
           {
             "type": "parbreak",
-            "named": true
-          },
-          {
-            "type": "space",
             "named": true
           },
           {
@@ -2399,7 +2319,7 @@
     "fields": {
       "expr": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "block_comment",
@@ -2475,10 +2395,6 @@
           },
           {
             "type": "parbreak",
-            "named": true
-          },
-          {
-            "type": "space",
             "named": true
           },
           {
@@ -2638,10 +2554,6 @@
         {
           "type": "parbreak",
           "named": true
-        },
-        {
-          "type": "space",
-          "named": true
         }
       ]
     }
@@ -2771,10 +2683,6 @@
       "types": [
         {
           "type": "block_comment",
-          "named": true
-        },
-        {
-          "type": "space",
           "named": true
         }
       ]
@@ -2928,10 +2836,6 @@
         {
           "type": "parbreak",
           "named": true
-        },
-        {
-          "type": "space",
-          "named": true
         }
       ]
     }
@@ -3080,10 +2984,6 @@
         {
           "type": "parbreak",
           "named": true
-        },
-        {
-          "type": "space",
-          "named": true
         }
       ]
     }
@@ -3122,10 +3022,6 @@
         },
         {
           "type": "pattern_spread",
-          "named": true
-        },
-        {
-          "type": "space",
           "named": true
         }
       ]
@@ -3207,10 +3103,6 @@
         {
           "type": "pattern_spread",
           "named": true
-        },
-        {
-          "type": "space",
-          "named": true
         }
       ]
     }
@@ -3259,10 +3151,6 @@
         {
           "type": "parbreak",
           "named": true
-        },
-        {
-          "type": "space",
-          "named": true
         }
       ]
     }
@@ -3290,10 +3178,6 @@
         {
           "type": "parbreak",
           "named": true
-        },
-        {
-          "type": "space",
-          "named": true
         }
       ]
     }
@@ -3320,10 +3204,6 @@
         },
         {
           "type": "parbreak",
-          "named": true
-        },
-        {
-          "type": "space",
           "named": true
         }
       ]
@@ -3470,10 +3350,6 @@
       "types": [
         {
           "type": "block_comment",
-          "named": true
-        },
-        {
-          "type": "space",
           "named": true
         }
       ]
@@ -3625,10 +3501,6 @@
         {
           "type": "block_comment",
           "named": true
-        },
-        {
-          "type": "space",
-          "named": true
         }
       ]
     }
@@ -3672,10 +3544,6 @@
         },
         {
           "type": "parbreak",
-          "named": true
-        },
-        {
-          "type": "space",
           "named": true
         }
       ]
@@ -3921,10 +3789,6 @@
         {
           "type": "block_comment",
           "named": true
-        },
-        {
-          "type": "space",
-          "named": true
         }
       ]
     }
@@ -3943,11 +3807,6 @@
         }
       ]
     }
-  },
-  {
-    "type": "space",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "spread",
@@ -4039,10 +3898,6 @@
         },
         {
           "type": "show_rule",
-          "named": true
-        },
-        {
-          "type": "space",
           "named": true
         },
         {
@@ -4230,10 +4085,6 @@
       "types": [
         {
           "type": "block_comment",
-          "named": true
-        },
-        {
-          "type": "space",
           "named": true
         }
       ]

@@ -19,7 +19,6 @@ $-> ~~>$
     (equation
       (math
         (math_shorthand)
-        (space)
         (math_shorthand)))))
 
 ================================================================================
@@ -71,7 +70,6 @@ $(a, b)$
           inner: (math
             (math_text)
             (math_text)
-            (space)
             (math_text))
           right: (math_delimited_right))))))
 
@@ -378,7 +376,6 @@ $foo(1, 2)$
             (math
               (math_text))
             (math
-              (space)
               (math_text))))))))
 
 ================================================================================
@@ -398,7 +395,6 @@ $foo(1, 2,)$
             (math
               (math_text))
             (math
-              (space)
               (math_text))))))))
 
 ================================================================================
@@ -453,11 +449,9 @@ $foo(0, bar: 1)$
           args: (math_args
             (math
               (math_text))
-            (space)
             (math_arg_named
               name: (math_ident)
               arg: (math
-                (space)
                 (math_text)))))))))
 
 ================================================================================
@@ -509,13 +503,10 @@ $mat(1, 2; 3, 4)$
             (math
               (math_text))
             (math
-              (space)
               (math_text))
             (math
-              (space)
               (math_text))
             (math
-              (space)
               (math_text))))))))
 
 ================================================================================

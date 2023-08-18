@@ -11,13 +11,9 @@ faucibus a pellentesque sit.
 (source_file
   (markup
     (text)
-    (space)
     (text)
-    (space)
     (text)
-    (space)
     (text)
-    (space)
     (text)))
 
 ================================================================================
@@ -29,13 +25,9 @@ A/B-Testing. -5.5 is a number. Want to see me @5?. Semicolon; .-. ..
 (source_file
   (markup
     (text)
-    (space)
     (text)
-    (space)
     (text)
-    (space)
     (text)
-    (space)
     (text)))
 
 ================================================================================
@@ -49,14 +41,10 @@ foo[] == - + / bar
     (text)
     (text)
     (text)
-    (space)
     (text)
     (text)
-    (space)
     (text)
-    (space)
     (text)
-    (space)
     (text)))
 
 ================================================================================
@@ -78,7 +66,6 @@ Unicode Escape
 (source_file
   (markup
     (escape)
-    (space)
     (escape)))
 
 ================================================================================
@@ -101,13 +88,9 @@ Shorthands
 (source_file
   (markup
     (text_shorthand)
-    (space)
     (text_shorthand)
-    (space)
     (text_shorthand)
-    (space)
     (text_shorthand)
-    (space)
     (text_shorthand)))
 
 ================================================================================
@@ -355,11 +338,9 @@ Plain *Strong* Plain
 (source_file
   (markup
     (text)
-    (space)
     (strong
       (markup
         (text)))
-    (space)
     (text)))
 
 ================================================================================
@@ -371,11 +352,9 @@ Plain _Emph_ Plain
 (source_file
   (markup
     (text)
-    (space)
     (emph
       (markup
         (text)))
-    (space)
     (text)))
 
 ================================================================================
@@ -387,17 +366,13 @@ Plain *Strong _Strong Emph_ Strong* Plain
 (source_file
   (markup
     (text)
-    (space)
     (strong
       (markup
         (text)
-        (space)
         (emph
           (markup
             (text)))
-        (space)
         (text)))
-    (space)
     (text)))
 
 ================================================================================
@@ -409,17 +384,13 @@ Plain _Emphasis *Emphasis Strong* Emphasis_ Plain
 (source_file
   (markup
     (text)
-    (space)
     (emph
       (markup
         (text)
-        (space)
         (strong
           (markup
             (text)))
-        (space)
         (text)))
-    (space)
     (text)))
 
 ================================================================================
@@ -481,7 +452,6 @@ stars*next to* words*
     (text)
     (strong
       (markup
-        (space)
         (text)))))
 
 ================================================================================
@@ -524,7 +494,6 @@ Y*
     (strong
       (markup
         (text)
-        (space)
         (text)))))
 
 ================================================================================
@@ -553,5 +522,4 @@ Y_
     (emph
       (markup
         (text)
-        (space)
         (text)))))
