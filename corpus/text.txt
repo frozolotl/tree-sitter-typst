@@ -125,7 +125,8 @@ Raw, empty
 
 (source_file
   (markup
-    (raw)))
+    (raw
+      (raw_open_inline))))
 
 ================================================================================
 Raw, single tick
@@ -135,7 +136,9 @@ Raw, single tick
 
 (source_file
   (markup
-    (raw)))
+    (raw
+      (raw_open_inline)
+      body: (raw_body))))
 
 ================================================================================
 Raw, two ticks (not an actual raw)
@@ -145,14 +148,16 @@ Raw, two ticks (not an actual raw)
 
 (source_file
   (markup
-    (raw)
+    (raw
+      (raw_open_inline))
     (text)
-    (raw)))
+    (raw
+      (raw_open_inline))))
 
 ================================================================================
-Raw, three ticks
+Raw, three ticks, no language
 ================================================================================
-```hello #~!*, 
+``` hello #~!*, 
 
 https://test.com ``
 
@@ -162,7 +167,26 @@ world```
 
 (source_file
   (markup
-    (raw)))
+    (raw
+      (raw_open_block)
+      body: (raw_body))))
+
+================================================================================
+Raw, three ticks, with language
+================================================================================
+```rust
+fn main() {
+    println!("hello world");
+}
+```
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (raw
+      (raw_open_block)
+      language: (code_ident)
+      body: (raw_body))))
 
 ================================================================================
 Raw, unclosed
@@ -171,9 +195,8 @@ Raw, unclosed
 --------------------------------------------------------------------------------
 
 (source_file
-  (ERROR)
-  (markup
-    (raw)))
+  (ERROR
+    (raw_open_block)))
 
 ================================================================================
 Link, http
@@ -283,9 +306,8 @@ https://[bar
 --------------------------------------------------------------------------------
 
 (source_file
-  (markup
-    (link
-      (ERROR))))
+  (ERROR
+    (code_ident)))
 
 ================================================================================
 Link, unopened brackets

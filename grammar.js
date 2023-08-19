@@ -1,4 +1,5 @@
 const LEAF = {
+  any: /\s|\S/,
   newline: /\r\n|[\n\x0B\x0C\r\x85\u2028\u2029]/,
   number_unit: /pt|em|mm|cm|in|deg|rad|em|fr|%/,
 };
@@ -37,7 +38,9 @@ module.exports = grammar({
     $._indent,
     $._dedent,
     $._start_line,
-    $.raw,
+    $.raw_open_inline,
+    $.raw_open_block,
+    $._raw_close,
     $._link_end,
     $.text,
     $._delim_strong,
@@ -173,6 +176,24 @@ module.exports = grammar({
       '~',
     )),
     smart_quote: $ => token(choice('\'', '"')),
+    raw: $ => seq(
+      choice(
+        seq(
+          $.raw_open_block,
+          field('language', $.code_ident),
+          field('body', optional($.raw_body)),
+        ),
+        seq(
+          choice(
+            $.raw_open_inline,
+            $.raw_open_block,
+          ),
+          field('body', optional($.raw_body)),
+        ),
+      ),
+      $._raw_close,
+    ),
+    raw_body: $ => repeat1(LEAF.any),
     link: $ => seq(
       /https?:\/\//,
       $._link_end,
@@ -447,16 +468,17 @@ module.exports = grammar({
     code_block: $ => seq(
       '{',
       trivia($),
-      repeat(seq(
-        $._code_expr_or_stmt,
-        choice(
-          ";",
-          $._newline,
-        ),
-        trivia($),
-      )),
+      optional($._code_block_inner),
       '}',
     ),
+    _code_block_inner: $ => repeat1(seq(
+      $._code_expr_or_stmt,
+      choice(
+        ";",
+        $._newline,
+      ),
+      trivia($),
+    )),
     content_block: $ => seq(
       '[',
       $._start_line,

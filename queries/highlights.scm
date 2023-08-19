@@ -4,7 +4,10 @@
 (escape) @string.escape
 (text_shorthand) @punctuation
 (smart_quote) @punctuation.delimiter
-(raw) @markup.raw.inline
+(raw
+  (raw_open_inline)) @markup.raw.inline
+(raw
+  (raw_open_block)) @markup.raw.block
 (link) @markup.link.url
 (label) @markup.label
 (strong) @markup.bold

@@ -511,7 +511,9 @@ Raw
 (source_file
   (markup
     (embedded_code_expr
-      (raw))))
+      (raw
+        (raw_open_inline)
+        body: (raw_body)))))
 
 ================================================================================
 Let binding, just declaration
@@ -876,7 +878,7 @@ Set rule, field access, newline after dot
         target: (set_rule_field_access
           target: (code_ident)
           (ERROR)
-          field: (MISSING code_ident))
+          field: (code_ident))
         arguments: (code_args)))))
 
 ================================================================================

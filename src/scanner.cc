@@ -17,7 +17,9 @@ enum TokenType {
   DEDENT,
   /// Commands the next use of `Scanner::is_new_line` to be true.
   START_LINE,
-  RAW,
+  RAW_OPEN_INLINE,
+  RAW_OPEN_BLOCK,
+  RAW_CLOSE,
   LINK_END,
   TEXT,
   DELIM_STRONG,
@@ -164,6 +166,8 @@ class Scanner {
     buffer[cursor++] = this->ends_with_word ? 1 : 0;
     buffer[cursor++] = this->is_new_line ? 1 : 0;
     buffer[cursor++] = this->start_line ? 1 : 0;
+    buffer[cursor++] = static_cast<char>(this->backticks_opened);
+    buffer[cursor++] = static_cast<char>(this->backticks_opened << 8);
 
     assert(cursor + this->indent_length_stack.size() * 2 <
            TREE_SITTER_SERIALIZATION_BUFFER_SIZE);
@@ -180,6 +184,7 @@ class Scanner {
     this->ends_with_word = false;
     this->is_new_line = true;
     this->start_line = false;
+    this->backticks_opened = 0;
     if (length == 0) {
       return;
     }
@@ -188,6 +193,9 @@ class Scanner {
     this->ends_with_word = buffer[cursor++] != 0;
     this->is_new_line = buffer[cursor++] != 0;
     this->start_line = buffer[cursor++] != 0;
+    this->backticks_opened = static_cast<uint16_t>(buffer[cursor]) |
+                             (static_cast<uint16_t>(buffer[cursor + 1]) << 8);
+    cursor += 2;
     for (; cursor < length; cursor += 2) {
       uint16_t indent_length = static_cast<uint16_t>(buffer[cursor]) |
                                (static_cast<uint16_t>(buffer[cursor + 1]) << 8);
@@ -215,8 +223,10 @@ class Scanner {
 
     ScanResult scan_space_result = this->scan_space(lexer, valid_symbols);
 
-    if (valid_symbols[HEADING_START] && this->is_new_line && lexer.eat_if('=')) {
-      while (lexer.eat_if('='));
+    if (valid_symbols[HEADING_START] && this->is_new_line &&
+        lexer.eat_if('=')) {
+      while (lexer.eat_if('='))
+        ;
       this->is_new_line = false;
       HANDLE_SCAN_RESULT(lexer.recognized(HEADING_START));
     }
@@ -242,8 +252,8 @@ class Scanner {
       }
     }
 
-    if (valid_symbols[RAW] && lexer.eat_if('`')) {
-      HANDLE_SCAN_RESULT(this->scan_raw(lexer));
+    if (valid_symbols[RAW_OPEN_INLINE] || valid_symbols[RAW_OPEN_BLOCK] || valid_symbols[RAW_CLOSE]) {
+      HANDLE_SCAN_RESULT(this->scan_raw(lexer, valid_symbols));
     }
 
     if (valid_symbols[LINK_END]) {
@@ -262,6 +272,7 @@ class Scanner {
   bool ends_with_word;
   bool is_new_line;
   bool start_line;
+  uint16_t backticks_opened;
 
   ScanResult scan_space(Lexer &lexer, const bool *valid_symbols) {
     bool started_at_line_start = lexer.at_line_start();
@@ -305,7 +316,8 @@ class Scanner {
           break;
         }
         default: {
-          this->is_new_line = this->start_line || newline_count > 0 || started_at_line_start;
+          this->is_new_line =
+              this->start_line || newline_count > 0 || started_at_line_start;
           this->start_line = false;
           if (valid_symbols[PARBREAK] && newline_count >= 2) {
             return lexer.recognized(PARBREAK);
@@ -415,28 +427,40 @@ class Scanner {
     }
   }
 
-  ScanResult scan_raw(Lexer &lexer) {
-    uint32_t backticks_opened = 1;
-    while (lexer.eat_if('`')) {
-      backticks_opened++;
-    }
-    if (backticks_opened == 2) {
-      return lexer.recognized(RAW);
-    }
-
-    uint32_t backticks_closed = 0;
-    while (backticks_closed < backticks_opened) {
-      if (lexer.eof()) {
-        return BREAK;
+  ScanResult scan_raw(Lexer &lexer, const bool *valid_symbols) {
+    if ((valid_symbols[RAW_OPEN_INLINE] || valid_symbols[RAW_OPEN_BLOCK]) && lexer.eat_if('`')) {
+      this->backticks_opened = 1;
+      while (lexer.bite_if('`')) {
+        this->backticks_opened++;
       }
-      if (lexer.eat() == '`') {
-        backticks_closed++;
+      // Don't include the second backtick if only two backticks were found.
+      // Two backticks are a single raw element.
+      if (this->backticks_opened == 2) {
+        this->backticks_opened = 1;
       } else {
-        backticks_closed = 0;
+        lexer.swallow();
+      }
+      if (this->backticks_opened >= 3) {
+        return lexer.recognized(RAW_OPEN_BLOCK);
+      } else {
+        return lexer.recognized(RAW_OPEN_INLINE);
       }
     }
 
-    return lexer.recognized(RAW);
+    if (valid_symbols[RAW_CLOSE]) {
+      uint32_t backticks_closed = 0;
+      while (backticks_closed < this->backticks_opened) {
+        if (lexer.eat_if('`')) {
+          backticks_closed++;
+        } else {
+          return BREAK;
+        }
+      }
+      this->backticks_opened = 0;
+      return lexer.recognized(RAW_CLOSE);
+    }
+
+    return CONTINUE;
   }
 
   ScanResult scan_link(Lexer &lexer) {

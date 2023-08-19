@@ -3210,6 +3210,51 @@
     }
   },
   {
+    "type": "raw",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "raw_body",
+            "named": true
+          }
+        ]
+      },
+      "language": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "code_ident",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "raw_open_block",
+          "named": true
+        },
+        {
+          "type": "raw_open_inline",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "raw_body",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "reference",
     "named": true,
     "fields": {
@@ -4387,7 +4432,11 @@
     "named": true
   },
   {
-    "type": "raw",
+    "type": "raw_open_block",
+    "named": true
+  },
+  {
+    "type": "raw_open_inline",
     "named": true
   },
   {
