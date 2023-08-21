@@ -59,6 +59,9 @@
 
 "#" @punctuation.special
 
+(content_block_open) @punctuation.bracket
+(content_block_close) @punctuation.bracket
+
 ".." @operator
 
 (let_binding
@@ -141,8 +144,6 @@
 [
   "{"
   "}"
-  "["
-  "]"
   "("
   ")"
 ] @punctuation.bracket

@@ -1670,12 +1670,8 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
-          "value": "["
-        },
-        {
           "type": "SYMBOL",
-          "name": "_start_line"
+          "name": "content_block_open"
         },
         {
           "type": "CHOICE",
@@ -1694,8 +1690,8 @@
           ]
         },
         {
-          "type": "STRING",
-          "value": "]"
+          "type": "SYMBOL",
+          "name": "content_block_close"
         }
       ]
     },
@@ -3625,8 +3621,8 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
-          "value": "/*"
+          "type": "SYMBOL",
+          "name": "_block_comment_start"
         },
         {
           "type": "REPEAT",
@@ -3846,7 +3842,15 @@
     },
     {
       "type": "SYMBOL",
-      "name": "_start_line"
+      "name": "content_block_open"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "content_block_close"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_block_comment_start"
     },
     {
       "type": "SYMBOL",

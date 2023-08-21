@@ -31,13 +31,17 @@ module.exports = grammar({
   externals: $ => [
     $._error_sentinel,
     $._token_eof,
+
     $._space,
     $.parbreak,
     $._newline,
     $.heading_start,
     $._indent,
     $._dedent,
-    $._start_line,
+    $.content_block_open,
+    $.content_block_close,
+    $._block_comment_start,
+
     $.raw_open_inline,
     $.raw_open_block,
     $._raw_close,
@@ -480,10 +484,9 @@ module.exports = grammar({
       trivia($),
     )),
     content_block: $ => seq(
-      '[',
-      $._start_line,
+      $.content_block_open,
       optional(field('inner', $.markup)),
-      ']',
+      $.content_block_close,
     ),
     code_parenthesized: $ => seq(
       '(',
@@ -779,7 +782,7 @@ module.exports = grammar({
         seq(
           choice(
             /[0-9]+\.[0-9]*/,
-            /\.[0-9]+/
+            /\.[0-9]+/,
           ),
           optional(/[eE][-+]?[0-9]+/),
         ),
@@ -807,7 +810,7 @@ module.exports = grammar({
     ),
     line_comment: $ => token(seq('//', /.*/)),
     block_comment: $ => seq(
-      '/*',
+      $._block_comment_start,
       repeat(choice(
         choice(
           $.line_comment,

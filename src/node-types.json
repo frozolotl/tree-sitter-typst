@@ -821,6 +821,20 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "content_block_close",
+          "named": true
+        },
+        {
+          "type": "content_block_open",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -4204,10 +4218,6 @@
     "named": false
   },
   {
-    "type": "/*",
-    "named": false
-  },
-  {
     "type": ":",
     "named": false
   },
@@ -4324,14 +4334,6 @@
     "named": false
   },
   {
-    "type": "[",
-    "named": false
-  },
-  {
-    "type": "]",
-    "named": false
-  },
-  {
     "type": "^",
     "named": false
   },
@@ -4357,6 +4359,14 @@
   },
   {
     "type": "code_int",
+    "named": true
+  },
+  {
+    "type": "content_block_close",
+    "named": true
+  },
+  {
+    "type": "content_block_open",
     "named": true
   },
   {

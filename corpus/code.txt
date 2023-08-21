@@ -76,7 +76,9 @@ Empty content block
 (source_file
   (markup
     (embedded_code_expr
-      (content_block))))
+      (content_block
+        (content_block_open)
+        (content_block_close)))))
 
 ================================================================================
 Content block with content
@@ -88,24 +90,10 @@ Content block with content
   (markup
     (embedded_code_expr
       (content_block
+        (content_block_open)
         (markup
-          (text))))))
-
-================================================================================
-Content block with content with heading
-================================================================================
-#[= heading]
---------------------------------------------------------------------------------
-
-(source_file
-  (markup
-    (embedded_code_expr
-      (content_block
-        (markup
-          (heading
-            (heading_start)
-            (markup
-              (text))))))))
+          (text))
+        (content_block_close)))))
 
 ================================================================================
 Empty code block
@@ -1159,7 +1147,9 @@ Conditional, no else, content block
   (markup
     (embedded_code_expr
       (conditional
-        (content_block)))))
+        (content_block
+          (content_block_open)
+          (content_block_close))))))
 
 ================================================================================
 Conditional, no else, newline after if
@@ -1281,7 +1271,9 @@ While loop, content block
   (markup
     (embedded_code_expr
       (while_loop
-        (content_block)))))
+        (content_block
+          (content_block_open)
+          (content_block_close))))))
 
 ================================================================================
 While loop, newline before condition

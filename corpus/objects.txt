@@ -49,8 +49,10 @@ Reference with content block
   (markup
     (reference
       (content_block
+        (content_block_open)
         (markup
-          (text))))))
+          (text))
+        (content_block_close)))))
 
 ================================================================================
 Reference without text
@@ -145,8 +147,10 @@ Comment before heading
 (source_file
   (markup
     (block_comment)
-    (text)
-    (text)))
+    (heading
+      (heading_start)
+      (markup
+        (text)))))
 
 ================================================================================
 Comment plus space before heading
@@ -157,8 +161,28 @@ Comment plus space before heading
 (source_file
   (markup
     (block_comment)
-    (text)
-    (text)))
+    (heading
+      (heading_start)
+      (markup
+        (text)))))
+
+================================================================================
+Content block with content with heading
+================================================================================
+#[= heading]
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (embedded_code_expr
+      (content_block
+        (content_block_open)
+        (markup
+          (heading
+            (heading_start)
+            (markup
+              (text))))
+            (content_block_close)))))
 
 ================================================================================
 Not a heading
@@ -182,6 +206,21 @@ Non-text character before heading
 (source_file
   (markup
     (text)
+    (text)
+    (text)))
+
+================================================================================
+Content block before heading
+================================================================================
+#[] = Not a heading
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (embedded_code_expr
+      (content_block
+        (content_block_open)
+        (content_block_close)))
     (text)
     (text)))
 
