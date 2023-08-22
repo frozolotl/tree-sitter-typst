@@ -28,7 +28,7 @@ injection-regex = "^typ(st)?$"
 file-types = ["typ"]
 comment-token = "//"
 indent = { tab-width = 2, unit = "  " }
-roots = []
+roots = ["typst.toml"]
 
 [language.auto-pairs]
 '(' = ')'
@@ -42,7 +42,7 @@ roots = []
 name = "typst"
 source = { path = "<path to tree-sitter-typst>" }
 
-[[language-servers.typst-lsp]]
+[language-server.typst-lsp]
 command = "typst-lsp"
 ```
 
