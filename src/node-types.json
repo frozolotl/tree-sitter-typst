@@ -1328,14 +1328,6 @@
         {
           "type": "block_comment",
           "named": true
-        },
-        {
-          "type": "line_comment",
-          "named": true
-        },
-        {
-          "type": "parbreak",
-          "named": true
         }
       ]
     }

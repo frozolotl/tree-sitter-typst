@@ -41,9 +41,6 @@ roots = ["typst.toml"]
 [[grammar]]
 name = "typst"
 source = { path = "<path to tree-sitter-typst>" }
-
-[language-server.typst-lsp]
-command = "typst-lsp"
 ```
 
 Now, symlink your query files.

@@ -34,7 +34,8 @@ module.exports = grammar({
 
     $._space,
     $.parbreak,
-    $._newline,
+    $._one_newline,
+    $._any_newline,
     $.heading_start,
     $._indent,
     $._dedent,
@@ -42,9 +43,13 @@ module.exports = grammar({
     $.content_block_close,
     $._block_comment_start,
 
+    $._embedded_code_expr_end,
+    $._embedded_code_stmt_end,
+
     $.raw_open_inline,
     $.raw_open_block,
     $._raw_close,
+
     $._link_end,
     $.text,
     $._delim_strong,
@@ -121,7 +126,7 @@ module.exports = grammar({
     markup: $ => repeat1(choice(
       $._markup_expr_base,
       $._space,
-      $._newline,
+      $._one_newline,
       $.parbreak,
       $.heading,
     )),
@@ -227,7 +232,7 @@ module.exports = grammar({
       repeat1(choice(
         $._markup_expr_base,
         $._space,
-        $._newline,
+        $._one_newline,
         $.heading,
       )),
       $.markup,
@@ -411,18 +416,14 @@ module.exports = grammar({
         $._embedded_code_stmt,
       ),
     ),
-    _embedded_code_expr: $ => prec.right(seq(
+    _embedded_code_expr: $ => seq(
       $._code_expr,
-      optional(';'),
-    )),
+      optional($._embedded_code_expr_end),
+    ),
     _embedded_code_stmt: $ => seq(
       $._code_stmt,
       trivia_same_line($),
-      choice(
-        ';',
-        $._token_eof,
-        $._newline,
-      ),
+      $._embedded_code_stmt_end,
     ),
 
     _code_expr_or_stmt: $ => choice(
@@ -478,8 +479,8 @@ module.exports = grammar({
     _code_block_inner: $ => repeat1(seq(
       $._code_expr_or_stmt,
       choice(
-        ";",
-        $._newline,
+        ';',
+        $._any_newline,
       ),
       trivia($),
     )),
@@ -550,7 +551,7 @@ module.exports = grammar({
 
     let_binding: $ => prec.right(seq(
       'let',
-      trivia($),
+      trivia_same_line($),
       choice(
         field('pattern', $.pattern),
         seq(
@@ -799,7 +800,8 @@ module.exports = grammar({
 
     _trivia: $ => choice(
       $._space,
-      $._newline,
+      $._one_newline,
+      $._any_newline,
       $.parbreak,
       $.line_comment,
       $.block_comment,

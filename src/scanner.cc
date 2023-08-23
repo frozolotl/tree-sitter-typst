@@ -2,6 +2,7 @@
 #include <cwctype>
 #include <deque>
 #include <vector>
+#include <cstdio>
 
 #include "tree_sitter/parser.h"
 
@@ -12,7 +13,8 @@ enum TokenType {
 
   SPACE,
   PARBREAK,
-  NEWLINE,
+  ONE_NEWLINE,
+  ANY_NEWLINE,
   HEADING_START,
   INDENT,
   DEDENT,
@@ -20,6 +22,9 @@ enum TokenType {
   CONTENT_BLOCK_OPEN,
   CONTENT_BLOCK_CLOSE,
   BLOCK_COMMENT_START,
+
+  EMBEDDED_CODE_EXPR_END,
+  EMBEDDED_CODE_STMT_END,
 
   RAW_OPEN_INLINE,
   RAW_OPEN_BLOCK,
@@ -144,7 +149,9 @@ class Lexer {
     }
   }
 
-  /// Specifies the recognized symbol, returns true for convenience.
+  /// Specifies the recognized symbol.
+  /// For convenience, returns a scan result depending on whether anything was
+  /// swallowed.
   ScanResult recognized(TSSymbol symbol) {
     this->lexer->result_symbol = symbol;
     return this->empty ? BREAK : MATCH;
@@ -212,6 +219,10 @@ class Scanner {
     bool ends_with_word = this->ends_with_word;
     this->ends_with_word = false;
 
+    if (valid_symbols[EMBEDDED_CODE_STMT_END]) {
+      HANDLE_SCAN_RESULT(this->scan_embedded_code_stmt_end(lexer));
+    }
+
     if (lexer.eof()) {
       if (valid_symbols[TOKEN_EOF]) {
         lexer.recognized(TOKEN_EOF);
@@ -231,7 +242,7 @@ class Scanner {
       HANDLE_SCAN_RESULT(lexer.recognized(HEADING_START));
     }
 
-    if (valid_symbols[BLOCK_COMMENT_START] && lexer.bite_if('/')) {
+    if (valid_symbols[BLOCK_COMMENT_START] && lexer.eat_if('/')) {
       if (lexer.eat_if('*')) {
         lexer.swallow();
         this->start_line = this->is_new_line;
@@ -243,6 +254,10 @@ class Scanner {
     }
 
     HANDLE_SCAN_RESULT(scan_space_result);
+
+    if (valid_symbols[EMBEDDED_CODE_EXPR_END] && lexer.eat_if(';')) {
+      HANDLE_SCAN_RESULT(lexer.recognized(EMBEDDED_CODE_EXPR_END));
+    }
 
     if (valid_symbols[CONTENT_BLOCK_OPEN] && lexer.eat_if('[')) {
       this->start_line = true;
@@ -295,7 +310,39 @@ class Scanner {
   bool start_line;
   uint16_t backticks_opened;
 
+  ScanResult scan_embedded_code_stmt_end(Lexer &lexer) {
+    if (lexer.eof()) {
+      lexer.recognized(EMBEDDED_CODE_STMT_END);
+      return MATCH;
+    }
+    if (lexer.eat_if(';')) {
+      return lexer.recognized(EMBEDDED_CODE_STMT_END);
+    }
+    // End if a newline is detected, but don't consume it.
+    // That way, parbreaks are still parsed correctly.
+    switch (lexer.peek()) {
+      case '\r':
+      case '\n':
+      case '\x0B':
+      case '\x0C':
+      case 0x85:
+      case 0x2028:
+      case 0x2029: {
+        lexer.recognized(EMBEDDED_CODE_STMT_END);
+        return MATCH;
+      }
+    }
+    return CONTINUE;
+  }
+
   ScanResult scan_space(Lexer &lexer, const bool *valid_symbols) {
+    bool newline_allowed = valid_symbols[PARBREAK] ||
+                           valid_symbols[ONE_NEWLINE] ||
+                           valid_symbols[ANY_NEWLINE];
+    if (!valid_symbols[SPACE] && !newline_allowed) {
+      return CONTINUE;
+    }
+
     bool started_at_line_start = lexer.at_line_start();
     uint32_t indent_length = 0;
     uint32_t newline_count = 0;
@@ -315,13 +362,15 @@ class Scanner {
           break;
         }
         case '\r': {
-          // CRLF should be considered as one newline, not two.
-          lexer.skip();
-          lexer.skip_if('\n');
-          is_space = true;
-          newline_count++;
-          indent_length = 0;
-          break;
+          if (newline_allowed) {
+            // CRLF should be considered as one newline, not two.
+            lexer.skip();
+            lexer.skip_if('\n');
+            is_space = true;
+            newline_count++;
+            indent_length = 0;
+            break;
+          }
         }
         case '\n':
         case '\x0B':
@@ -329,12 +378,14 @@ class Scanner {
         case 0x85:
         case 0x2028:
         case 0x2029: {
-          // Newline
-          lexer.skip();
-          is_space = true;
-          newline_count++;
-          indent_length = 0;
-          break;
+          if (newline_allowed) {
+            // Newline
+            lexer.skip();
+            is_space = true;
+            newline_count++;
+            indent_length = 0;
+            break;
+          }
         }
         default: {
           this->is_new_line =
@@ -342,8 +393,10 @@ class Scanner {
           this->start_line = false;
           if (valid_symbols[PARBREAK] && newline_count >= 2) {
             return lexer.recognized(PARBREAK);
-          } else if (valid_symbols[NEWLINE] && is_space && newline_count == 1) {
-            return lexer.recognized(NEWLINE);
+          } else if (valid_symbols[ONE_NEWLINE] && newline_count == 1) {
+            return lexer.recognized(ONE_NEWLINE);
+          } else if (valid_symbols[ANY_NEWLINE] && newline_count >= 1) {
+            return lexer.recognized(ANY_NEWLINE);
           } else if (valid_symbols[SPACE] && is_space && newline_count == 0) {
             return lexer.recognized(SPACE);
           } else if (is_space) {

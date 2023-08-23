@@ -517,6 +517,37 @@ Let binding, just declaration
           (code_ident))))))
 
 ================================================================================
+Let binding, parbreak
+================================================================================
+#let test
+
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (embedded_code_expr
+      (let_binding
+        pattern: (pattern
+          (code_ident))))
+      (parbreak)))
+
+================================================================================
+Let binding, pattern on next line
+================================================================================
+#let
+test
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (embedded_code_expr
+      (let_binding
+        (ERROR)
+        pattern: (pattern
+          (code_ident))))))
+
+================================================================================
 Let binding, trailing semicolon
 ================================================================================
 #let test;
@@ -533,6 +564,19 @@ Let binding, trailing semicolon
 Let binding, trailing semicolon with spacing
 ================================================================================
 #let test ;
+--------------------------------------------------------------------------------
+
+(source_file
+  (markup
+    (embedded_code_expr
+      (let_binding
+        pattern: (pattern
+          (code_ident))))))
+
+================================================================================
+Let binding, trailing semicolon with block comment
+================================================================================
+#let test/**/;
 --------------------------------------------------------------------------------
 
 (source_file
@@ -1104,11 +1148,12 @@ heading: none
 --------------------------------------------------------------------------------
 
 (source_file
-  (ERROR)
   (markup
-    (text)
-    (text)
-    (text)))
+    (embedded_code_expr
+      (show_rule
+        (ERROR)
+        (variable
+          (code_ident))))))
 
 ================================================================================
 Show, next line transform
@@ -1118,12 +1163,12 @@ Show, next line transform
 --------------------------------------------------------------------------------
 
 (source_file
-  (ERROR
-    (variable
-      (code_ident)))
   (markup
-    (text)
-    (text)))
+    (embedded_code_expr
+      (show_rule
+        (variable
+          (code_ident))
+        (ERROR)))))
 
 ================================================================================
 Conditional, no else, code block
@@ -1159,10 +1204,11 @@ true {}
 --------------------------------------------------------------------------------
 
 (source_file
-  (ERROR)
   (markup
-    (text))
-  (ERROR))
+    (embedded_code_expr
+      (conditional
+        (ERROR)
+        (code_block)))))
 
 ================================================================================
 Conditional, no else, newline after expression
@@ -1172,9 +1218,11 @@ Conditional, no else, newline after expression
 --------------------------------------------------------------------------------
 
 (source_file
-  (ERROR)
-  (markup)
-  (ERROR))
+  (markup
+    (embedded_code_expr
+      (conditional
+        (ERROR)
+        (code_block)))))
 
 ================================================================================
 Conditional, with else
@@ -1214,9 +1262,8 @@ Conditional, newline after else
   (markup
     (embedded_code_expr
       (conditional
-        (ERROR
-          (code_block)
-          (ERROR))
+        (code_block)
+        (ERROR)
         (code_block)))))
 
 ================================================================================
@@ -1283,10 +1330,11 @@ true {}
 --------------------------------------------------------------------------------
 
 (source_file
-  (ERROR)
   (markup
-    (text))
-  (ERROR))
+    (embedded_code_expr
+      (while_loop
+        (ERROR)
+        (code_block)))))
 
 ================================================================================
 While loop, newline after condition
@@ -1296,9 +1344,11 @@ While loop, newline after condition
 --------------------------------------------------------------------------------
 
 (source_file
-  (ERROR)
-  (markup)
-  (ERROR))
+  (markup
+    (embedded_code_expr
+      (while_loop
+        (ERROR)
+        (code_block)))))
 
 ================================================================================
 For loop
@@ -1323,12 +1373,14 @@ For loop, newline before body
 --------------------------------------------------------------------------------
 
 (source_file
-  (ERROR
-    (pattern
-      (code_ident))
-    (array))
-  (markup)
-  (ERROR))
+  (markup
+    (embedded_code_expr
+      (for_loop
+        (pattern
+          (code_ident))
+        (array)
+        (ERROR)
+        (code_block)))))
 
 ================================================================================
 Import module
