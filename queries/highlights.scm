@@ -58,6 +58,10 @@
 ;; Code
 
 "#" @punctuation.special
+[
+  (embedded_code_expr_end)
+  (embedded_code_stmt_end)
+] @punctuation.delimiter
 
 (content_block_open) @punctuation.bracket
 (content_block_close) @punctuation.bracket

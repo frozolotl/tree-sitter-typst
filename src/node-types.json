@@ -913,6 +913,14 @@
           "named": true
         },
         {
+          "type": "embedded_code_expr_end",
+          "named": true
+        },
+        {
+          "type": "embedded_code_stmt_end",
+          "named": true
+        },
+        {
           "type": "equation",
           "named": true
         },
@@ -4368,6 +4376,14 @@
   {
     "type": "else",
     "named": false
+  },
+  {
+    "type": "embedded_code_expr_end",
+    "named": true
+  },
+  {
+    "type": "embedded_code_stmt_end",
+    "named": true
   },
   {
     "type": "escape",

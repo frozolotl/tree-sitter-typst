@@ -43,8 +43,8 @@ module.exports = grammar({
     $.content_block_close,
     $._block_comment_start,
 
-    $._embedded_code_expr_end,
-    $._embedded_code_stmt_end,
+    $.embedded_code_expr_end,
+    $.embedded_code_stmt_end,
 
     $.raw_open_inline,
     $.raw_open_block,
@@ -418,12 +418,12 @@ module.exports = grammar({
     ),
     _embedded_code_expr: $ => seq(
       $._code_expr,
-      optional($._embedded_code_expr_end),
+      optional($.embedded_code_expr_end),
     ),
     _embedded_code_stmt: $ => seq(
       $._code_stmt,
       trivia_same_line($),
-      $._embedded_code_stmt_end,
+      $.embedded_code_stmt_end,
     ),
 
     _code_expr_or_stmt: $ => choice(

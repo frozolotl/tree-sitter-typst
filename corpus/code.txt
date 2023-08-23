@@ -38,7 +38,8 @@ Inline code expression with semicolon
   (markup
     (embedded_code_expr
       (variable
-        (code_ident)))
+        (code_ident))
+      (embedded_code_expr_end))
     (text)))
 
 ================================================================================
@@ -52,7 +53,8 @@ baz
   (markup
     (embedded_code_expr
       (variable
-        (code_ident)))
+        (code_ident))
+      (embedded_code_expr_end))
     (text)))
 
 ================================================================================
@@ -514,7 +516,8 @@ Let binding, just declaration
     (embedded_code_expr
       (let_binding
         pattern: (pattern
-          (code_ident))))))
+          (code_ident)))
+      (embedded_code_stmt_end))))
 
 ================================================================================
 Let binding, parbreak
@@ -529,8 +532,9 @@ Let binding, parbreak
     (embedded_code_expr
       (let_binding
         pattern: (pattern
-          (code_ident))))
-      (parbreak)))
+          (code_ident)))
+      (embedded_code_stmt_end))
+    (parbreak)))
 
 ================================================================================
 Let binding, pattern on next line
@@ -543,9 +547,10 @@ test
   (markup
     (embedded_code_expr
       (let_binding
-        (ERROR)
         pattern: (pattern
-          (code_ident))))))
+          (MISSING code_ident)))
+      (embedded_code_stmt_end))
+    (text)))
 
 ================================================================================
 Let binding, trailing semicolon
@@ -558,7 +563,8 @@ Let binding, trailing semicolon
     (embedded_code_expr
       (let_binding
         pattern: (pattern
-          (code_ident))))))
+          (code_ident)))
+      (embedded_code_stmt_end))))
 
 ================================================================================
 Let binding, trailing semicolon with spacing
@@ -571,7 +577,8 @@ Let binding, trailing semicolon with spacing
     (embedded_code_expr
       (let_binding
         pattern: (pattern
-          (code_ident))))))
+          (code_ident)))
+      (embedded_code_stmt_end))))
 
 ================================================================================
 Let binding, trailing semicolon with block comment
@@ -584,7 +591,9 @@ Let binding, trailing semicolon with block comment
     (embedded_code_expr
       (let_binding
         pattern: (pattern
-          (code_ident))))))
+          (code_ident)))
+      (block_comment)
+      (embedded_code_stmt_end))))
 
 ================================================================================
 Let binding, with value set
@@ -598,7 +607,8 @@ Let binding, with value set
       (let_binding
         pattern: (pattern
           (code_ident))
-        expr: (code_int)))))
+        expr: (code_int))
+      (embedded_code_stmt_end))))
 
 ================================================================================
 Let binding, heading on next line
@@ -612,7 +622,8 @@ Let binding, heading on next line
     (embedded_code_expr
       (let_binding
         pattern: (pattern
-          (code_ident))))
+          (code_ident)))
+      (embedded_code_stmt_end))
     (heading
       (heading_start)
       inner: (markup
@@ -632,7 +643,8 @@ test
     (embedded_code_expr
       (let_binding
         pattern: (pattern
-          (code_ident))))
+          (code_ident)))
+      (embedded_code_stmt_end))
     (heading
       (heading_start)
       inner: (markup
@@ -650,7 +662,8 @@ Let binding, name parenthesized
       (let_binding
         pattern: (pattern
           (pattern_parenthesized
-            (code_ident)))))))
+            (code_ident))))
+      (embedded_code_stmt_end))))
 
 ================================================================================
 Let binding, underscore as name
@@ -662,7 +675,8 @@ Let binding, underscore as name
   (markup
     (embedded_code_expr
       (let_binding
-        pattern: (pattern)))))
+        pattern: (pattern))
+      (embedded_code_stmt_end))))
 
 ================================================================================
 Let binding, empty array destructuring
@@ -675,7 +689,8 @@ Let binding, empty array destructuring
     (embedded_code_expr
       (let_binding
         pattern: (pattern_destructuring)
-        expr: (array)))))
+        expr: (array))
+      (embedded_code_stmt_end))))
 
 ================================================================================
 Let binding, non-empty array destructuring
@@ -689,7 +704,8 @@ Let binding, non-empty array destructuring
       (let_binding
         pattern: (pattern_destructuring
           (code_ident)
-          (code_ident))))))
+          (code_ident)))
+      (embedded_code_stmt_end))))
 
 ================================================================================
 Let binding, array destructuring, trailing comma
@@ -702,7 +718,8 @@ Let binding, array destructuring, trailing comma
     (embedded_code_expr
       (let_binding
         pattern: (pattern_destructuring
-          (code_ident))))))
+          (code_ident)))
+      (embedded_code_stmt_end))))
 
 ================================================================================
 Let binding, dictionary destructuring
@@ -717,7 +734,8 @@ Let binding, dictionary destructuring
         pattern: (pattern_destructuring
           (pattern_named
             field: (code_ident)
-            binding: (code_ident)))))))
+            binding: (code_ident))))
+      (embedded_code_stmt_end))))
 
 ================================================================================
 Function definition
@@ -731,7 +749,8 @@ Function definition
       (let_binding
         pattern: (pattern_closure
           name: (code_ident)
-          params: (params))))))
+          params: (params)))
+      (embedded_code_stmt_end))))
 
 ================================================================================
 Function definition, space in parentheses
@@ -745,7 +764,8 @@ Function definition, space in parentheses
       (let_binding
         pattern: (pattern_closure
           name: (code_ident)
-          params: (params))))))
+          params: (params)))
+      (embedded_code_stmt_end))))
 
 ================================================================================
 Function definition, one argument
@@ -760,7 +780,8 @@ Function definition, one argument
         pattern: (pattern_closure
           name: (code_ident)
           params: (params
-            (code_ident)))))))
+            (code_ident))))
+      (embedded_code_stmt_end))))
 
 ================================================================================
 Function definition, one argument, spacing everywhere, trailing comma
@@ -775,7 +796,8 @@ Function definition, one argument, spacing everywhere, trailing comma
         pattern: (pattern_closure
           name: (code_ident)
           params: (params
-            (code_ident)))))))
+            (code_ident))))
+      (embedded_code_stmt_end))))
 
 ================================================================================
 Function definition, multiple arguments
@@ -792,7 +814,8 @@ Function definition, multiple arguments
           params: (params
             (code_ident)
             (code_ident)
-            (code_ident)))))))
+            (code_ident))))
+      (embedded_code_stmt_end))))
 
 ================================================================================
 Function definition, named arguments
@@ -812,7 +835,8 @@ Function definition, named arguments
               value: (array))
             (param_named
               name: (code_ident)
-              value: (string))))))))
+              value: (string)))))
+      (embedded_code_stmt_end))))
 
 ================================================================================
 Function definition, spread
@@ -828,7 +852,8 @@ Function definition, spread
           name: (code_ident)
           params: (params
             (pattern_spread
-              (code_ident))))))))
+              (code_ident)))))
+      (embedded_code_stmt_end))))
 
 ================================================================================
 Function definition, destructuring
@@ -846,7 +871,8 @@ Function definition, destructuring
             (pattern_destructuring
               (pattern_named
                 field: (code_ident)
-                binding: (code_ident)))))))))
+                binding: (code_ident))))))
+      (embedded_code_stmt_end))))
 
 ================================================================================
 Set rule, no arguments
@@ -860,7 +886,8 @@ Set rule, no arguments
       (set_rule
         target: (set_rule_field_access
           target: (code_ident))
-        arguments: (code_args)))))
+        arguments: (code_args))
+      (embedded_code_stmt_end))))
 
 ================================================================================
 Set rule, field access, no arguments
@@ -875,7 +902,8 @@ Set rule, field access, no arguments
         target: (set_rule_field_access
           target: (code_ident)
           field: (code_ident))
-        arguments: (code_args)))))
+        arguments: (code_args))
+      (embedded_code_stmt_end))))
 
 ================================================================================
 Set rule, field access, no arguments, spacing everywhere
@@ -892,7 +920,8 @@ Set rule, field access, no arguments, spacing everywhere
         target: (set_rule_field_access
           target: (code_ident)
           field: (code_ident))
-        arguments: (code_args)))))
+        arguments: (code_args))
+      (embedded_code_stmt_end))))
 
 ================================================================================
 Set rule, field access, newline after dot
@@ -911,7 +940,8 @@ Set rule, field access, newline after dot
           target: (code_ident)
           (ERROR)
           field: (code_ident))
-        arguments: (code_args)))))
+        arguments: (code_args))
+      (embedded_code_stmt_end))))
 
 ================================================================================
 Set rule, newline pefore open parenthesis
@@ -928,7 +958,8 @@ Set rule, newline pefore open parenthesis
         target: (set_rule_field_access
           target: (code_ident))
         (ERROR)
-        arguments: (code_args)))))
+        arguments: (code_args))
+      (embedded_code_stmt_end))))
 
 ================================================================================
 Set rule, one argument
@@ -943,7 +974,8 @@ Set rule, one argument
         target: (set_rule_field_access
           target: (code_ident))
         arguments: (code_args
-          (code_int))))))
+          (code_int)))
+      (embedded_code_stmt_end))))
 
 ================================================================================
 Set rule, multiple arguments
@@ -963,7 +995,8 @@ Set rule, multiple arguments
           (variable
             (code_ident))
           (variable
-            (code_ident)))))))
+            (code_ident))))
+      (embedded_code_stmt_end))))
 
 ================================================================================
 Set rule, named argument
@@ -980,7 +1013,8 @@ Set rule, named argument
         arguments: (code_args
           (code_args_named
             name: (code_ident)
-            value: (code_int)))))))
+            value: (code_int))))
+      (embedded_code_stmt_end))))
 
 ================================================================================
 Set rule, spread
@@ -995,7 +1029,8 @@ Set rule, spread
         target: (set_rule_field_access
           target: (code_ident))
         arguments: (code_args
-          (spread))))))
+          (spread)))
+      (embedded_code_stmt_end))))
 
 ================================================================================
 Set rule, spread value
@@ -1012,7 +1047,8 @@ Set rule, spread value
         arguments: (code_args
           (spread
             (variable
-              (code_ident))))))))
+              (code_ident)))))
+      (embedded_code_stmt_end))))
 
 ================================================================================
 Set rule, mixed
@@ -1033,7 +1069,8 @@ Set rule, mixed
             value: (string))
           (spread
             (variable
-              (code_ident))))))))
+              (code_ident)))))
+      (embedded_code_stmt_end))))
 
 ================================================================================
 Set rule, b
@@ -1054,7 +1091,8 @@ Set rule, b
             value: (string))
           (spread
             (variable
-              (code_ident))))))))
+              (code_ident)))))
+      (embedded_code_stmt_end))))
 
 ================================================================================
 Set-if rule
@@ -1070,7 +1108,8 @@ Set-if rule
           target: (code_ident))
         arguments: (code_args)
         condition: (variable
-          (code_ident))))))
+          (code_ident)))
+      (embedded_code_stmt_end))))
 
 ================================================================================
 Set, next line if
@@ -1085,7 +1124,8 @@ if bar
       (set_rule
         target: (set_rule_field_access
           target: (code_ident))
-        arguments: (code_args)))
+        arguments: (code_args))
+      (embedded_code_stmt_end))
     (text)))
 
 ================================================================================
@@ -1098,7 +1138,8 @@ Show, no selector
   (markup
     (embedded_code_expr
       (show_rule
-        transform: (string)))))
+        transform: (string))
+      (embedded_code_stmt_end))))
 
 ================================================================================
 Show, no selector, spacing everywhere
@@ -1110,7 +1151,8 @@ Show, no selector, spacing everywhere
   (markup
     (embedded_code_expr
       (show_rule
-        transform: (string)))))
+        transform: (string))
+      (embedded_code_stmt_end))))
 
 ================================================================================
 Show, with selector
@@ -1124,7 +1166,8 @@ Show, with selector
       (show_rule
         selector: (variable
           (code_ident))
-        transform: (string)))))
+        transform: (string))
+      (embedded_code_stmt_end))))
 
 ================================================================================
 Show, with selector, spacing everywhere
@@ -1138,7 +1181,8 @@ Show, with selector, spacing everywhere
       (show_rule
         selector: (variable
           (code_ident))
-        transform: (string)))))
+        transform: (string))
+      (embedded_code_stmt_end))))
 
 ================================================================================
 Show, next line selector
@@ -1151,9 +1195,11 @@ heading: none
   (markup
     (embedded_code_expr
       (show_rule
-        (ERROR)
+        (ERROR
+          (embedded_code_stmt_end))
         (variable
-          (code_ident))))))
+          (code_ident)))
+      (embedded_code_stmt_end))))
 
 ================================================================================
 Show, next line transform
@@ -1168,7 +1214,8 @@ Show, next line transform
       (show_rule
         (variable
           (code_ident))
-        (ERROR)))))
+        (ERROR))
+      (embedded_code_stmt_end))))
 
 ================================================================================
 Conditional, no else, code block
@@ -1207,7 +1254,8 @@ true {}
   (markup
     (embedded_code_expr
       (conditional
-        (ERROR)
+        (ERROR
+          (embedded_code_stmt_end))
         (code_block)))))
 
 ================================================================================
@@ -1333,7 +1381,8 @@ true {}
   (markup
     (embedded_code_expr
       (while_loop
-        (ERROR)
+        (ERROR
+          (embedded_code_stmt_end))
         (code_block)))))
 
 ================================================================================
@@ -1392,7 +1441,8 @@ Import module
   (markup
     (embedded_code_expr
       (module_import
-        (string)))))
+        (string))
+      (embedded_code_stmt_end))))
 
 ================================================================================
 Import everything from module
@@ -1404,7 +1454,8 @@ Import everything from module
   (markup
     (embedded_code_expr
       (module_import
-        (string)))))
+        (string))
+      (embedded_code_stmt_end))))
 
 ================================================================================
 Import nothing from module
@@ -1416,7 +1467,8 @@ Import nothing from module
   (markup
     (embedded_code_expr
       (module_import
-        (string)))))
+        (string))
+      (embedded_code_stmt_end))))
 
 ================================================================================
 Import items from module
@@ -1430,7 +1482,8 @@ Import items from module
       (module_import
         (string)
         (code_ident)
-        (code_ident)))))
+        (code_ident))
+      (embedded_code_stmt_end))))
 
 ================================================================================
 Import items from module, trailing comma
@@ -1444,7 +1497,8 @@ Import items from module, trailing comma
       (module_import
         (string)
         (code_ident)
-        (code_ident)))))
+        (code_ident))
+      (embedded_code_stmt_end))))
 
 ================================================================================
 Import items from module, trailing comma, spacing everywhere
@@ -1458,7 +1512,8 @@ Import items from module, trailing comma, spacing everywhere
       (module_import
         (string)
         (code_ident)
-        (code_ident)))))
+        (code_ident))
+      (embedded_code_stmt_end))))
 
 ================================================================================
 Include
@@ -1470,7 +1525,8 @@ Include
   (markup
     (embedded_code_expr
       (module_include
-        (string)))))
+        (string))
+      (embedded_code_stmt_end))))
 
 ================================================================================
 Include, next line expression
@@ -1484,7 +1540,8 @@ Include, next line expression
     (embedded_code_expr
       (module_include
         (variable
-          (MISSING code_ident))))
+          (MISSING code_ident)))
+      (embedded_code_stmt_end))
     (smart_quote)
     (text)
     (smart_quote)))

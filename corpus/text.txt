@@ -77,7 +77,8 @@ Incomplete Unicode Escape
 (source_file
   (markup
     (escape))
-  (ERROR))
+  (ERROR
+    (embedded_code_stmt_end)))
 
 ================================================================================
 Shorthands

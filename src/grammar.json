@@ -1412,7 +1412,7 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "_embedded_code_expr_end"
+              "name": "embedded_code_expr_end"
             },
             {
               "type": "BLANK"
@@ -1437,7 +1437,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "_embedded_code_stmt_end"
+          "name": "embedded_code_stmt_end"
         }
       ]
     },
@@ -3845,11 +3845,11 @@
     },
     {
       "type": "SYMBOL",
-      "name": "_embedded_code_expr_end"
+      "name": "embedded_code_expr_end"
     },
     {
       "type": "SYMBOL",
-      "name": "_embedded_code_stmt_end"
+      "name": "embedded_code_stmt_end"
     },
     {
       "type": "SYMBOL",
