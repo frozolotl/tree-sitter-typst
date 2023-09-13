@@ -22,7 +22,7 @@
 (equation
   "$" @punctuation.special)
 
-(math_shorthand) @punctuation
+(math_shorthand) @operator
 (math_delimited_left) @punctuation.bracket
 (math_delimited_right) @punctuation.bracket
 (math_align_point) @operator

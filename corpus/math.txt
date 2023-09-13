@@ -123,41 +123,6 @@ $[|x$
             (math_text)))))))
 
 ================================================================================
-Delimited, fenced FIXME
-================================================================================
-$||x||$
---------------------------------------------------------------------------------
-
-(source_file
-  (markup
-    (equation
-      inner: (math
-        (math_delimited_fence_unclosed
-          left: (math_fence
-            (math_shorthand))
-          inner: (math
-            (math_text)
-            (math_delimited_fence_unclosed
-              left: (math_fence
-                (math_shorthand)))))))))
-
-================================================================================
-Delimited, fenced, no content
-================================================================================
-$||||$
---------------------------------------------------------------------------------
-
-(source_file
-  (markup
-    (equation
-      inner: (math
-        (math_delimited_fence
-          left: (math_fence
-            (math_shorthand))
-          right: (math_fence
-            (math_shorthand)))))))
-
-================================================================================
 Single fence
 ================================================================================
 $||$
@@ -167,28 +132,7 @@ $||$
   (markup
     (equation
       inner: (math
-        (math_delimited_fence_unclosed
-          left: (math_fence
-            (math_shorthand)))))))
-
-================================================================================
-Triple fence
-================================================================================
-$||||||$
---------------------------------------------------------------------------------
-
-(source_file
-  (markup
-    (equation
-      inner: (math
-        (math_delimited_fence
-          left: (math_fence
-            (math_shorthand))
-          right: (math_fence
-            (math_shorthand)))
-        (math_delimited_fence_unclosed
-          left: (math_fence
-            (math_shorthand)))))))
+        (math_shorthand)))))
 
 ================================================================================
 Linebreak

@@ -72,10 +72,6 @@ module.exports = grammar({
       $.math_delimited_unclosed,
     ],
     [
-      $.math_delimited_fence,
-      $.math_delimited_fence_unclosed,
-    ],
-    [
       $.code_parenthesized,
       'array',
       'dict',
@@ -275,8 +271,6 @@ module.exports = grammar({
       $.math_shorthand,
       $.math_delimited,
       $.math_delimited_unclosed,
-      $.math_delimited_fence,
-      $.math_delimited_fence_unclosed,
       $.linebreak,
       $.math_align_point,
       $.escape,
@@ -300,7 +294,7 @@ module.exports = grammar({
       '<~', '>->', '>>>', '==>',
       '=>', '=:', '>=', '>>',
       '|->', '|=>', '~~>', '~>',
-      '*', '\'', '-',
+      '*', '\'', '-', '||',
     ),
     math_delimited: $ => seq(
       field('left', $.math_delimited_left),
@@ -318,20 +312,6 @@ module.exports = grammar({
     math_delimited_right: $ => choice(
       alias('|]', $.math_shorthand),
       /[\u{0029}\u{005D}\u{007D}\u{2309}\u{230B}\u{231D}\u{231F}\u{2773}\u{27E7}\u{27E9}\u{27EB}\u{27ED}\u{27EF}\u{2984}\u{2986}\u{2988}\u{298A}\u{298C}\u{298E}\u{2990}\u{2992}\u{2994}\u{2996}\u{2998}\u{29D9}\u{29DB}\u{29FD}]/,
-    ),
-    // FIXME: If there is any content, then the right side is not part of this element.
-    math_delimited_fence: $ => seq(
-      field('left', $.math_fence),
-      field('inner', optional($.math)),
-      field('right', $.math_fence),
-    ),
-    math_delimited_fence_unclosed: $ => seq(
-      field('left', $.math_fence),
-      field('inner', optional($.math)),
-    ),
-    math_fence: $ => choice(
-      alias('||', $.math_shorthand),
-      /[\u{7C}\u{2016}\u{2980}\u{2982}\u{2999}\u{299a}]/
     ),
     math_align_point: $ => '&',
 
